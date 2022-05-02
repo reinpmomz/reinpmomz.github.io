@@ -17,7 +17,7 @@ navbar:
         - text: "COVID-19 - Flexdashboard"
           href: https://reinp-momz.shinyapps.io/COVID-19_Flexdashboard_Shiny/
     - text: "Machine Learning"
-      icon: fa-chalkboard-teacher
+      icon: fa-cogs
       menu:
         - text: "Logistic Regression: Predicting heart disease"
           href: Predicting-heart-disease.html
