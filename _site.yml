@@ -7,6 +7,11 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
+    - text: "Machine Learning"
+      icon: fa-cogs
+      menu:
+        - text: "Logistic Regression: Predicting heart disease"
+          href: Predicting-heart-disease.html
     - text: "Dashboards"
       icon: fa-chalkboard-teacher
       menu:
@@ -16,11 +21,7 @@ navbar:
           href: https://reinp-momz.shinyapps.io/NSE_Trading_Flexdashboard_Shiny/
         - text: "COVID-19 - Flexdashboard"
           href: https://reinp-momz.shinyapps.io/COVID-19_Flexdashboard_Shiny/
-    - text: "Machine Learning"
-      icon: fa-cogs
-      menu:
-        - text: "Logistic Regression: Predicting heart disease"
-          href: Predicting-heart-disease.html
+
 
 
   right:
