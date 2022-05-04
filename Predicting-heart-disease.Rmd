@@ -2,8 +2,6 @@
 title: "Predicting heart disease"
 output:
   html_document:
-    theme: flatly
-    highlight: zenburn
     fig_width: 14
     fig_height: 10
     toc: true

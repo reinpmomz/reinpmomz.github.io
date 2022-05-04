@@ -412,57 +412,16 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a>
-<ul>
-<li><a href="#overview"><span class="toc-section-number">1.1</span> Overview</a></li>
-<li><a href="#about-the-data"><span class="toc-section-number">1.2</span> About the Data</a></li>
-</ul></li>
-<li><a href="#data-exploration"><span class="toc-section-number">2</span> Data Exploration</a>
-<ul>
-<li><a href="#loading-relevant-packages"><span class="toc-section-number">2.1</span> loading Relevant packages</a></li>
-<li><a href="#loading-data-set"><span class="toc-section-number">2.2</span> loading Data Set</a></li>
-<li><a href="#converting-into-factors"><span class="toc-section-number">2.3</span> Converting into factors</a></li>
-<li><a href="#checking-missing-values"><span class="toc-section-number">2.4</span> checking missing values</a></li>
-</ul></li>
-<li><a href="#exploratory-data-analysis"><span class="toc-section-number">3</span> Exploratory data analysis</a>
-<ul>
-<li><a href="#univariate-analysis"><span class="toc-section-number">3.1</span> Univariate analysis</a>
-<ul>
-<li><a href="#descriptives-frequency-table"><span class="toc-section-number">3.1.1</span> Descriptives Frequency table</a></li>
-<li><a href="#visualization"><span class="toc-section-number">3.1.2</span> Visualization</a></li>
-</ul></li>
-<li><a href="#bivariate-analysis"><span class="toc-section-number">3.2</span> Bivariate analysis</a>
-<ul>
-<li><a href="#difference-frequency-table"><span class="toc-section-number">3.2.1</span> Difference Frequency table</a></li>
-<li><a href="#visualization-1"><span class="toc-section-number">3.2.2</span> Visualization</a></li>
-<li><a href="#correlation"><span class="toc-section-number">3.2.3</span> Correlation</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#logistic-regression"><span class="toc-section-number">4</span> Logistic Regression</a>
-<ul>
-<li><a href="#splitting-the-data-for-training-and-testing"><span class="toc-section-number">4.1</span> Splitting the data for training and testing</a></li>
-<li><a href="#model"><span class="toc-section-number">4.2</span> model</a></li>
-<li><a href="#model-statistics"><span class="toc-section-number">4.3</span> model statistics</a></li>
-<li><a href="#model-results"><span class="toc-section-number">4.4</span> model results</a></li>
-</ul></li>
-<li><a href="#evaluating-our-model"><span class="toc-section-number">5</span> Evaluating our Model</a>
-<ul>
-<li><a href="#fitting-with-testing-data"><span class="toc-section-number">5.1</span> Fitting with testing data</a></li>
-</ul></li>
-</ul>
-</div>
 
-<div id="introduction" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
-<div id="overview" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Overview</h2>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
 <p>Cardiovascular diseases (CVDs) are the number 1 cause of death globally, taking an estimated 17.9 million lives each year, which accounts for 31% of all deaths worldwide. Four out of 5CVD deaths are due to heart attacks and strokes, and one-third of these deaths occur prematurely in people under 70 years of age. This makes it important for health facilities to be able to predict occurrences of heart diseases in order to make plans for early treatment (Assmann et al. 2005). Heart failure is a common event caused by CVDs and this dataset contains 11 features that can be used to predict a possible heart disease.</p>
 <p>People with cardiovascular disease or who are at high cardiovascular risk (due to the presence of one or more risk factors such as hypertension, diabetes, hyperlipidaemia or already established disease) need early detection and management wherein a machine learning model can be of great help.</p>
 </div>
-<div id="about-the-data" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> About the Data</h2>
+<div id="about-the-data" class="section level2">
+<h2>About the Data</h2>
 <p>This dataset contains 918 observations with 12 features. The data dictionary is as follows:</p>
 <ul>
 <li>output: target variable (1=has heart attack, 0= has no heart attack)</li>
@@ -480,10 +439,10 @@ $(document).ready(function () {
 </ul>
 </div>
 </div>
-<div id="data-exploration" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Data Exploration</h1>
-<div id="loading-relevant-packages" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> loading Relevant packages</h2>
+<div id="data-exploration" class="section level1">
+<h1>Data Exploration</h1>
+<div id="loading-relevant-packages" class="section level2">
+<h2>loading Relevant packages</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import relevant packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -492,8 +451,8 @@ $(document).ready(function () {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
 </div>
-<div id="loading-data-set" class="section level2" number="2.2">
-<h2 number="2.2"><span class="header-section-number">2.2</span> loading Data Set</h2>
+<div id="loading-data-set" class="section level2">
+<h2>loading Data Set</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>heart_disease <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/reinpmomz/Predicting-heart-disease/main/data/heart.csv&#39;</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -544,8 +503,8 @@ $(document).ready(function () {
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
 <p>From the output on the data structure, all of the data has been read as numeric values(‘double’ value or a decimal type with at least two decimal places) but some should be converted to factors since they are categorical.</p>
 </div>
-<div id="converting-into-factors" class="section level2" number="2.3">
-<h2 number="2.3"><span class="header-section-number">2.3</span> Converting into factors</h2>
+<div id="converting-into-factors" class="section level2">
+<h2>Converting into factors</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>heart_disease_final <span class="ot">&lt;-</span> heart_disease<span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">output=</span> <span class="fu">factor</span>(output, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No heart attack&quot;</span>, <span class="st">&quot;Has Heart attack&quot;</span>)))<span class="sc">%&gt;%</span></span>
@@ -607,8 +566,8 @@ $(document).ready(function () {
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Heart disease&quot;</code></pre>
 <p>The categorial columns are sex, cp, fbs, restecg, exng, slp while continuous columns are age, trtbps, chol, thalach, oldpeak and target variable is output</p>
 </div>
-<div id="checking-missing-values" class="section level2" number="2.4">
-<h2 number="2.4"><span class="header-section-number">2.4</span> checking missing values</h2>
+<div id="checking-missing-values" class="section level2">
+<h2>checking missing values</h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(heart_disease_final))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#which(is.na(heart_disease_final))</span></span>
@@ -617,14 +576,14 @@ $(document).ready(function () {
 <p>There were no missing values in our data set.</p>
 </div>
 </div>
-<div id="exploratory-data-analysis" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Exploratory data analysis</h1>
+<div id="exploratory-data-analysis" class="section level1">
+<h1>Exploratory data analysis</h1>
 <p>Exploring data is vital in giving a clue of the expected relationship between the dependent variable and the exploratory variables (Zuur et al. 2010).</p>
-<div id="univariate-analysis" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> Univariate analysis</h2>
+<div id="univariate-analysis" class="section level2">
+<h2>Univariate analysis</h2>
 <p>This is analysis of one variable to enable us understand the distribution of values for a single variable.</p>
-<div id="descriptives-frequency-table" class="section level3" number="3.1.1">
-<h3 number="3.1.1"><span class="header-section-number">3.1.1</span> Descriptives Frequency table</h3>
+<div id="descriptives-frequency-table" class="section level3">
+<h3>Descriptives Frequency table</h3>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -653,12 +612,12 @@ $(document).ready(function () {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">italicize_levels</span>()<span class="sc">%&gt;%</span></span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_n</span>() <span class="co"># add column with total number of non-missing observations</span></span></code></pre></div>
-<div id="lbktiforhv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="iinmsskjbf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lbktiforhv .gt_table {
+#iinmsskjbf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -683,7 +642,7 @@ $(document).ready(function () {
   border-left-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_heading {
+#iinmsskjbf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -695,7 +654,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_title {
+#iinmsskjbf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -707,7 +666,7 @@ $(document).ready(function () {
   border-bottom-width: 0;
 }
 
-#lbktiforhv .gt_subtitle {
+#iinmsskjbf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -719,13 +678,13 @@ $(document).ready(function () {
   border-top-width: 0;
 }
 
-#lbktiforhv .gt_bottom_border {
+#iinmsskjbf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_col_headings {
+#iinmsskjbf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -740,7 +699,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_col_heading {
+#iinmsskjbf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -760,7 +719,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#lbktiforhv .gt_column_spanner_outer {
+#iinmsskjbf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -772,15 +731,15 @@ $(document).ready(function () {
   padding-right: 4px;
 }
 
-#lbktiforhv .gt_column_spanner_outer:first-child {
+#iinmsskjbf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lbktiforhv .gt_column_spanner_outer:last-child {
+#iinmsskjbf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lbktiforhv .gt_column_spanner {
+#iinmsskjbf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -792,7 +751,7 @@ $(document).ready(function () {
   width: 100%;
 }
 
-#lbktiforhv .gt_group_heading {
+#iinmsskjbf .gt_group_heading {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -817,7 +776,7 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#lbktiforhv .gt_empty_group_heading {
+#iinmsskjbf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -832,15 +791,15 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#lbktiforhv .gt_from_md > :first-child {
+#iinmsskjbf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lbktiforhv .gt_from_md > :last-child {
+#iinmsskjbf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lbktiforhv .gt_row {
+#iinmsskjbf .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -859,7 +818,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#lbktiforhv .gt_stub {
+#iinmsskjbf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -872,7 +831,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#lbktiforhv .gt_stub_row_group {
+#iinmsskjbf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -886,11 +845,11 @@ $(document).ready(function () {
   vertical-align: top;
 }
 
-#lbktiforhv .gt_row_group_first td {
+#iinmsskjbf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lbktiforhv .gt_summary_row {
+#iinmsskjbf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -900,16 +859,16 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#lbktiforhv .gt_first_summary_row {
+#iinmsskjbf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_first_summary_row.thick {
+#iinmsskjbf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lbktiforhv .gt_last_summary_row {
+#iinmsskjbf .gt_last_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -919,7 +878,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_grand_summary_row {
+#iinmsskjbf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -929,7 +888,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#lbktiforhv .gt_first_grand_summary_row {
+#iinmsskjbf .gt_first_grand_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -939,11 +898,11 @@ $(document).ready(function () {
   border-top-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_striped {
+#iinmsskjbf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lbktiforhv .gt_table_body {
+#iinmsskjbf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -952,7 +911,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_footnotes {
+#iinmsskjbf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -966,7 +925,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_footnote {
+#iinmsskjbf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 1px;
@@ -975,7 +934,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#lbktiforhv .gt_sourcenotes {
+#iinmsskjbf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -989,7 +948,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#lbktiforhv .gt_sourcenote {
+#iinmsskjbf .gt_sourcenote {
   font-size: 90%;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -997,60 +956,60 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#lbktiforhv .gt_left {
+#iinmsskjbf .gt_left {
   text-align: left;
 }
 
-#lbktiforhv .gt_center {
+#iinmsskjbf .gt_center {
   text-align: center;
 }
 
-#lbktiforhv .gt_right {
+#iinmsskjbf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lbktiforhv .gt_font_normal {
+#iinmsskjbf .gt_font_normal {
   font-weight: normal;
 }
 
-#lbktiforhv .gt_font_bold {
+#iinmsskjbf .gt_font_bold {
   font-weight: bold;
 }
 
-#lbktiforhv .gt_font_italic {
+#iinmsskjbf .gt_font_italic {
   font-style: italic;
 }
 
-#lbktiforhv .gt_super {
+#iinmsskjbf .gt_super {
   font-size: 65%;
 }
 
-#lbktiforhv .gt_footnote_marks {
+#iinmsskjbf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#lbktiforhv .gt_asterisk {
+#iinmsskjbf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lbktiforhv .gt_slash_mark {
+#iinmsskjbf .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#lbktiforhv .gt_fraction_numerator {
+#iinmsskjbf .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#lbktiforhv .gt_fraction_denominator {
+#iinmsskjbf .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1250,8 +1209,8 @@ $(document).ready(function () {
 </table>
 </div>
 </div>
-<div id="visualization" class="section level3" number="3.1.2">
-<h3 number="3.1.2"><span class="header-section-number">3.1.2</span> Visualization</h3>
+<div id="visualization" class="section level3">
+<h3>Visualization</h3>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart_disease_final, <span class="fu">aes</span>(<span class="at">x=</span>output))<span class="sc">+</span></span>
@@ -1351,7 +1310,7 @@ $(document).ready(function () {
 <span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a>                <span class="co">#right = &quot;&quot;,</span></span>
 <span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a>                <span class="at">fig.lab =</span> <span class="st">&quot;Figure 1&quot;</span>, <span class="at">fig.lab.face =</span> <span class="st">&quot;bold&quot;</span></span>
 <span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>                )</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/bar%20graphs-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/bar%20graphs-1.png" width="672" /></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart_disease_final, <span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept=</span><span class="fu">mean</span>(age)),</span>
@@ -1417,13 +1376,13 @@ $(document).ready(function () {
 <span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>                <span class="co">#right = &quot;&quot;,</span></span>
 <span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>                <span class="at">fig.lab =</span> <span class="st">&quot;Figure 2&quot;</span>, <span class="at">fig.lab.face =</span> <span class="st">&quot;bold&quot;</span></span>
 <span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>                )</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/histograms-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/histograms-1.png" width="672" /></p>
 </div>
 </div>
-<div id="bivariate-analysis" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Bivariate analysis</h2>
-<div id="difference-frequency-table" class="section level3" number="3.2.1">
-<h3 number="3.2.1"><span class="header-section-number">3.2.1</span> Difference Frequency table</h3>
+<div id="bivariate-analysis" class="section level2">
+<h2>Bivariate analysis</h2>
+<div id="difference-frequency-table" class="section level3">
+<h3>Difference Frequency table</h3>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make dataset with variables to summarize</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      </span>
@@ -1455,12 +1414,12 @@ $(document).ready(function () {
 <span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_footnote</span>(</span>
 <span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">all_stat_cols</span>() <span class="sc">~</span> <span class="st">&quot;Mean (SD); Median (IQR); Range; Frequency (%)&quot;</span></span>
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div id="nodnscgwqe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uhxbwipbcj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#nodnscgwqe .gt_table {
+#uhxbwipbcj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1485,7 +1444,7 @@ $(document).ready(function () {
   border-left-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_heading {
+#uhxbwipbcj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1497,7 +1456,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_title {
+#uhxbwipbcj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1509,7 +1468,7 @@ $(document).ready(function () {
   border-bottom-width: 0;
 }
 
-#nodnscgwqe .gt_subtitle {
+#uhxbwipbcj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1521,13 +1480,13 @@ $(document).ready(function () {
   border-top-width: 0;
 }
 
-#nodnscgwqe .gt_bottom_border {
+#uhxbwipbcj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_col_headings {
+#uhxbwipbcj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1542,7 +1501,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_col_heading {
+#uhxbwipbcj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1562,7 +1521,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#nodnscgwqe .gt_column_spanner_outer {
+#uhxbwipbcj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1574,15 +1533,15 @@ $(document).ready(function () {
   padding-right: 4px;
 }
 
-#nodnscgwqe .gt_column_spanner_outer:first-child {
+#uhxbwipbcj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nodnscgwqe .gt_column_spanner_outer:last-child {
+#uhxbwipbcj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nodnscgwqe .gt_column_spanner {
+#uhxbwipbcj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1594,7 +1553,7 @@ $(document).ready(function () {
   width: 100%;
 }
 
-#nodnscgwqe .gt_group_heading {
+#uhxbwipbcj .gt_group_heading {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1619,7 +1578,7 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#nodnscgwqe .gt_empty_group_heading {
+#uhxbwipbcj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1634,15 +1593,15 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#nodnscgwqe .gt_from_md > :first-child {
+#uhxbwipbcj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nodnscgwqe .gt_from_md > :last-child {
+#uhxbwipbcj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nodnscgwqe .gt_row {
+#uhxbwipbcj .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1661,7 +1620,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#nodnscgwqe .gt_stub {
+#uhxbwipbcj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1674,7 +1633,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#nodnscgwqe .gt_stub_row_group {
+#uhxbwipbcj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1688,11 +1647,11 @@ $(document).ready(function () {
   vertical-align: top;
 }
 
-#nodnscgwqe .gt_row_group_first td {
+#uhxbwipbcj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nodnscgwqe .gt_summary_row {
+#uhxbwipbcj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1702,16 +1661,16 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#nodnscgwqe .gt_first_summary_row {
+#uhxbwipbcj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_first_summary_row.thick {
+#uhxbwipbcj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nodnscgwqe .gt_last_summary_row {
+#uhxbwipbcj .gt_last_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1721,7 +1680,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_grand_summary_row {
+#uhxbwipbcj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1731,7 +1690,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#nodnscgwqe .gt_first_grand_summary_row {
+#uhxbwipbcj .gt_first_grand_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1741,11 +1700,11 @@ $(document).ready(function () {
   border-top-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_striped {
+#uhxbwipbcj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nodnscgwqe .gt_table_body {
+#uhxbwipbcj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1754,7 +1713,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_footnotes {
+#uhxbwipbcj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1768,7 +1727,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_footnote {
+#uhxbwipbcj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 1px;
@@ -1777,7 +1736,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#nodnscgwqe .gt_sourcenotes {
+#uhxbwipbcj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1791,7 +1750,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#nodnscgwqe .gt_sourcenote {
+#uhxbwipbcj .gt_sourcenote {
   font-size: 90%;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -1799,60 +1758,60 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#nodnscgwqe .gt_left {
+#uhxbwipbcj .gt_left {
   text-align: left;
 }
 
-#nodnscgwqe .gt_center {
+#uhxbwipbcj .gt_center {
   text-align: center;
 }
 
-#nodnscgwqe .gt_right {
+#uhxbwipbcj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nodnscgwqe .gt_font_normal {
+#uhxbwipbcj .gt_font_normal {
   font-weight: normal;
 }
 
-#nodnscgwqe .gt_font_bold {
+#uhxbwipbcj .gt_font_bold {
   font-weight: bold;
 }
 
-#nodnscgwqe .gt_font_italic {
+#uhxbwipbcj .gt_font_italic {
   font-style: italic;
 }
 
-#nodnscgwqe .gt_super {
+#uhxbwipbcj .gt_super {
   font-size: 65%;
 }
 
-#nodnscgwqe .gt_footnote_marks {
+#uhxbwipbcj .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#nodnscgwqe .gt_asterisk {
+#uhxbwipbcj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nodnscgwqe .gt_slash_mark {
+#uhxbwipbcj .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#nodnscgwqe .gt_fraction_numerator {
+#uhxbwipbcj .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#nodnscgwqe .gt_fraction_denominator {
+#uhxbwipbcj .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -2156,8 +2115,8 @@ $(document).ready(function () {
 </table>
 </div>
 </div>
-<div id="visualization-1" class="section level3" number="3.2.2">
-<h3 number="3.2.2"><span class="header-section-number">3.2.2</span> Visualization</h3>
+<div id="visualization-1" class="section level3">
+<h3>Visualization</h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p12 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart_disease_final, <span class="fu">aes</span>(<span class="at">x=</span>output))<span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> sex), <span class="at">show.legend =</span> <span class="cn">TRUE</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>)<span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>,<span class="at">y=</span><span class="st">&quot;&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Sex of the patient&quot;</span>, <span class="at">fill=</span><span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
@@ -2253,7 +2212,7 @@ $(document).ready(function () {
 <span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a>                <span class="co">#right = &quot;&quot;,</span></span>
 <span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a>                <span class="at">fig.lab =</span> <span class="st">&quot;Figure 3&quot;</span>, <span class="at">fig.lab.face =</span> <span class="st">&quot;bold&quot;</span></span>
 <span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a>                )</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/grouped%20bar%20graph-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/grouped%20bar%20graph-1.png" width="672" /></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>p18 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart_disease_final, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">fill=</span>output)) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">n.breaks =</span> <span class="dv">10</span>)<span class="sc">+</span></span>
@@ -2372,10 +2331,10 @@ $(document).ready(function () {
 <span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a>                <span class="co">#right = &quot;&quot;,</span></span>
 <span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a>                <span class="at">fig.lab =</span> <span class="st">&quot;Figure 4&quot;</span>, <span class="at">fig.lab.face =</span> <span class="st">&quot;bold&quot;</span></span>
 <span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a>                )</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/density%20and%20box%20plots-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/density%20and%20box%20plots-1.png" width="672" /></p>
 </div>
-<div id="correlation" class="section level3" number="3.2.3">
-<h3 number="3.2.3"><span class="header-section-number">3.2.3</span> Correlation</h3>
+<div id="correlation" class="section level3">
+<h3>Correlation</h3>
 <p>A negative correlation implies that the two variables under consideration vary in opposite directions, that is, if a variable increases the other decreases and vice versa. On the other hand, a positive correlation implies that the two variables under consideration vary in the same direction, i.e., if a variable increases the other one increases and if one decreases the other one decreases as well</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation for all variables</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
@@ -2594,7 +2553,7 @@ $(document).ready(function () {
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="fl">0.95</span>,</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;upper&quot;</span> <span class="co"># show only upper side #full</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/correlation-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/correlation-1.png" width="672" /></p>
 <p>Only correlations with p-values smaller than the significance level (p&lt;0.05)should be interpreted.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation tests for whole dataset</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
@@ -2809,10 +2768,10 @@ $(document).ready(function () {
 </div>
 </div>
 </div>
-<div id="logistic-regression" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Logistic Regression</h1>
-<div id="splitting-the-data-for-training-and-testing" class="section level2" number="4.1">
-<h2 number="4.1"><span class="header-section-number">4.1</span> Splitting the data for training and testing</h2>
+<div id="logistic-regression" class="section level1">
+<h1>Logistic Regression</h1>
+<div id="splitting-the-data-for-training-and-testing" class="section level2">
+<h2>Splitting the data for training and testing</h2>
 <p>spliting the data in a 80:20 ratio (training:testing). We use set.seed() to make sure that the results are repeatable. We also use the outcome variable, output to stratify. This is to ensure that the distribution of the outcome is comparable in both data sets.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2829,15 +2788,15 @@ $(document).ready(function () {
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#train&lt;-subset(mydata, sample==TRUE)</span></span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#test&lt;-subset(mydata, sample==FALSE)</span></span></code></pre></div>
 </div>
-<div id="model" class="section level2" number="4.2">
-<h2 number="4.2"><span class="header-section-number">4.2</span> model</h2>
+<div id="model" class="section level2">
+<h2>model</h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>glm_logistic_reg <span class="ot">&lt;-</span><span class="fu">glm</span>(<span class="at">formula=</span>output<span class="sc">~</span>.,<span class="at">data=</span>train, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(glm_logistic_reg)</span></span></code></pre></div>
 </div>
-<div id="model-statistics" class="section level2" number="4.3">
-<h2 number="4.3"><span class="header-section-number">4.3</span> model statistics</h2>
+<div id="model-statistics" class="section level2">
+<h2>model statistics</h2>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(glm_logistic_reg)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 8
 ##   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
@@ -2846,11 +2805,11 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#performance::check_collinearity(glm_logistic_reg)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(glm_logistic_reg)</span></code></pre></div>
-<p><img src="Predicting-heart-disease_files/figure-html/model%20statistics-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/model%20statistics-1.png" width="672" /></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#performance::performance_accuracy(glm_logistic_reg)</span></span></code></pre></div>
 </div>
-<div id="model-results" class="section level2" number="4.4">
-<h2 number="4.4"><span class="header-section-number">4.4</span> model results</h2>
+<div id="model-results" class="section level2">
+<h2>model results</h2>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(glm_logistic_reg, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pvalue_fun =</span> <span class="sc">~</span><span class="fu">style_pvalue</span>(.x, <span class="at">digits =</span> <span class="dv">3</span>),</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
@@ -3378,10 +3337,10 @@ $(document).ready(function () {
 <p>atypical angina chest pain type, non-anginal chest pain type, having ST_T abnormality sesting electrocardiographic results are associated with lower odds of heart attack. However they do not have a significant effect on heart attack.</p>
 </div>
 </div>
-<div id="evaluating-our-model" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Evaluating our Model</h1>
-<div id="fitting-with-testing-data" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> Fitting with testing data</h2>
+<div id="evaluating-our-model" class="section level1">
+<h1>Evaluating our Model</h1>
+<div id="fitting-with-testing-data" class="section level2">
+<h2>Fitting with testing data</h2>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>prediction <span class="ot">&lt;-</span><span class="fu">predict</span>(glm_logistic_reg, test, <span class="at">type=</span> <span class="st">&quot;response&quot;</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">##replacing probabilities with dummies </span></span>
