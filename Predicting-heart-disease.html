@@ -1364,8 +1364,8 @@ tbl_summary(heart_disease_final,
   italicize_levels()%&gt;%
   add_n()%&gt;% # add column with total number of non-missing observations
   add_p(pvalue_fun = ~style_pvalue(.x, digits = 3),
-        c(age, trtbps, chol, fbs, thalach, oldpeak) ~ &quot;t.test&quot;,
-        test.args = c(age, trtbps, chol, fbs, thalach, oldpeak) ~ list(var.equal = TRUE)) %&gt;%
+        c(age, trtbps, chol, thalach, oldpeak) ~ &quot;t.test&quot;,
+        test.args = c(age, trtbps, chol, thalach, oldpeak) ~ list(var.equal = TRUE)) %&gt;%
   bold_p(t= 0.05) %&gt;% # bold p-values under a given threshold (default 0.05)
   #add_overall() %&gt;%
   #add_difference() %&gt;% #add column for difference between two group, confidence interval, and p-value
@@ -1923,7 +1923,7 @@ tbl_summary(heart_disease_final,
 <td class="gt_row gt_center">746</td>
 <td class="gt_row gt_center"></td>
 <td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td></tr>
+<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">&lt;= 120mg/dl</td>
 <td class="gt_row gt_center"></td>
 <td class="gt_row gt_center">347 (89.0%)</td>

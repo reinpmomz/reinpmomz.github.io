@@ -404,8 +404,8 @@ tbl_summary(heart_disease_final,
   italicize_levels()%>%
   add_n()%>% # add column with total number of non-missing observations
   add_p(pvalue_fun = ~style_pvalue(.x, digits = 3),
-        c(age, trtbps, chol, fbs, thalach, oldpeak) ~ "t.test",
-        test.args = c(age, trtbps, chol, fbs, thalach, oldpeak) ~ list(var.equal = TRUE)) %>%
+        c(age, trtbps, chol, thalach, oldpeak) ~ "t.test",
+        test.args = c(age, trtbps, chol, thalach, oldpeak) ~ list(var.equal = TRUE)) %>%
   bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
   #add_overall() %>%
   #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
