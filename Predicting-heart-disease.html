@@ -369,6 +369,8 @@ $(document).ready(function () {
 <li><a href="#evaluating-our-model"><span class="toc-section-number">5</span> Evaluating our Model</a>
 <ul>
 <li><a href="#fitting-with-testing-data"><span class="toc-section-number">5.1</span> Fitting with testing data</a></li>
+<li><a href="#confussion-matrix"><span class="toc-section-number">5.2</span> Confussion matrix</a></li>
+<li><a href="#roc-curve"><span class="toc-section-number">5.3</span> ROC curve</a></li>
 </ul></li>
 </ul>
 </div>
@@ -2296,213 +2298,6 @@ annotate_figure(figure4,
 <div id="correlation" class="section level3" number="3.2.3">
 <h3 number="3.2.3"><span class="header-section-number">3.2.3</span> Correlation</h3>
 <p>A negative correlation implies that the two variables under consideration vary in opposite directions, that is, if a variable increases the other decreases and vice versa. On the other hand, a positive correlation implies that the two variables under consideration vary in the same direction, i.e., if a variable increases the other one increases and if one decreases the other one decreases as well</p>
-<pre class="r"><code># correlation for all variables
-kable(
-round(cor(heart_disease_final%&gt;%mutate(across(c(2,3,6, 7, 9, 11, 12), as.numeric))),
-  digits = 2 # rounded to 2 decimals
-)
-)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">age</th>
-<th align="right">sex</th>
-<th align="right">cp</th>
-<th align="right">trtbps</th>
-<th align="right">chol</th>
-<th align="right">fbs</th>
-<th align="right">restecg</th>
-<th align="right">thalach</th>
-<th align="right">exng</th>
-<th align="right">oldpeak</th>
-<th align="right">slp</th>
-<th align="right">output</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">age</td>
-<td align="right">1.00</td>
-<td align="right">0.04</td>
-<td align="right">0.17</td>
-<td align="right">0.26</td>
-<td align="right">0.06</td>
-<td align="right">0.24</td>
-<td align="right">0.23</td>
-<td align="right">-0.38</td>
-<td align="right">0.25</td>
-<td align="right">0.29</td>
-<td align="right">0.29</td>
-<td align="right">0.30</td>
-</tr>
-<tr class="even">
-<td align="left">sex</td>
-<td align="right">0.04</td>
-<td align="right">1.00</td>
-<td align="right">0.15</td>
-<td align="right">0.03</td>
-<td align="right">-0.11</td>
-<td align="right">0.10</td>
-<td align="right">-0.01</td>
-<td align="right">-0.16</td>
-<td align="right">0.19</td>
-<td align="right">0.13</td>
-<td align="right">0.14</td>
-<td align="right">0.29</td>
-</tr>
-<tr class="odd">
-<td align="left">cp</td>
-<td align="right">0.17</td>
-<td align="right">0.15</td>
-<td align="right">1.00</td>
-<td align="right">0.04</td>
-<td align="right">0.08</td>
-<td align="right">0.04</td>
-<td align="right">0.08</td>
-<td align="right">-0.34</td>
-<td align="right">0.45</td>
-<td align="right">0.29</td>
-<td align="right">0.34</td>
-<td align="right">0.46</td>
-</tr>
-<tr class="even">
-<td align="left">trtbps</td>
-<td align="right">0.26</td>
-<td align="right">0.03</td>
-<td align="right">0.04</td>
-<td align="right">1.00</td>
-<td align="right">0.10</td>
-<td align="right">0.17</td>
-<td align="right">0.06</td>
-<td align="right">-0.13</td>
-<td align="right">0.16</td>
-<td align="right">0.20</td>
-<td align="right">0.14</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="odd">
-<td align="left">chol</td>
-<td align="right">0.06</td>
-<td align="right">-0.11</td>
-<td align="right">0.08</td>
-<td align="right">0.10</td>
-<td align="right">1.00</td>
-<td align="right">0.05</td>
-<td align="right">0.07</td>
-<td align="right">-0.02</td>
-<td align="right">0.09</td>
-<td align="right">0.06</td>
-<td align="right">0.08</td>
-<td align="right">0.10</td>
-</tr>
-<tr class="even">
-<td align="left">fbs</td>
-<td align="right">0.24</td>
-<td align="right">0.10</td>
-<td align="right">0.04</td>
-<td align="right">0.17</td>
-<td align="right">0.05</td>
-<td align="right">1.00</td>
-<td align="right">0.13</td>
-<td align="right">-0.10</td>
-<td align="right">0.11</td>
-<td align="right">0.06</td>
-<td align="right">0.16</td>
-<td align="right">0.16</td>
-</tr>
-<tr class="odd">
-<td align="left">restecg</td>
-<td align="right">0.23</td>
-<td align="right">-0.01</td>
-<td align="right">0.08</td>
-<td align="right">0.06</td>
-<td align="right">0.07</td>
-<td align="right">0.13</td>
-<td align="right">1.00</td>
-<td align="right">0.03</td>
-<td align="right">0.05</td>
-<td align="right">0.13</td>
-<td align="right">0.11</td>
-<td align="right">0.11</td>
-</tr>
-<tr class="even">
-<td align="left">thalach</td>
-<td align="right">-0.38</td>
-<td align="right">-0.16</td>
-<td align="right">-0.34</td>
-<td align="right">-0.13</td>
-<td align="right">-0.02</td>
-<td align="right">-0.10</td>
-<td align="right">0.03</td>
-<td align="right">1.00</td>
-<td align="right">-0.40</td>
-<td align="right">-0.26</td>
-<td align="right">-0.35</td>
-<td align="right">-0.38</td>
-</tr>
-<tr class="odd">
-<td align="left">exng</td>
-<td align="right">0.25</td>
-<td align="right">0.19</td>
-<td align="right">0.45</td>
-<td align="right">0.16</td>
-<td align="right">0.09</td>
-<td align="right">0.11</td>
-<td align="right">0.05</td>
-<td align="right">-0.40</td>
-<td align="right">1.00</td>
-<td align="right">0.47</td>
-<td align="right">0.47</td>
-<td align="right">0.55</td>
-</tr>
-<tr class="even">
-<td align="left">oldpeak</td>
-<td align="right">0.29</td>
-<td align="right">0.13</td>
-<td align="right">0.29</td>
-<td align="right">0.20</td>
-<td align="right">0.06</td>
-<td align="right">0.06</td>
-<td align="right">0.13</td>
-<td align="right">-0.26</td>
-<td align="right">0.47</td>
-<td align="right">1.00</td>
-<td align="right">0.61</td>
-<td align="right">0.50</td>
-</tr>
-<tr class="odd">
-<td align="left">slp</td>
-<td align="right">0.29</td>
-<td align="right">0.14</td>
-<td align="right">0.34</td>
-<td align="right">0.14</td>
-<td align="right">0.08</td>
-<td align="right">0.16</td>
-<td align="right">0.11</td>
-<td align="right">-0.35</td>
-<td align="right">0.47</td>
-<td align="right">0.61</td>
-<td align="right">1.00</td>
-<td align="right">0.60</td>
-</tr>
-<tr class="even">
-<td align="left">output</td>
-<td align="right">0.30</td>
-<td align="right">0.29</td>
-<td align="right">0.46</td>
-<td align="right">0.17</td>
-<td align="right">0.10</td>
-<td align="right">0.16</td>
-<td align="right">0.11</td>
-<td align="right">-0.38</td>
-<td align="right">0.55</td>
-<td align="right">0.50</td>
-<td align="right">0.60</td>
-<td align="right">1.00</td>
-</tr>
-</tbody>
-</table>
 <pre class="r"><code># improved correlation matrix
 library(corrplot)
 
@@ -2513,7 +2308,7 @@ corrplot(cor(heart_disease_final%&gt;%mutate(across(c(2,3,6, 7, 9, 11, 12), as.n
   number.cex = 0.95,
   type = &quot;upper&quot; # show only upper side #full
 )</code></pre>
-<p><img src="Predicting-heart-disease_files/figure-html/correlation-1.png" width="1344" /></p>
+<p><img src="Predicting-heart-disease_files/figure-html/improved%20correlation-1.png" width="1344" /></p>
 <p>Only correlations with p-values smaller than the significance level (p&lt;0.05)should be interpreted.</p>
 <pre class="r"><code># correlation tests for whole dataset
 library(Hmisc)
@@ -2766,7 +2561,9 @@ test &lt;- testing(split)
 
 performance::check_model(glm_logistic_reg)</code></pre>
 <p><img src="Predicting-heart-disease_files/figure-html/model%20statistics-1.png" width="1344" /></p>
-<pre class="r"><code>#performance::performance_accuracy(glm_logistic_reg)</code></pre>
+<pre class="r"><code>#performance::performance_accuracy(glm_logistic_reg)
+
+#plot(performance::performance_roc(glm_logistic_reg))</code></pre>
 </div>
 <div id="model-results" class="section level2" number="4.4">
 <h2 number="4.4"><span class="header-section-number">4.4</span> model results</h2>
@@ -3310,24 +3107,59 @@ test$predicted &lt;- as.factor(ifelse(test$prediction&lt;0.5, &quot;No heart att
 test &lt;- test%&gt;%
   mutate(predicted= factor(predicted, levels = c(&quot;No heart attack&quot;, &quot;Has Heart attack&quot;)))
 
+test1 &lt;- test%&gt;%
+  mutate(across(c(predicted, output), fct_rev))
+  
 ##creating a confusion matrix
 
-table(Predicted=test$predicted, Actual=test$output)</code></pre>
+table(Predicted=test1$predicted, Actual=test1$output)</code></pre>
 <pre><code>##                   Actual
-## Predicted          No heart attack Has Heart attack
-##   No heart attack               63                3
-##   Has Heart attack              14               68</code></pre>
+## Predicted          Has Heart attack No heart attack
+##   Has Heart attack               68              14
+##   No heart attack                 3              63</code></pre>
 <pre class="r"><code>##getting percentage of misclassification
 
-1-sum(diag(table(Predicted=test$predicted, Actual=test$output)))/sum(table(Predicted=test$predicted, Actual=test$output))</code></pre>
+1-sum(diag(table(Predicted=test1$predicted, Actual=test1$output)))/sum(table(Predicted=test1$predicted, Actual=test1$output))</code></pre>
 <pre><code>## [1] 0.1148649</code></pre>
 <pre class="r"><code>##getting percentage of accuracy
-sum(diag(table(Predicted=test$predicted, Actual=test$output)))/sum(table(Predicted=test$predicted, Actual=test$output))</code></pre>
+sum(diag(table(Predicted=test1$predicted, Actual=test1$output)))/sum(table(Predicted=test1$predicted, Actual=test1$output))</code></pre>
 <pre><code>## [1] 0.8851351</code></pre>
 <pre class="r"><code>##Testing for goodness of fit. 
 
 with(glm_logistic_reg, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))</code></pre>
 <pre><code>## [1] 2.407305e-82</code></pre>
+</div>
+<div id="confussion-matrix" class="section level2" number="5.2">
+<h2 number="5.2"><span class="header-section-number">5.2</span> Confussion matrix</h2>
+<pre class="r"><code>library(caret)
+confusionMatrix(test1$predicted, test1$output)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                   Reference
+## Prediction         Has Heart attack No heart attack
+##   Has Heart attack               68              14
+##   No heart attack                 3              63
+##                                           
+##                Accuracy : 0.8851          
+##                  95% CI : (0.8225, 0.9316)
+##     No Information Rate : 0.5203          
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
+##                                           
+##                   Kappa : 0.7713          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.01529         
+##                                           
+##             Sensitivity : 0.9577          
+##             Specificity : 0.8182          
+##          Pos Pred Value : 0.8293          
+##          Neg Pred Value : 0.9545          
+##              Prevalence : 0.4797          
+##          Detection Rate : 0.4595          
+##    Detection Prevalence : 0.5541          
+##       Balanced Accuracy : 0.8880          
+##                                           
+##        &#39;Positive&#39; Class : Has Heart attack
+## </code></pre>
 <ul>
 <li><p>True positives (TP) we have 68 correctly classified instances of heart attack</p></li>
 <li><p>True negatives(TN) we have 63 cases classified as not having heart attack</p></li>
@@ -3338,7 +3170,14 @@ with(glm_logistic_reg, pchisq(null.deviance - deviance, df.null - df.residual, l
 <li><p><strong>Positive Predictive Value (Precision)</strong> is 0.8293 meaning from all the classes we predicted as positive, how many were actually positive. equation is <strong>Positive Predictive Value=TP/(TP + FP)</strong></p></li>
 <li><p><strong>Negative Predictive Value (Precision)</strong> is 0.9545 meaning from all the classes we predicted as negative, how many were actually negative. equation is <strong>Negative Predictive Value=TN/(TN + FN)</strong></p></li>
 <li><p>Accuracy of the model is 88.5% with p value of 2.407305e-82 (less than the default level of significance (0.05)).</p></li>
-<li><p>Our model did relatively well and can be used in making predictions</p></li>
+</ul>
+</div>
+<div id="roc-curve" class="section level2" number="5.3">
+<h2 number="5.3"><span class="header-section-number">5.3</span> ROC curve</h2>
+<pre class="r"><code>plot(performance::performance_roc(glm_logistic_reg, new_data = test))</code></pre>
+<p><img src="Predicting-heart-disease_files/figure-html/unnamed-chunk-3-1.png" width="1344" /></p>
+<ul>
+<li>Our model did relatively well and can be used in making predictions</li>
 </ul>
 </div>
 </div>

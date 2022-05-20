@@ -647,7 +647,7 @@ annotate_figure(figure4,
 
 A negative correlation implies that the two variables under consideration vary in opposite directions, that is, if a variable increases the other decreases and vice versa. On the other hand, a positive correlation implies that the two variables under consideration vary in the same direction, i.e., if a variable increases the other one increases and if one decreases the other one decreases as well
 
-```{r correlation}
+```{r correlation, include=FALSE}
 
 # correlation for all variables
 kable(
@@ -656,6 +656,10 @@ round(cor(heart_disease_final%>%mutate(across(c(2,3,6, 7, 9, 11, 12), as.numeric
 )
 )
 
+```
+
+
+```{r improved correlation}
 
 # improved correlation matrix
 library(corrplot)
@@ -738,6 +742,10 @@ performance::check_model(glm_logistic_reg)
 
 #performance::performance_accuracy(glm_logistic_reg)
 
+#plot(performance::performance_roc(glm_logistic_reg))
+
+
+
 ```
 
 ## model results
@@ -780,16 +788,19 @@ test$predicted <- as.factor(ifelse(test$prediction<0.5, "No heart attack", "Has 
 test <- test%>%
   mutate(predicted= factor(predicted, levels = c("No heart attack", "Has Heart attack")))
 
+test1 <- test%>%
+  mutate(across(c(predicted, output), fct_rev))
+  
 ##creating a confusion matrix
 
-table(Predicted=test$predicted, Actual=test$output)
+table(Predicted=test1$predicted, Actual=test1$output)
 
 ##getting percentage of misclassification
 
-1-sum(diag(table(Predicted=test$predicted, Actual=test$output)))/sum(table(Predicted=test$predicted, Actual=test$output))
+1-sum(diag(table(Predicted=test1$predicted, Actual=test1$output)))/sum(table(Predicted=test1$predicted, Actual=test1$output))
 
 ##getting percentage of accuracy
-sum(diag(table(Predicted=test$predicted, Actual=test$output)))/sum(table(Predicted=test$predicted, Actual=test$output))
+sum(diag(table(Predicted=test1$predicted, Actual=test1$output)))/sum(table(Predicted=test1$predicted, Actual=test1$output))
 
 ##Testing for goodness of fit. 
 
@@ -797,6 +808,17 @@ with(glm_logistic_reg, pchisq(null.deviance - deviance, df.null - df.residual, l
 
 
 ```
+
+## Confussion matrix
+
+```{r}
+
+library(caret)
+confusionMatrix(test1$predicted, test1$output)
+
+
+```
+
 
 * True positives (TP) we have 68 correctly classified instances of heart attack
 
@@ -816,6 +838,15 @@ with(glm_logistic_reg, pchisq(null.deviance - deviance, df.null - df.residual, l
 
 
 * Accuracy of the model is 88.5% with p value of 2.407305e-82 (less than the default level of significance (0.05)).
+
+## ROC curve
+
+```{r}
+
+plot(performance::performance_roc(glm_logistic_reg, new_data = test))
+
+```
+
 
 * Our model did relatively well and can be used in making predictions
 
