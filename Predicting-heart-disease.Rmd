@@ -834,7 +834,7 @@ confusionMatrix(test1$predicted, test1$output)
 
 * **Positive Predictive Value (Precision)** is 0.8293 meaning from all the classes we predicted as positive, how many were actually positive. equation is **Positive Predictive Value=TP/(TP + FP)**
 
-* **Negative Predictive Value (Precision)** is 0.9545 meaning from all the classes we predicted as negative, how many were actually negative. equation is **Negative Predictive Value=TN/(TN + FN)**
+* **Negative Predictive Value** is 0.9545 meaning from all the classes we predicted as negative, how many were actually negative. equation is **Negative Predictive Value=TN/(TN + FN)**
 
 
 * Accuracy of the model is 88.5% with p value of 2.407305e-82 (less than the default level of significance (0.05)).
