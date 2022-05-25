@@ -60,11 +60,6 @@ library(knitr)
 
 ## loading Data Set
 
-```{r Set Working directory, echo=FALSE}
-setwd('F:/Documents/Reinp/GitHub Respositories/reinpmomz.github.io')
-
-```
-
 
 ```{r importing data}
 heart_disease <- read_csv('https://raw.githubusercontent.com/reinpmomz/Predicting-heart-disease/main/data/heart.csv')%>%

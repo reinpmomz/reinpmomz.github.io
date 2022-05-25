@@ -1,0 +1,588 @@
+---
+title: "Spatio-Temporal patterns of Bactrocera-dorsalis"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+# Introduction
+
+## Overview
+
+Bactrocera dorsalis is one of the most invasive species of the family of tephritid fruit flies and those of the genus Bactrocera. Previous studies from Benin have revealed that it is the most abundant species. Moreover, studies have also shown that it is a very damaging pest causing harm to most of the crops in countries where it is found. A great need for the study of spatial and temporal characteristics is required to provide more information on the management of this pest.
+
+The study area will be the three agro-ecologies found in Benin which covers an area of 114763 square kilometers. Benin is a West African country that borders Togo to the West, Nigeria to the East and Burkina Faso and Niger to the North. The three agro-ecologies included in the study are: Forest Savannah Mosaic, Northern Guinea Savannah and Southern Guinea Savannah. The Forest Savannah Mosaic extends to the Coast of Benin and separates the upper and lower Guinean forests. The sites in Forest Savannah Mosaic that are under consideration are: Iloulofin, Ketou, and Lalo. Subsequently, in Northern Guinea Savannah Natitingou, Ndali, Parakou and Papatia are the sites considered. In Southern Guinea Savannah, Akofoudjole, Alifarou, Bassila, Mondjigagan, and Tchourou are considered.
+
+
+## Dataset
+
+This study considers data that was collected over a period of six years (2004-2010) in Benin, West Africa and was obtained from International Centre of Insect Physiology and Ecology (ICIPE). The data is from three agro-ecologies Northern Guinea Savanna (NGS), Southern Guinea Savanna (SGS) and Forest Savanna Mosaic (FSM). The dependent variable under consideration is the mean abundance of Bactrocera dorsalis and the independent variables will be temperature mean, rainfall and relative humidity.
+
+## Objectives
+
+- Determine the spatio-temporal patterns of the abundance of Bactrocera dorsalis in Benin.
+
+- Determine the mean abundance of Bactrocera dorsalis during the different seasons (Rainy - May to September; Dry - October to April) across the three agro-ecologies (Forest Savannah Mosaic, Northern Guinea Savannah, Southern Guinea Savannah).
+
+- Determine the seasonal effect on the mean abundance of Bactrocera dorsalis in Benin.
+
+- Map the abundance and seasonal effect variation of Bactrocera dorsalis in Benin in the three agro-ecologies. Mapping will be based on the two seasons in Benin and the three agro-ecologies over the period of 6 years that the data was collected. The spatial distribution within the time period will be shown across the three agro-ecologies during the different seasons. The mapping will be done separately for each of the two seasons and in each agro-ecology. Each agro-ecology will be mapped in accordance with the data collection sites.Geo-referencing will be done to obtain the coordinates of the different sites in the three agro-ecologies.  Before geo-referencing, the sites which are replicated will first be made the same so that that they can be georeferenced only once
+
+
+# Data Exploration
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+#echo=FALSE indicates that the code will not be shown in the final document 
+#(though any results/output would still be displayed).
+
+#include=FALSE to have the chunk evaluated, but neither the code nor its output displayed
+
+# warning=FALSE and message=FALSE suppress any R warnings or messages from being included 
+#in the final document
+```
+
+
+## loading Relevant packages and Data Set
+
+```{r Import relevant packages}
+#Import relevant packages
+
+library(tidyverse)
+library(janitor)
+library(readr)
+library(plotly)
+library(knitr)
+
+```
+
+## loading Data Set
+
+```{r importing data}
+
+# Reading our dataset
+
+spacioTemp_dt_raw <- read_csv('https://raw.githubusercontent.com/reinpmomz/Spatio-Temporal_patterns_Bactrocera-dorsalis/master/data/Male_lures.csv')
+
+#View(spacioTemp_dt_raw)
+
+```
+
+## Adding columns and converting to factors
+
+```{r Adding columns and converting to factors}
+#Add tempeaturemean, humididy mean and Season columns
+
+spacioTemp_dt <- spacioTemp_dt_raw%>%
+ mutate(Tempmean = round((TempMaxi + TempMini)/2,1))%>%
+ mutate(RHmean = round((RHMaxi + RHMini)/2,1))%>%
+ mutate(Season = if_else(Month == "May" | Month == "June" | Month == "July" | 
+                          Month == "August" |  Month == "September", "Rainy","Dry"))%>%
+ mutate(Season= factor(Season, levels = c("Dry", "Rainy")))%>%
+ mutate(Agro_ecology = factor(Agro_ecology, levels = c("SGS","FSM","NGS")))%>%
+ mutate(Month = ordered(Month, levels = c("January","February","March", "April","May","June",
+                              "July","August","September", "October","November","December")))%>%
+ mutate(Site = gsub("Alafiarou1", "Alafiarou", Site))%>%
+ mutate(Site = gsub("Alafiarou2", "Alafiarou", Site))%>%
+ mutate(Site = gsub("Tchourou1", "Tchourou", Site))%>%
+ mutate(Site = gsub("Tchourou2", "Tchourou", Site))%>%
+  mutate(across(c(Site), as.factor))
+
+```
+
+
+## Structure of the Data
+
+```{r checking the data structure}
+
+head(spacioTemp_dt)
+
+tail(spacioTemp_dt)
+
+# How many variables and observations are there?
+ncol(spacioTemp_dt)
+
+nrow(spacioTemp_dt)
+
+#learn more about the dataset
+#help(spacioTemp_dt)
+#??spacioTemp_dt
+
+
+str(spacioTemp_dt)
+#class(spacioTemp_dt)
+#typeof(spacioTemp_dt) 
+#length(spacioTemp_dt)
+names(spacioTemp_dt) #display variable names
+
+#attributes(spacioTemp_dt) names(spacioTemp_dt), class(spacioTemp_dt), row.names(spacioTemp_dt)
+
+
+```
+
+## Missing data and Outliers
+
+```{r missing values}
+
+which(!complete.cases(spacioTemp_dt))
+
+
+which(is.na(spacioTemp_dt$B_dorsa)) #check for missing values
+
+```
+
+There were no missing values in our data set.
+
+## Outliers
+
+```{r outliers}
+
+#We use boxplot to visualize for any outliers
+
+boxplot(spacioTemp_dt [, c("TempMaxi", "TempMini", "Tempmean")], main="Temperature",
+xlab="",
+ylab="",
+col="orange",
+border="brown", las = 2, cex.axis = 0.6, col.axis = 'blue', col.lab = 'red')
+
+boxplot(spacioTemp_dt [, c("RHMaxi",
+"RHMini", "RHmean")], main="Relative Humidity",
+xlab="",
+ylab="",
+col="orange",
+border="brown", las = 2, cex.axis = 0.6, col.axis = 'blue', col.lab = 'red')
+
+
+boxplot(spacioTemp_dt [, c("B_dorsa")], main="Bactrocera dorsalis",
+xlab="",
+ylab="Abundance",
+col="orange",
+border="brown", las = 2, cex.axis = 0.6, col.axis = 'blue', col.lab = 'red')
+
+boxplot(spacioTemp_dt [, c("Rainfall")], main="Rainfall",
+xlab="rainfall",
+ylab="",
+col="orange",
+border="brown", las = 2, cex.axis = 0.6, col.axis = 'blue', col.lab = 'red')
+```
+## Univariate 
+
+### Normality of continous variables
+
+There are several methods for normality test such as **Kolmogorov-Smirnov (K-S) normality test** and **Shapiro-Wilk’s test**. 
+
+Shapiro-Wilk’s method is widely recommended for normality test and it provides better power than K-S. It is based on the correlation between the data and the corresponding normal scores.
+
+If the p-value > 0.05, it implies that the distribution of the data are not significantly different from normal distribution. In other words, we can assume the normality.
+
+```{r}
+
+
+shapiro.test(spacioTemp_dt$TempMaxi)
+shapiro.test(spacioTemp_dt$TempMini)
+shapiro.test(spacioTemp_dt$RHMaxi)
+shapiro.test(spacioTemp_dt$RHMini)
+shapiro.test(spacioTemp_dt$Rainfall)
+shapiro.test(spacioTemp_dt$B_dorsa)
+shapiro.test(spacioTemp_dt$Tempmean)
+shapiro.test(spacioTemp_dt$RHmean)
+
+
+```
+
+
+### Descriptive Statistics
+
+```{r descriptive packages}
+library(gtsummary)
+library(flextable)
+
+set_gtsummary_theme(list(
+  "tbl_summary-fn:percent_fun" = function(x) style_percent(x, digits = 1),
+  "tbl_summary-str:categorical_stat" = "{n} ({p}%)"
+))
+# Setting `Compact` theme
+theme_gtsummary_compact()
+
+```
+
+
+```{r descriptives}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(-Attractant, -latitude, -longitude),
+                      type = list(
+                        c(Year, Trap) ~ "categorical", 
+                        all_dichotomous() ~ "categorical",
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "always" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Descriptives**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n() # add column with total number of non-missing observations
+
+
+```
+
+
+## Bivariate analysis
+
+### Difference Frequency table
+
+```{r group differences1}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(Agro_ecology, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                            B_dorsa, Tempmean, RHmean),
+             by = Agro_ecology,
+                      type = list(
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "ifany" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Variables**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n()%>% # add column with total number of non-missing observations
+  add_p(pvalue_fun = ~style_pvalue(.x, digits = 3)) %>%
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  #add_overall() %>%
+  #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
+  modify_spanning_header(c("stat_1", "stat_2" , "stat_3") ~ "**Agro ecology**")  %>%
+  #modify_caption("**Table 1.**")%>%
+  modify_footnote(
+    all_stat_cols() ~ "Mean (SD); Median (IQR); Range"
+  )
+
+```
+
+
+```{r group differences2}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(Season, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                            B_dorsa, Tempmean, RHmean),
+             by = Season,
+                      type = list(
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "ifany" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Variables**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n()%>% # add column with total number of non-missing observations
+  add_p(pvalue_fun = ~style_pvalue(.x, digits = 3)) %>%
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  #add_overall() %>%
+  #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Season**")  %>%
+  #modify_caption("**Table 2.**")%>%
+  modify_footnote(
+    all_stat_cols() ~ "Mean (SD); Median (IQR); Range"
+  )
+
+```
+
+
+```{r group differences3}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(Site, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                            B_dorsa, Tempmean, RHmean),
+             by = Site,
+                      type = list(
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "ifany" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Variables**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n()%>% # add column with total number of non-missing observations
+  add_p(pvalue_fun = ~style_pvalue(.x, digits = 3)) %>%
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  #add_overall() %>%
+  #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3", "stat_4",
+                           "stat_5", "stat_6", "stat_7", "stat_8",
+                           "stat_9", "stat_10", "stat_11", "stat_12") ~ "**Site**")  %>%
+  #modify_caption("**Table 2.**")%>%
+  modify_footnote(
+    all_stat_cols() ~ "Mean (SD); Median (IQR); Range"
+  )
+
+```
+
+
+```{r group differences4}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(Year, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                            B_dorsa, Tempmean, RHmean),
+             by = Year,
+                      type = list(
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "ifany" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Variables**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n()%>% # add column with total number of non-missing observations
+  add_p(pvalue_fun = ~style_pvalue(.x, digits = 3)) %>%
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  #add_overall() %>%
+  #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3", "stat_4",
+                           "stat_5", "stat_6", "stat_7") ~ "**Year**")  %>%
+  #modify_caption("**Table 2.**")%>%
+  modify_footnote(
+    all_stat_cols() ~ "Mean (SD); Median (IQR); Range"
+  )
+
+```
+
+
+
+```{r group differences5}
+# make dataset with variables to summarize
+
+      
+tbl_summary(spacioTemp_dt%>%
+              dplyr::select(Month, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                            B_dorsa, Tempmean, RHmean),
+             by = Month,
+                      type = list(
+                         all_continuous() ~ "continuous2")
+                      , statistic = all_continuous() ~ c(
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}")
+                      , digits = all_continuous() ~ 2
+                      , missing = "ifany" # don't list missing data separately
+                      ,missing_text = "Missing"
+                      ) %>% 
+  modify_header(label = "**Variables**") %>% # update the column header
+  bold_labels() %>%
+  italicize_levels()%>%
+  add_n()%>% # add column with total number of non-missing observations
+  add_p(pvalue_fun = ~style_pvalue(.x, digits = 3)) %>%
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  #add_overall() %>%
+  #add_difference() %>% #add column for difference between two group, confidence interval, and p-value
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3", "stat_4",
+                           "stat_5", "stat_6", "stat_7", "stat_8",
+                           "stat_9", "stat_10", "stat_11", "stat_12") ~ "**Month**")  %>%
+  #modify_caption("**Table 2.**")%>%
+  modify_footnote(
+    all_stat_cols() ~ "Mean (SD); Median (IQR); Range"
+  )
+
+```
+
+
+
+```{R}
+
+kable(mosaic::favstats(TempMaxi~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(TempMini~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(RHMaxi~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(RHMini~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(Rainfall~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(B_dorsa~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(Tempmean~Season+Agro_ecology, data=spacioTemp_dt))
+kable(mosaic::favstats(RHmean~Season+Agro_ecology, data=spacioTemp_dt))
+
+```
+
+
+## Mapping the Abundance of B_Dorsa
+
+```{r}
+
+
+spacioTemp_dt1 <- spacioTemp_dt%>%
+  dplyr:: select(Agro_ecology, Site, Season, latitude , longitude, B_dorsa)%>%
+  group_by(Agro_ecology, Site, Season, latitude , longitude)%>% 
+  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
+
+
+spacioTemp_dt2 <- spacioTemp_dt%>%
+  dplyr:: select(Agro_ecology, Site, latitude , longitude, B_dorsa)%>%
+  group_by(Agro_ecology, Site, latitude , longitude)%>% 
+  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
+
+
+spacioTemp_dt3 <- spacioTemp_dt%>%
+  dplyr:: select(Site, latitude , longitude, B_dorsa)%>%
+  group_by(Site, latitude , longitude)%>% 
+  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
+
+spacioTemp_dt4 <- spacioTemp_dt%>%
+  dplyr:: select( Site, Season, latitude , longitude, B_dorsa)%>%
+  group_by(Site, Season, latitude , longitude)%>% 
+  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
+
+```
+
+### Benin and neighbouring countries
+
+```{r}
+
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sf)
+library(sp)
+library(ggrepel)
+
+beninNESW <- ne_countries(country = c("Benin", "Nigeria", "Niger", "Togo", "Burkina Faso" ), returnclass = "sf") 
+class(beninNESW)
+
+ggplot(data = beninNESW) +
+geom_sf()+
+geom_sf_text(aes(label = name), size = 2, color = "blue")+
+  labs(x="longitude", y="latitude")
+
+
+benin1 <- ne_states(country = "Benin", returnclass = "sf") 
+class(benin1)
+
+ggplot(data = benin1) +
+geom_sf()+
+geom_sf_text(aes(label = name), size = 2, color = "blue")+
+  labs(x="longitude", y="latitude") +
+  theme(axis.text.x = element_text(size = 8))
+
+
+benin <- ne_states(country = "Benin", returnclass = "sf") 
+class(benin)
+
+```
+
+
+```{r}
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Site Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt3, aes(x=longitude, y=latitude, colour=TotalB_dorsa), size=2.5) +
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(size = 8))+
+scale_colour_gradient2(low="green", mid="yellow", high="red", midpoint=191000)+
+  geom_text_repel(data=spacioTemp_dt3, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.4, point.padding = NA, min.segment.length = Inf)
+
+
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Site Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt3, aes(x=longitude, y=latitude, size=TotalB_dorsa), colour="red")+
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(size = 8))+
+  geom_text_repel(data=spacioTemp_dt3, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.4, point.padding = NA, min.segment.length = Inf)
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Agro ecology Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Agro_ecology))+
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(size = 8))+
+  geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.4, point.padding = NA, min.segment.length = Inf)
+
+```
+
+
+```{r}
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Agro ecology Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Agro_ecology))+
+  facet_wrap(~Agro_ecology) +
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(size = 8))+ 
+  guides(color = FALSE)+
+  geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.4, point.padding = NA, min.segment.length = Inf)
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Season Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt4, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Season))+ 
+  facet_wrap(~Season) +
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(size = 8))+
+  guides(color = FALSE)+
+  geom_text_repel(data=spacioTemp_dt4, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.4, point.padding = NA, min.segment.length = Inf)
+
+ggplot(data = benin) +
+geom_sf()+
+ggtitle("Agro Ecology/Season Abundance of Bactrocera dorsalis") +
+geom_point(data=spacioTemp_dt1, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Agro_ecology))+ 
+  facet_grid(Season~Agro_ecology) +
+theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+legend.title = element_text(colour="blue", size=10, face="bold"), 
+axis.text.x = element_text(angle = 90, size = 7))+
+  guides(color = FALSE)+
+  geom_text_repel(data=spacioTemp_dt1, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+                  size=2.2, point.padding = NA, min.segment.length = Inf)
+
+
+```
+
+
+
+
+
+
+
+
+

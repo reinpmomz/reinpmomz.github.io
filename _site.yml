@@ -10,8 +10,10 @@ navbar:
     - text: "Machine Learning"
       icon: fa-cogs
       menu:
-        - text: "Logistic Regression: Predicting heart disease"
+        - text: "Binary models: Logistic Regression"
           href: Predicting-heart-disease.html
+        - text: "Count models: Poisson/Negative binomial Regression"
+          href: Spatio-Temporal_patterns_Bactrocera-dorsalis.html
     - text: "Dashboards"
       icon: fa-chalkboard-teacher
       menu:
