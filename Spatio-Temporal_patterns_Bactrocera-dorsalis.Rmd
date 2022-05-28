@@ -2,6 +2,8 @@
 title: "Spatio-Temporal patterns of Bactrocera-dorsalis"
 output:
   html_document:
+    fig_width: 10
+    fig_height: 8
     toc: true
     number_sections: true
 ---
