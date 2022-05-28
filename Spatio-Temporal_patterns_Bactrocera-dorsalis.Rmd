@@ -17,7 +17,7 @@ The study area will be the three agro-ecologies found in Benin which covers an a
 
 ## Dataset
 
-This study considers data that was collected over a period of six years (2004-2010) in Benin, West Africa and was obtained from International Centre of Insect Physiology and Ecology (ICIPE). The data is from three agro-ecologies Northern Guinea Savanna (NGS), Southern Guinea Savanna (SGS) and Forest Savanna Mosaic (FSM). The dependent variable under consideration is the mean abundance of Bactrocera dorsalis and the independent variables will be temperature mean, rainfall and relative humidity.
+This study considers data that was collected over a period of six years (2004-2010) in Benin, West Africa and was obtained from International Centre of Insect Physiology and Ecology (ICIPE). The data is from three agro-ecologies Northern Guinea Savanna (NGS), Southern Guinea Savanna (SGS) and Forest Savanna Mosaic (FSM). The dependent variable under consideration is the mean abundance of Bactrocera dorsalis and the independent variables will be temperature mean, relative humidity mean, season and Agro ecology.
 
 ## Objectives
 
@@ -166,9 +166,10 @@ ylab="",
 col="orange",
 border="brown", las = 2, cex.axis = 0.6, col.axis = 'blue', col.lab = 'red')
 ```
-## Univariate 
 
-### Normality of continous variables
+# Univariate 
+
+## Normality of continous variables
 
 There are several methods for normality test such as **Kolmogorov-Smirnov (K-S) normality test** and **Shapiro-Wilk’s test**. 
 
@@ -192,7 +193,7 @@ shapiro.test(spacioTemp_dt$RHmean)
 ```
 
 
-### Descriptive Statistics
+## Descriptive Statistics
 
 ```{r descriptive packages}
 library(gtsummary)
@@ -235,9 +236,9 @@ tbl_summary(spacioTemp_dt%>%
 ```
 
 
-## Bivariate analysis
+# Bivariate analysis
 
-### Difference Frequency table
+## Difference Frequency table
 
 ```{r group differences1}
 # make dataset with variables to summarize
@@ -434,8 +435,43 @@ kable(mosaic::favstats(RHmean~Season+Agro_ecology, data=spacioTemp_dt))
 
 ```
 
+## Correlation
 
-## Mapping the Abundance of B_Dorsa
+```{r correlation}
+
+# correlation for all variables
+kable(
+round(cor(spacioTemp_dt%>%
+              dplyr::select(B_dorsa, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                             Tempmean, RHmean)),
+  digits = 2 # rounded to 2 decimals
+)
+)
+
+
+
+```
+
+
+Only correlations with p-values smaller than the significance level (p<0.05) should be interpreted.
+
+```{r significance for correlation}
+
+# correlation tests for whole dataset
+library(Hmisc)
+res <- rcorr(as.matrix(spacioTemp_dt%>%
+              dplyr::select(B_dorsa, TempMaxi, TempMini, RHMaxi, RHMini, Rainfall,
+                             Tempmean, RHmean))) # rcorr() accepts matrices only
+
+# display p-values (rounded to 3 decimals)
+kable(
+  round(res$P, 3)
+)
+
+```
+
+
+# Mapping 
 
 ```{r}
 
@@ -452,19 +488,9 @@ spacioTemp_dt2 <- spacioTemp_dt%>%
   summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
 
 
-spacioTemp_dt3 <- spacioTemp_dt%>%
-  dplyr:: select(Site, latitude , longitude, B_dorsa)%>%
-  group_by(Site, latitude , longitude)%>% 
-  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
-
-spacioTemp_dt4 <- spacioTemp_dt%>%
-  dplyr:: select( Site, Season, latitude , longitude, B_dorsa)%>%
-  group_by(Site, Season, latitude , longitude)%>% 
-  summarise(TotalB_dorsa = sum(B_dorsa), .groups = 'drop')
-
 ```
 
-### Benin and neighbouring countries
+## Benin and Neighbouring countries
 
 ```{r}
 
@@ -479,50 +505,58 @@ class(beninNESW)
 
 ggplot(data = beninNESW) +
 geom_sf()+
-geom_sf_text(aes(label = name), size = 2, color = "blue")+
+geom_sf_text(aes(label = name), size = 2.5, color = "blue")+
   labs(x="longitude", y="latitude")
-
-
-benin1 <- ne_states(country = "Benin", returnclass = "sf") 
-class(benin1)
-
-ggplot(data = benin1) +
-geom_sf()+
-geom_sf_text(aes(label = name), size = 2, color = "blue")+
-  labs(x="longitude", y="latitude") +
-  theme(axis.text.x = element_text(size = 8))
 
 
 benin <- ne_states(country = "Benin", returnclass = "sf") 
 class(benin)
 
+ggplot(data = benin) +
+geom_sf()+
+geom_sf_text(aes(label = name), size = 2.3, color = "blue")+
+  labs(x="longitude", y="latitude") +
+  theme(axis.text.x = element_text(size = 8))
+
+
+
 ```
 
+
+## Abundance of B_Dorsa
 
 ```{r}
 
 ggplot(data = benin) +
 geom_sf()+
 ggtitle("Site Abundance of Bactrocera dorsalis") +
-geom_point(data=spacioTemp_dt3, aes(x=longitude, y=latitude, colour=TotalB_dorsa), size=2.5) +
+geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, colour=TotalB_dorsa), size=2.5) +
 theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(size = 8))+
-scale_colour_gradient2(low="green", mid="yellow", high="red", midpoint=191000)+
-  geom_text_repel(data=spacioTemp_dt3, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+scale_colour_gradient2(low="green", mid="yellow", high="red", 
+                       midpoint=max(spacioTemp_dt2$TotalB_dorsa)/2, n.breaks = 8)+
+  geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
                   size=2.4, point.padding = NA, min.segment.length = Inf)
-
 
 
 ggplot(data = benin) +
 geom_sf()+
 ggtitle("Site Abundance of Bactrocera dorsalis") +
-geom_point(data=spacioTemp_dt3, aes(x=longitude, y=latitude, size=TotalB_dorsa), colour="red")+
+geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, size=TotalB_dorsa), colour="red")+
 theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(size = 8))+
-  geom_text_repel(data=spacioTemp_dt3, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+  scale_size_continuous(breaks = seq(50000, 400000, 100000))+
+  geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
                   size=2.4, point.padding = NA, min.segment.length = Inf)
+
+
+
+```
+
+
+```{r}
 
 ggplot(data = benin) +
 geom_sf()+
@@ -531,13 +565,10 @@ geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, size=TotalB_dorsa, 
 theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(size = 8))+
+  scale_size_continuous(breaks = seq(50000, 400000, 100000))+
   geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
                   size=2.4, point.padding = NA, min.segment.length = Inf)
 
-```
-
-
-```{r}
 
 ggplot(data = benin) +
 geom_sf()+
@@ -547,20 +578,26 @@ geom_point(data=spacioTemp_dt2, aes(x=longitude, y=latitude, size=TotalB_dorsa, 
 theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(size = 8))+ 
+  scale_size_continuous(breaks = seq(50000, 400000, 100000))+
   guides(color = FALSE)+
   geom_text_repel(data=spacioTemp_dt2, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
                   size=2.4, point.padding = NA, min.segment.length = Inf)
 
+```
+
+
+```{r}
 ggplot(data = benin) +
 geom_sf()+
 ggtitle("Season Abundance of Bactrocera dorsalis") +
-geom_point(data=spacioTemp_dt4, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Season))+ 
+geom_point(data=spacioTemp_dt1, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Season))+ 
   facet_wrap(~Season) +
 theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(size = 8))+
+  scale_size_continuous(breaks = seq(25000, 350000, 100000))+
   guides(color = FALSE)+
-  geom_text_repel(data=spacioTemp_dt4, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+  geom_text_repel(data=spacioTemp_dt1, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
                   size=2.4, point.padding = NA, min.segment.length = Inf)
 
 ggplot(data = benin) +
@@ -568,15 +605,416 @@ geom_sf()+
 ggtitle("Agro Ecology/Season Abundance of Bactrocera dorsalis") +
 geom_point(data=spacioTemp_dt1, aes(x=longitude, y=latitude, size=TotalB_dorsa, colour=Agro_ecology))+ 
   facet_grid(Season~Agro_ecology) +
-theme(legend.position = "right", legend.box = "vertical", legend.text = element_text(size=8),
+theme(legend.position = "bottom", legend.box = "horizontal", legend.text = element_text(size=8),
 legend.title = element_text(colour="blue", size=10, face="bold"), 
 axis.text.x = element_text(angle = 90, size = 7))+
+  scale_size_continuous(breaks = seq(25000, 350000, 100000))+
   guides(color = FALSE)+
-  geom_text_repel(data=spacioTemp_dt1, aes(x=longitude, y=latitude,label=Site, vjust = 0.6),
+  geom_text_repel(data=spacioTemp_dt1, aes(x=longitude, y=latitude,label=Site, vjust = 0.5),
                   size=2.2, point.padding = NA, min.segment.length = Inf)
 
 
 ```
+
+# Estimating abundance of Bactrocera dorsalis
+
+
+## Finding a fitting distribution for the target B_dorsa variable
+
+```{r}
+library(car)
+library(MASS) #So that distributions that must be non-zero can make sense of my data
+
+qqp(spacioTemp_dt$B_dorsa+1, "norm", main="Q-Q Plot ~ B_dorsa+1 Normal model")
+
+qqp(spacioTemp_dt$B_dorsa+1, "lnorm", main="Q-Q Plot ~ B_dorsa+1 LogNormal model") #lnorm is lognormal
+
+qqp(spacioTemp_dt$B_dorsa+1, "exp", main="Q-Q Plot ~ B_dorsa+1 Exponential model")
+
+```
+
+
+qqp requires estimates of the parameters of the negative binomial, Poisson and gamma distributions. You can generate estimates using the fitdistr function.
+
+negative binomial and gamma distributions can only handle positive numbers. Poisson distribution can only handle positive whole numbers.
+
+Binomial and Poisson distributions are different from the others because they are discrete rather than continuous, which means they quantify distinct, countable events or the probability of these events
+
+```{r}
+
+
+nbinom <- fitdistr(spacioTemp_dt$B_dorsa+1, "Negative Binomial")
+qqp(spacioTemp_dt$B_dorsa+1, "nbinom", size = nbinom$estimate[[1]], mu =
+nbinom$estimate[[2]], main="Q-Q Plot ~ B_dorsa+1 Negative Binomial model")
+
+
+pois <- fitdistr(spacioTemp_dt$B_dorsa+1, "Poisson")
+qqp(spacioTemp_dt$B_dorsa+1, "pois", lambda=pois$estimate, main="Q-Q Plot ~ B_dorsa+1 Poisson model")
+
+
+gamma <- fitdistr(spacioTemp_dt$B_dorsa+1, "gamma", 
+                  list(shape = 1, rate = 0.1), lower = 0.4)
+qqp(spacioTemp_dt$B_dorsa+1, "gamma", shape = gamma$estimate[[1]], rate =
+gamma$estimate[[2]], main="Q-Q Plot ~ B_dorsa+1 Gamma model")
+
+
+weibull <- fitdistr(spacioTemp_dt$B_dorsa+1, "weibull")
+qqp(spacioTemp_dt$B_dorsa+1, "weibull", shape = weibull$estimate[[1]], 
+    scale=weibull$estimate[[2]], main="Q-Q Plot ~ B_dorsa+1 Weibull model")
+
+
+hist(spacioTemp_dt$B_dorsa, prob=TRUE)
+
+# Estimate an gamma proba
+paraw <- fitdistr(spacioTemp_dt$B_dorsa[spacioTemp_dt$B_dorsa!=0],densfun="gamma",
+                  list(shape = 1, rate = 0.1), lower = 0.4)
+curve(dgamma(x, paraw$estimate[1], paraw$estimate[2]), 0,15900, add=TRUE, col="blue")
+ks.test(spacioTemp_dt$B_dorsa, "pgamma", paraw$estimate[1], paraw$estimate[2])
+
+# Estimate a weilbull proba
+paraw <- fitdistr(spacioTemp_dt$B_dorsa[spacioTemp_dt$B_dorsa!=0],densfun="weibull")
+curve(dweibull(x, paraw$estimate[1], paraw$estimate[2]), 0,15900, add=TRUE, col="red")
+ks.test(spacioTemp_dt$B_dorsa, "pweibull", paraw$estimate[1], paraw$estimate[2])
+
+```
+
+
+Model to be used in the estimating the abundance of Bactrocera dorsalis in Benin is the Poisson regression model since the abundance of Bactrocera dorsalis is discrete count data. 
+
+## Splitting the data for training and testing
+
+spliting the data in a 80:20 ratio (training:testing). We use set.seed() to make sure that the results are repeatable. We also use the outcome variable, output to stratify. This is to ensure that the 
+distribution of the outcome is comparable in both data sets.
+
+```{r}
+
+library(rsample)
+
+set.seed(123)
+split <- initial_split(spacioTemp_dt, prop = 0.8, strata = B_dorsa)
+
+
+train <- training(split) 
+test <- testing(split)
+
+
+```
+
+## Poison regression
+
+```{r}
+
+Dorsa_poisson <-glm(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
+                     Season, data = train, family = poisson)
+summary(Dorsa_poisson)
+
+```
+
+
+### model statistics
+
+```{r}
+
+performance::check_model(Dorsa_poisson)
+
+```
+
+
+All coefficient estimates are highly significant. The Wald test results might be too optimistic due to a misspecification of the likelihood.
+
+```{r}
+
+
+df.residual(Dorsa_poisson)
+qchisq(0.95, df.residual(Dorsa_poisson))
+
+deviance(Dorsa_poisson)
+
+
+pr <- residuals(Dorsa_poisson,"pearson")
+
+sum(pr^2)
+
+```
+
+
+We see that the model obviously doesn't fit the data. The five-percent critical value of df.residual for 
+a chi-squared with 929 d.f. is 1001.019 and the deviance(1862905) and Pearson's chi-squared(2687368) are both high.
+
+
+As over-dispersion is present in this data set, we re-compute the Wald tests using sandwich 
+standard errors.
+
+
+## Poisson regression (the robust or sandwich estimator of the standard errors)
+
+Cameron and Trivedi (2009) recommended using robust standard errors for the parameter estimates to control for mild violation of the distribution assumption that the variance 
+equals the mean.
+
+```{r}
+
+
+library(sandwich)
+library(lmtest)
+
+coeftest(Dorsa_poisson, vcov = sandwich)
+
+#coef(Dorsa_poisson, vcov = sandwich)
+
+
+```
+
+Tempmean, Agro_ecologyFSM, Agro_ecologyNGS and SeasonRainy are still significant but the standard errors seem to be more appropriate. RHmean is not significant.
+
+We have obtained the robust standard errors and the p-values accordingly. Together with the p-values, we can also calculate the 95% confidence interval using the parameter estimates and their robust standard errors.
+
+
+```{r}
+
+
+cov_Dorsa_poisson <- vcovHC(Dorsa_poisson, type="HC0")
+std.err <- sqrt(diag(cov_Dorsa_poisson))
+
+  kable(
+    round(cbind(Estimate= coef(Dorsa_poisson), "Robust SE" = std.err, 
+        "z value" = coef(Dorsa_poisson)/std.err, 
+"Pr(>|z|)" = 2 * pnorm(abs(coef(Dorsa_poisson)/std.err), lower.tail=FALSE),
+LL = coef(Dorsa_poisson) - 1.96 * std.err,
+UL = coef(Dorsa_poisson) + 1.96 * std.err),4)
+)
+
+```
+
+
+## Quasi-Poisson Model
+
+
+Another way of dealing with over-dispersion (and excess zeros) is to use the mean regression function and the variance function from the Poisson GLM but to leave the dispersion parameter unrestricted.
+
+Thus, dispersion parameter is not assumed to be fixed at 1 but is estimated from the data. This strategy leads to the same coefficient estimates as the standard Poisson model but inference is adjusted for over-dispersion.
+
+
+We now assume that the variance is proportional rather than equal to the mean, and estimate the scale parameter φ dividing Pearson's chi-squared by its d.f.:
+
+
+```{r}
+phi <- sum(pr^2)/df.residual(Dorsa_poisson)
+
+round(c(phi,sqrt(phi)),4)
+```
+
+This means that we should adjust the standard errors multiplying by 53.7843, the square root of 2892.7531
+
+R can do this calculation for us if we use the quasipoisson family
+
+```{R}
+
+
+Dorsa_quassi_poisson <-glm(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
+                     Season, data = train, family = quasipoisson)
+summary(Dorsa_quassi_poisson)
+
+
+```
+
+The model leads to an estimated dispersion parameter of 2892.776 which is clearly larger than 1
+confirming that over-dispersion is present in the data.
+
+The estimates are exactly the same as before, but the standard errors are larger by 53.7845. We can verify this fact easily. First we write a useful function to extract standard errors and then use it on our fits:
+
+```{r}
+se <- function(model) sqrt(diag(vcov(model)))
+
+round(cbind("p" = coef(Dorsa_poisson), "q" =coef(Dorsa_quassi_poisson),
+   "se.p" = se(Dorsa_poisson), "se.q" = se(Dorsa_quassi_poisson),
+    "ratio" = se(Dorsa_quassi_poisson)/se(Dorsa_poisson)), 4)
+```
+
+
+### model statistics
+
+```{r}
+
+performance::check_model(Dorsa_quassi_poisson)
+
+```
+
+## Negative binomial Model
+
+If Theta is not known but to be estimated from the data, the negative binomial model is not a
+special case of the general GLM—however, an ML fit can easily be computed re-using GLM methodology by iterating estimation of Beta given Theta and vice versa. This leads to ML estimates for both Beta and Theta which can be computed.
+
+We now fit a negative binomial model with the same predictors. To do this we need the glm.nb() function in the MASS package.
+
+```{r}
+
+Dorsa_neg_binom <- MASS::glm.nb(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
+                     Season, data = train)
+summary(Dorsa_neg_binom)
+
+```
+
+### model statistics
+
+```{r}
+
+performance::check_model(Dorsa_neg_binom)
+
+```
+
+
+
+## Comparison of the Count Models
+
+Having fitted several count data regression models to the abundance of Bactrocera-dorsalis in the spacioTemp data, it is of interest to understand what these models have in common and what their differences are.
+
+
+### Estimates/Regression coefficients
+
+1st comparison, we inspect the estimated regression coefficients in the count data models
+
+```{r}
+
+Dorsa.outputa <- coeftest(Dorsa_poisson, vcov = sandwich)
+
+fm <- list("Pois" = Dorsa_poisson, "Adj-Pois" = Dorsa.outputa,
+            "Quasi-Pois" = Dorsa_quassi_poisson, "NegBin" = Dorsa_neg_binom)
+
+round(sapply(fm, function(x) coef(x)[1:6]), 4)
+
+
+```
+
+### Standard Errors
+
+2nd comparison the associated estimated standard errors
+
+```{r}
+
+
+round(cbind("Pois" = sqrt(diag(vcov(Dorsa_poisson))), "Adj-Pois" = sqrt(diag(sandwich(Dorsa_poisson))),
+      sapply(fm[-(1:2)], function(x) sqrt(diag(vcov(x)))[1:6])),4)
+
+```
+
+
+### Log-Likelihood & AIC
+
+3rd Comparison The differences of the models become obvious if not only the mean but the full likelihood is considered.
+
+```{r}
+
+rbind(logLik = sapply(fm, function(x) round(logLik(x), digits = 0)),
+      Df = sapply(fm, function(x) attr(logLik(x), "df")),
+      aic = sapply(fm, function(x) round(AIC(x), digits = 0)))
+
+```
+
+The Poisson model is clearly inferior to negative binomial model. The quasi-Poisson model is not associated with a fitted likelihood and Akaike's Information Criterion (AIC).
+
+The over-dispersion in the data is captured better by the negative-binomial-based models than 
+the Poisson models.
+
+
+### df.residual, five-percent critical value of df.residual, deviance & Residuals Pearson's chi-squared
+
+4th comparison
+
+```{r}
+
+rbind(df_residual = sapply(fm[-2], function(x) round(df.residual(x), digits = 0)),
+      criticalvalue = sapply(fm[-2], function(x) round(qchisq(0.95, df.residual(x)), digits = 0)),
+      dev = sapply(fm[-2], function(x) deviance(x)),
+      resid.Pearson = sapply(fm[-2], function(x) round(sum((residuals(x,"pearson"))^2), 0))
+      )
+
+```
+
+
+### zero counts
+
+5thComparison of how the zero counts are captured by the various models. Therefore, the observed zero counts are compared to the expected number of zero counts for the likelihood-based models.
+
+
+```{R}
+
+round( cbind("Obs" = sum(train$B_dorsa < 1),
+"Pois" = sum(dpois(0, fitted(Dorsa_poisson))),
+"NegBin" = sum(dnbinom(0, mu = fitted(Dorsa_neg_binom), size = Dorsa_neg_binom$theta))))
+
+```
+
+The plain Poisson model is again not appropriate whereas the negative-binomial-model is much better in modeling the zero counts.
+
+The count data B_dorsa almost assumes a negative binomial distribution as shown in q-q plots above.
+
+Overall the negative binomial model is the best model to fit the data.
+
+### likelihood ratio test
+
+Negative binomial models assume the conditional means are not equal to the conditional variances. 
+This inequality is captured by estimating a dispersion parameter (not shown in the output) that is 
+held constant in a Poisson model. Thus, the Poisson model is actually nested in the negative binomial model. We can then use a likelihood ratio test to compare these two and test this model assumption.
+
+```{r}
+logLik(Dorsa_poisson)
+logLik(Dorsa_neg_binom)
+
+#LR test
+lrtest(Dorsa_poisson, Dorsa_neg_binom)
+
+
+```
+
+The p value is significant. This strongly suggests the negative binomial model, estimating the dispersion parameter, is more appropriate than the Poisson model.
+
+
+## model results
+
+```{r model results}
+tbl_regression(Dorsa_neg_binom, exponentiate = TRUE, 
+    pvalue_fun = ~style_pvalue(.x, digits = 3),
+  )%>%
+  #add_global_p()%>% # add global p-value for categorical variables
+  bold_p(t= 0.05) %>% # bold p-values under a given threshold (default 0.05)
+  bold_labels() %>%
+  italicize_levels()%>% 
+  modify_header(label = "**Negative Binomial regression**")%>% # update the column header
+  add_significance_stars(
+    pattern = "{estimate} ({conf.low}-{conf.high}){stars}",
+    hide_ci = TRUE, hide_se = TRUE , hide_p = FALSE)%>%
+  modify_header(estimate ~ "**IRR (95% CI)**") %>%
+  modify_footnote(estimate ~ "IRR = Incidence Rate Ratio, CI = Confidence Interval", abbreviation = TRUE) 
+
+```
+
+Variables in the model Statistically significant are Tempmean, RHmean, Agro ecology(FSM), Agro ecology(NGS) and Season(Rainy).
+
+Rainy season, Agro ecology (FSM) and RHmean are significantly associated with higher incident rates of Bactrocera dorsalis. e.g During rainy season abundance of Bactrocera dorsalis is 9.52 times more than during dry season.
+Agro ecology (FSM) is 1.99 times more likely to have high abundance of Bactrocera dorsalis than Agro ecology (SGS).
+
+Tempmean and Agro ecology (NGS) are significantly associated with lower incident rates of Bactrocera dorsalis.
+
+
+# Evaluating our Model
+
+## Fitting with testing data
+
+```{r}
+
+test$PredictB_dorsaNB <- round(predict(Dorsa_neg_binom, test, type = "response"),0)
+
+rmarkdown::paged_table(test%>%
+                         dplyr::select(B_dorsa, PredictB_dorsaNB))
+  
+```
+
+
+
+
+
+
+
 
 
 
