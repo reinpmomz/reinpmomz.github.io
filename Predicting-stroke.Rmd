@@ -835,7 +835,7 @@ confusionMatrix(predict(model4_rf, test), test$stroke, positive = "Yes")
 
 From the output above, the sensitivity now is at 23.81% while specificity is at 97.23%.
 
-- This means that the under sampled model is the best to predict stroke with accuracy of 73.52%, sensitivity of 78.57% and specificity of 73.29%.  
+- This means that the under sampled model is the best to predict stroke with accuracy of 73.52%, sensitivity of 76.19% and specificity of 73.13%.  
 
 
 ## Tree
