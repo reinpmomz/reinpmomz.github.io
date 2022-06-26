@@ -752,7 +752,7 @@ We specify N=7518 (3759x2). Over sampling repeats some values in the category wi
 
 ```{r}
 
-over_sampling <-ovun.sample(stroke ~.,data=train, method = "over", N=7518)$data
+over_sampling <-ovun.sample(stroke ~.,data=train, method = "over", N=7518, seed=1)$data
 
 table(over_sampling$stroke)
 
@@ -774,7 +774,7 @@ confusionMatrix(predict(model2_rf, test), test$stroke, positive = "Yes")
 
 ```
 
-From the output above, we can see that sensitivity is still 0% while specificity has gone down to 99.78%. This proportion is not still good.
+From the output above, we can see that sensitivity is still 0% while specificity has gone down to 99.57%. This proportion is not still good.
 
 
 ### Under sampling data
@@ -783,7 +783,7 @@ This reduces the entries in the category with more entries to be the same with t
 
 ```{r}
 
-under_sampling <-ovun.sample(stroke ~.,data=train, method = "under", N=334)$data
+under_sampling <-ovun.sample(stroke ~.,data=train, method = "under", N=334, seed=2)$data
 
 table(under_sampling$stroke)
 
@@ -806,7 +806,7 @@ confusionMatrix(predict(model3_rf, test), test$stroke, positive = "Yes")
 
 ```
 
-From the output above, sensitivity now stands at 78.57% while specificity stands at 73.29%. This is a better model than the unbalanced and over sampled model.
+From the output above, sensitivity now stands at 76.19% while specificity stands at 72.13%. This is a better model than the unbalanced and over sampled model.
 
 ### Both Sampling data
 
