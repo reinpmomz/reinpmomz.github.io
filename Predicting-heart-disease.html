@@ -269,6 +269,9 @@ $(document).ready(function () {
     <li>
       <a href="Spatio-Temporal_patterns_Bactrocera-dorsalis.html">Count models: Poisson/Negative binomial Regression</a>
     </li>
+    <li>
+      <a href="Predicting-stroke.html">Random Forest/Tree(Classification)</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -336,78 +339,125 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a>
+<li><a href="#introduction"><span class="toc-section-number">1</span>
+Introduction</a>
 <ul>
-<li><a href="#overview"><span class="toc-section-number">1.1</span> Overview</a></li>
-<li><a href="#about-the-data"><span class="toc-section-number">1.2</span> About the Data</a></li>
+<li><a href="#overview"><span class="toc-section-number">1.1</span>
+Overview</a></li>
+<li><a href="#about-the-data"><span
+class="toc-section-number">1.2</span> About the Data</a></li>
 </ul></li>
-<li><a href="#data-exploration"><span class="toc-section-number">2</span> Data Exploration</a>
+<li><a href="#data-exploration"><span
+class="toc-section-number">2</span> Data Exploration</a>
 <ul>
-<li><a href="#loading-relevant-packages"><span class="toc-section-number">2.1</span> loading Relevant packages</a></li>
-<li><a href="#loading-data-set"><span class="toc-section-number">2.2</span> loading Data Set</a></li>
-<li><a href="#converting-into-factors"><span class="toc-section-number">2.3</span> Converting into factors</a></li>
-<li><a href="#checking-missing-values"><span class="toc-section-number">2.4</span> checking missing values</a></li>
+<li><a href="#loading-relevant-packages"><span
+class="toc-section-number">2.1</span> loading Relevant packages</a></li>
+<li><a href="#loading-data-set"><span
+class="toc-section-number">2.2</span> loading Data Set</a></li>
+<li><a href="#converting-into-factors"><span
+class="toc-section-number">2.3</span> Converting into factors</a></li>
+<li><a href="#checking-missing-values"><span
+class="toc-section-number">2.4</span> checking missing values</a></li>
 </ul></li>
-<li><a href="#exploratory-data-analysis"><span class="toc-section-number">3</span> Exploratory data analysis</a>
+<li><a href="#exploratory-data-analysis"><span
+class="toc-section-number">3</span> Exploratory data analysis</a>
 <ul>
-<li><a href="#univariate-analysis"><span class="toc-section-number">3.1</span> Univariate analysis</a>
+<li><a href="#univariate-analysis"><span
+class="toc-section-number">3.1</span> Univariate analysis</a>
 <ul>
-<li><a href="#descriptives-frequency-table"><span class="toc-section-number">3.1.1</span> Descriptives Frequency table</a></li>
-<li><a href="#visualization"><span class="toc-section-number">3.1.2</span> Visualization</a></li>
+<li><a href="#descriptives-frequency-table"><span
+class="toc-section-number">3.1.1</span> Descriptives Frequency
+table</a></li>
+<li><a href="#visualization"><span
+class="toc-section-number">3.1.2</span> Visualization</a></li>
 </ul></li>
-<li><a href="#bivariate-analysis"><span class="toc-section-number">3.2</span> Bivariate analysis</a>
+<li><a href="#bivariate-analysis"><span
+class="toc-section-number">3.2</span> Bivariate analysis</a>
 <ul>
-<li><a href="#difference-frequency-table"><span class="toc-section-number">3.2.1</span> Difference Frequency table</a></li>
-<li><a href="#visualization-1"><span class="toc-section-number">3.2.2</span> Visualization</a></li>
-<li><a href="#correlation"><span class="toc-section-number">3.2.3</span> Correlation</a></li>
+<li><a href="#difference-frequency-table"><span
+class="toc-section-number">3.2.1</span> Difference Frequency
+table</a></li>
+<li><a href="#visualization-1"><span
+class="toc-section-number">3.2.2</span> Visualization</a></li>
+<li><a href="#correlation"><span class="toc-section-number">3.2.3</span>
+Correlation</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#logistic-regression"><span class="toc-section-number">4</span> Logistic Regression</a>
+<li><a href="#logistic-regression"><span
+class="toc-section-number">4</span> Logistic Regression</a>
 <ul>
-<li><a href="#splitting-the-data-for-training-and-testing"><span class="toc-section-number">4.1</span> Splitting the data for training and testing</a></li>
-<li><a href="#model"><span class="toc-section-number">4.2</span> model</a></li>
-<li><a href="#model-statistics"><span class="toc-section-number">4.3</span> model statistics</a></li>
-<li><a href="#model-results"><span class="toc-section-number">4.4</span> model results</a></li>
+<li><a href="#splitting-the-data-for-training-and-testing"><span
+class="toc-section-number">4.1</span> Splitting the data for training
+and testing</a></li>
+<li><a href="#model"><span class="toc-section-number">4.2</span>
+model</a></li>
+<li><a href="#model-statistics"><span
+class="toc-section-number">4.3</span> model statistics</a></li>
+<li><a href="#model-results"><span class="toc-section-number">4.4</span>
+model results</a></li>
 </ul></li>
-<li><a href="#evaluating-our-model"><span class="toc-section-number">5</span> Evaluating our Model</a>
+<li><a href="#evaluating-our-model"><span
+class="toc-section-number">5</span> Evaluating our Model</a>
 <ul>
-<li><a href="#fitting-with-testing-data"><span class="toc-section-number">5.1</span> Fitting with testing data</a></li>
-<li><a href="#confussion-matrix"><span class="toc-section-number">5.2</span> Confussion matrix</a></li>
-<li><a href="#roc-curve"><span class="toc-section-number">5.3</span> ROC curve</a></li>
+<li><a href="#fitting-with-testing-data"><span
+class="toc-section-number">5.1</span> Fitting with testing data</a></li>
+<li><a href="#confussion-matrix"><span
+class="toc-section-number">5.2</span> Confussion matrix</a></li>
+<li><a href="#roc-curve"><span class="toc-section-number">5.3</span> ROC
+curve</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="introduction" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <div id="overview" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Overview</h2>
-<p>Cardiovascular diseases (CVDs) are the number 1 cause of death globally, taking an estimated 17.9 million lives each year, which accounts for 31% of all deaths worldwide. Four out of 5CVD deaths are due to heart attacks and strokes, and one-third of these deaths occur prematurely in people under 70 years of age. This makes it important for health facilities to be able to predict occurrences of heart diseases in order to make plans for early treatment (Assmann et al. 2005). Heart failure is a common event caused by CVDs and this dataset contains 11 features that can be used to predict a possible heart disease.</p>
-<p>People with cardiovascular disease or who are at high cardiovascular risk (due to the presence of one or more risk factors such as hypertension, diabetes, hyperlipidaemia or already established disease) need early detection and management wherein a machine learning model can be of great help.</p>
+<h2><span class="header-section-number">1.1</span> Overview</h2>
+<p>Cardiovascular diseases (CVDs) are the number 1 cause of death
+globally, taking an estimated 17.9 million lives each year, which
+accounts for 31% of all deaths worldwide. Four out of 5CVD deaths are
+due to heart attacks and strokes, and one-third of these deaths occur
+prematurely in people under 70 years of age. This makes it important for
+health facilities to be able to predict occurrences of heart diseases in
+order to make plans for early treatment (Assmann et al. 2005). Heart
+failure is a common event caused by CVDs and this dataset contains 11
+features that can be used to predict a possible heart disease.</p>
+<p>People with cardiovascular disease or who are at high cardiovascular
+risk (due to the presence of one or more risk factors such as
+hypertension, diabetes, hyperlipidaemia or already established disease)
+need early detection and management wherein a machine learning model can
+be of great help.</p>
 </div>
 <div id="about-the-data" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> About the Data</h2>
-<p>This dataset contains 918 observations with 12 features. The data dictionary is as follows:</p>
+<h2><span class="header-section-number">1.2</span> About the Data</h2>
+<p>This dataset contains 918 observations with 12 features. The data
+dictionary is as follows:</p>
 <ul>
-<li>output: target variable (1=has heart attack, 0= has no heart attack)</li>
+<li>output: target variable (1=has heart attack, 0= has no heart
+attack)</li>
 <li>age: Age of the patient</li>
 <li>sex: Sex of the patient (1= male, 0= female).</li>
-<li>cp: chest pain type (0=typical angina, 1=atypical angina, 2=non-anginal and 3=asymptomatic)</li>
+<li>cp: chest pain type (0=typical angina, 1=atypical angina,
+2=non-anginal and 3=asymptomatic)</li>
 <li>trtbps: resting blood pressure (in mm Hg)</li>
 <li>chol: cholestoral in mg/dl fetched via BMI sensor</li>
 <li>fbs: fasting blood sugar (&gt;120mg/dl=1, &lt;= 120mg/dl=0).</li>
-<li>restecg: resting electrocardiographic results( 0=normal, 1=having ST-T wave abnormality, 2=showing probable or definate left ventricular hypertrophy by Este’s criteria.)</li>
+<li>restecg: resting electrocardiographic results( 0=normal, 1=having
+ST-T wave abnormality, 2=showing probable or definate left ventricular
+hypertrophy by Este’s criteria.)</li>
 <li>thalach: Maximum heart rate achieved.</li>
 <li>exng: exercise induced angina; 1=yes, 0=no.</li>
 <li>oldpeak: ST depression.</li>
-<li>slp = slope of peak exercise; 0=upsloping, 1=flat, 2=downsloping.</li>
+<li>slp = slope of peak exercise; 0=upsloping, 1=flat,
+2=downsloping.</li>
 </ul>
 </div>
 </div>
 <div id="data-exploration" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Data Exploration</h1>
+<h1><span class="header-section-number">2</span> Data Exploration</h1>
 <div id="loading-relevant-packages" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> loading Relevant packages</h2>
+<h2><span class="header-section-number">2.1</span> loading Relevant
+packages</h2>
 <pre class="r"><code>#Import relevant packages
 
 library(tidyverse)
@@ -417,7 +467,7 @@ library(plotly)
 library(knitr)</code></pre>
 </div>
 <div id="loading-data-set" class="section level2" number="2.2">
-<h2 number="2.2"><span class="header-section-number">2.2</span> loading Data Set</h2>
+<h2><span class="header-section-number">2.2</span> loading Data Set</h2>
 <pre class="r"><code>heart_disease &lt;- read_csv(&#39;https://raw.githubusercontent.com/reinpmomz/Predicting-heart-disease/main/data/heart.csv&#39;)%&gt;%
   clean_names()
 
@@ -466,10 +516,14 @@ str(heart_disease)</code></pre>
 ##   ..   output = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<p>From the output on the data structure, all of the data has been read as numeric values(‘double’ value or a decimal type with at least two decimal places) but some should be converted to factors since they are categorical.</p>
+<p>From the output on the data structure, all of the data has been read
+as numeric values(‘double’ value or a decimal type with at least two
+decimal places) but some should be converted to factors since they are
+categorical.</p>
 </div>
 <div id="converting-into-factors" class="section level2" number="2.3">
-<h2 number="2.3"><span class="header-section-number">2.3</span> Converting into factors</h2>
+<h2><span class="header-section-number">2.3</span> Converting into
+factors</h2>
 <pre class="r"><code>heart_disease_final &lt;- heart_disease%&gt;%
   mutate(output= factor(output, levels = c(0,1), 
                                       labels = c(&quot;No heart attack&quot;, &quot;Has Heart attack&quot;)))%&gt;%
@@ -529,10 +583,13 @@ str(heart_disease_final)</code></pre>
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Slope of peak exercise&quot;
 ##  $ output : Factor w/ 2 levels &quot;No heart attack&quot;,..: 1 2 1 2 1 1 1 1 2 1 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Heart disease&quot;</code></pre>
-<p>The categorial columns are sex, cp, fbs, restecg, exng, slp while continuous columns are age, trtbps, chol, thalach, oldpeak and target variable is output</p>
+<p>The categorial columns are sex, cp, fbs, restecg, exng, slp while
+continuous columns are age, trtbps, chol, thalach, oldpeak and target
+variable is output</p>
 </div>
 <div id="checking-missing-values" class="section level2" number="2.4">
-<h2 number="2.4"><span class="header-section-number">2.4</span> checking missing values</h2>
+<h2><span class="header-section-number">2.4</span> checking missing
+values</h2>
 <pre class="r"><code>mean(is.na(heart_disease_final))</code></pre>
 <pre><code>## [1] 0</code></pre>
 <pre class="r"><code>#which(is.na(heart_disease_final))
@@ -542,13 +599,20 @@ str(heart_disease_final)</code></pre>
 </div>
 </div>
 <div id="exploratory-data-analysis" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Exploratory data analysis</h1>
-<p>Exploring data is vital in giving a clue of the expected relationship between the dependent variable and the exploratory variables (Zuur et al. 2010).</p>
+<h1><span class="header-section-number">3</span> Exploratory data
+analysis</h1>
+<p>Exploring data is vital in giving a clue of the expected relationship
+between the dependent variable and the exploratory variables (Zuur et
+al. 2010).</p>
 <div id="univariate-analysis" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> Univariate analysis</h2>
-<p>This is analysis of one variable to enable us understand the distribution of values for a single variable.</p>
-<div id="descriptives-frequency-table" class="section level3" number="3.1.1">
-<h3 number="3.1.1"><span class="header-section-number">3.1.1</span> Descriptives Frequency table</h3>
+<h2><span class="header-section-number">3.1</span> Univariate
+analysis</h2>
+<p>This is analysis of one variable to enable us understand the
+distribution of values for a single variable.</p>
+<div id="descriptives-frequency-table" class="section level3"
+number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Descriptives
+Frequency table</h3>
 <pre class="r"><code>library(gtsummary)
 library(flextable)
 
@@ -1175,7 +1239,7 @@ tbl_summary(heart_disease_final,
 </div>
 </div>
 <div id="visualization" class="section level3" number="3.1.2">
-<h3 number="3.1.2"><span class="header-section-number">3.1.2</span> Visualization</h3>
+<h3><span class="header-section-number">3.1.2</span> Visualization</h3>
 <pre class="r"><code>library(ggpubr)
 
 p1 &lt;- ggplot(heart_disease_final, aes(x=output))+
@@ -1345,9 +1409,12 @@ annotate_figure(figure2,
 </div>
 </div>
 <div id="bivariate-analysis" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Bivariate analysis</h2>
-<div id="difference-frequency-table" class="section level3" number="3.2.1">
-<h3 number="3.2.1"><span class="header-section-number">3.2.1</span> Difference Frequency table</h3>
+<h2><span class="header-section-number">3.2</span> Bivariate
+analysis</h2>
+<div id="difference-frequency-table" class="section level3"
+number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Difference
+Frequency table</h3>
 <pre class="r"><code># make dataset with variables to summarize
 
       
@@ -2081,7 +2148,7 @@ tbl_summary(heart_disease_final,
 </div>
 </div>
 <div id="visualization-1" class="section level3" number="3.2.2">
-<h3 number="3.2.2"><span class="header-section-number">3.2.2</span> Visualization</h3>
+<h3><span class="header-section-number">3.2.2</span> Visualization</h3>
 <pre class="r"><code>p12 &lt;- ggplot(heart_disease_final, aes(x=output))+
   geom_bar(aes(fill = sex), show.legend = TRUE, position=&quot;dodge&quot;)+
   labs(x=&quot;&quot;,y=&quot;&quot;, title = &quot;Sex of the patient&quot;, fill=&quot;&quot;)+
@@ -2299,8 +2366,13 @@ annotate_figure(figure4,
 <p><img src="Predicting-heart-disease_files/figure-html/density%20and%20box%20plots-1.png" width="1344" /></p>
 </div>
 <div id="correlation" class="section level3" number="3.2.3">
-<h3 number="3.2.3"><span class="header-section-number">3.2.3</span> Correlation</h3>
-<p>A negative correlation implies that the two variables under consideration vary in opposite directions, that is, if a variable increases the other decreases and vice versa. On the other hand, a positive correlation implies that the two variables under consideration vary in the same direction, i.e., if a variable increases the other one increases and if one decreases the other one decreases as well</p>
+<h3><span class="header-section-number">3.2.3</span> Correlation</h3>
+<p>A negative correlation implies that the two variables under
+consideration vary in opposite directions, that is, if a variable
+increases the other decreases and vice versa. On the other hand, a
+positive correlation implies that the two variables under consideration
+vary in the same direction, i.e., if a variable increases the other one
+increases and if one decreases the other one decreases as well</p>
 <pre class="r"><code># improved correlation matrix
 library(corrplot)
 
@@ -2312,7 +2384,8 @@ corrplot(cor(heart_disease_final%&gt;%mutate(across(c(2,3,6, 7, 9, 11, 12), as.n
   type = &quot;upper&quot; # show only upper side #full
 )</code></pre>
 <p><img src="Predicting-heart-disease_files/figure-html/improved%20correlation-1.png" width="1344" /></p>
-<p>Only correlations with p-values smaller than the significance level (p&lt;0.05)should be interpreted.</p>
+<p>Only correlations with p-values smaller than the significance level
+(p&lt;0.05)should be interpreted.</p>
 <pre class="r"><code># correlation tests for whole dataset
 library(Hmisc)
 res &lt;- rcorr(as.matrix(heart_disease_final%&gt;%mutate(across(c(2,3,6, 7, 9, 11, 12), as.numeric)))) # rcorr() accepts matrices only
@@ -2322,6 +2395,21 @@ kable(
   round(res$P, 3)
 )</code></pre>
 <table>
+<colgroup>
+<col width="9%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="9%" />
+<col width="9%" />
+<col width="6%" />
+<col width="9%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -2522,15 +2610,26 @@ kable(
 </tr>
 </tbody>
 </table>
-<p>After exploring the data, a statistical model will be used to give the final conclusion of the relationship. The dependent variable, “output” is categorical with two variables while the independent variables are more than one and are a mixture of categorical and continuous data and hence a binary logistic model will be applied. This model will be trained and tested and used to make some predictions.</p>
+<p>After exploring the data, a statistical model will be used to give
+the final conclusion of the relationship. The dependent variable,
+“output” is categorical with two variables while the independent
+variables are more than one and are a mixture of categorical and
+continuous data and hence a binary logistic model will be applied. This
+model will be trained and tested and used to make some predictions.</p>
 </div>
 </div>
 </div>
 <div id="logistic-regression" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Logistic Regression</h1>
-<div id="splitting-the-data-for-training-and-testing" class="section level2" number="4.1">
-<h2 number="4.1"><span class="header-section-number">4.1</span> Splitting the data for training and testing</h2>
-<p>spliting the data in a 80:20 ratio (training:testing). We use set.seed() to make sure that the results are repeatable. We also use the outcome variable, output to stratify. This is to ensure that the distribution of the outcome is comparable in both data sets.</p>
+<h1><span class="header-section-number">4</span> Logistic
+Regression</h1>
+<div id="splitting-the-data-for-training-and-testing"
+class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Splitting the data
+for training and testing</h2>
+<p>spliting the data in a 80:20 ratio (training:testing). We use
+set.seed() to make sure that the results are repeatable. We also use the
+outcome variable, output to stratify. This is to ensure that the
+distribution of the outcome is comparable in both data sets.</p>
 <pre class="r"><code>library(rsample)
 
 set.seed(123)
@@ -2547,14 +2646,14 @@ test &lt;- testing(split)
 #test&lt;-subset(mydata, sample==FALSE)</code></pre>
 </div>
 <div id="model" class="section level2" number="4.2">
-<h2 number="4.2"><span class="header-section-number">4.2</span> model</h2>
+<h2><span class="header-section-number">4.2</span> model</h2>
 <pre class="r"><code>glm_logistic_reg &lt;-glm(formula=output~.,data=train, family=&quot;binomial&quot;)
 
 
 #summary(glm_logistic_reg)</code></pre>
 </div>
 <div id="model-statistics" class="section level2" number="4.3">
-<h2 number="4.3"><span class="header-section-number">4.3</span> model statistics</h2>
+<h2><span class="header-section-number">4.3</span> model statistics</h2>
 <pre class="r"><code>broom::glance(glm_logistic_reg)</code></pre>
 <pre><code>## # A tibble: 1 x 8
 ##   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
@@ -2569,7 +2668,7 @@ performance::check_model(glm_logistic_reg)</code></pre>
 #plot(performance::performance_roc(glm_logistic_reg))</code></pre>
 </div>
 <div id="model-results" class="section level2" number="4.4">
-<h2 number="4.4"><span class="header-section-number">4.4</span> model results</h2>
+<h2><span class="header-section-number">4.4</span> model results</h2>
 <pre class="r"><code>tbl_regression(glm_logistic_reg, exponentiate = TRUE, 
     pvalue_fun = ~style_pvalue(.x, digits = 3),
   )%&gt;%
@@ -3092,15 +3191,27 @@ performance::check_model(glm_logistic_reg)</code></pre>
   </tfoot>
 </table>
 </div>
-<p>Statistically significant variables are Male(Sex), Asymptomatic (chest pain type), Yes (Angina), ST depression, flat (slope of peak exercise) and downsloping (slope of peak exercise).</p>
-<p>Having Asymptomatic chest pain type, Angina, flat slope of peak exercise, downsloping slope of peak exercise, high ST depression and being Male are significantly associated with higher odds of having a heart attack. e.g People with Angina are 2.43 times more likely to get heart attack than those with no Angina. Males are 5.08 times more likely to get heart attack than females.</p>
-<p>atypical angina chest pain type, non-anginal chest pain type, having ST_T abnormality sesting electrocardiographic results are associated with lower odds of heart attack. However they do not have a significant effect on heart attack.</p>
+<p>Statistically significant variables are Male(Sex), Asymptomatic
+(chest pain type), Yes (Angina), ST depression, flat (slope of peak
+exercise) and downsloping (slope of peak exercise).</p>
+<p>Having Asymptomatic chest pain type, Angina, flat slope of peak
+exercise, downsloping slope of peak exercise, high ST depression and
+being Male are significantly associated with higher odds of having a
+heart attack. e.g People with Angina are 2.43 times more likely to get
+heart attack than those with no Angina. Males are 5.08 times more likely
+to get heart attack than females.</p>
+<p>atypical angina chest pain type, non-anginal chest pain type, having
+ST_T abnormality sesting electrocardiographic results are associated
+with lower odds of heart attack. However they do not have a significant
+effect on heart attack.</p>
 </div>
 </div>
 <div id="evaluating-our-model" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Evaluating our Model</h1>
+<h1><span class="header-section-number">5</span> Evaluating our
+Model</h1>
 <div id="fitting-with-testing-data" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> Fitting with testing data</h2>
+<h2><span class="header-section-number">5.1</span> Fitting with testing
+data</h2>
 <pre class="r"><code>test$prediction &lt;-predict(glm_logistic_reg, test, type= &quot;response&quot;)
 
 ##replacing probabilities with dummies 
@@ -3133,7 +3244,8 @@ with(glm_logistic_reg, pchisq(null.deviance - deviance, df.null - df.residual, l
 <pre><code>## [1] 2.407305e-82</code></pre>
 </div>
 <div id="confussion-matrix" class="section level2" number="5.2">
-<h2 number="5.2"><span class="header-section-number">5.2</span> Confussion matrix</h2>
+<h2><span class="header-section-number">5.2</span> Confussion
+matrix</h2>
 <pre class="r"><code>library(caret)
 confusionMatrix(test1$predicted, test1$output)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
@@ -3164,23 +3276,41 @@ confusionMatrix(test1$predicted, test1$output)</code></pre>
 ##        &#39;Positive&#39; Class : Has Heart attack
 ## </code></pre>
 <ul>
-<li><p>True positives (TP) we have 68 correctly classified instances of heart attack</p></li>
-<li><p>True negatives(TN) we have 63 cases classified as not having heart attack</p></li>
-<li><p>False negatives (FN) we have 3 cases our model said the patient didn’t have heart attack and they actually did</p></li>
-<li><p>False positives (FP) we have 14 cases our model said a patient did have heart attack, but they actually didn’t</p></li>
-<li><p><strong>Sensitivity (Recall)</strong> The true positive rate is 0.9577 meaning from all the patients that had heart attack ; how many did we predict correctly - this equation is <strong>Sensitivity =TP / (TP + FN)</strong></p></li>
-<li><p><strong>Specificity</strong> The true negative rate is 0.8182 meaning from all the patients that didn’t have heart attack - how many did we predict correctly - this equation is <strong>Specificity =TN / (TN + FP)</strong></p></li>
-<li><p><strong>Positive Predictive Value (Precision)</strong> is 0.8293 meaning from all the classes we predicted as positive, how many were actually positive. equation is <strong>Positive Predictive Value=TP/(TP + FP)</strong></p></li>
-<li><p><strong>Negative Predictive Value</strong> is 0.9545 meaning from all the classes we predicted as negative, how many were actually negative. equation is <strong>Negative Predictive Value=TN/(TN + FN)</strong></p></li>
-<li><p>Accuracy of the model is 88.5% with p value of 2.407305e-82 (less than the default level of significance (0.05)).</p></li>
+<li><p>True positives (TP) we have 68 correctly classified instances of
+heart attack</p></li>
+<li><p>True negatives(TN) we have 63 cases classified as not having
+heart attack</p></li>
+<li><p>False negatives (FN) we have 3 cases our model said the patient
+didn’t have heart attack and they actually did</p></li>
+<li><p>False positives (FP) we have 14 cases our model said a patient
+did have heart attack, but they actually didn’t</p></li>
+<li><p><strong>Sensitivity (Recall)</strong> The true positive rate is
+0.9577 meaning from all the patients that had heart attack ; how many
+did we predict correctly - this equation is <strong>Sensitivity =TP /
+(TP + FN)</strong></p></li>
+<li><p><strong>Specificity</strong> The true negative rate is 0.8182
+meaning from all the patients that didn’t have heart attack - how many
+did we predict correctly - this equation is <strong>Specificity =TN /
+(TN + FP)</strong></p></li>
+<li><p><strong>Positive Predictive Value (Precision)</strong> is 0.8293
+meaning from all the classes we predicted as positive, how many were
+actually positive. equation is <strong>Positive Predictive Value=TP/(TP
++ FP)</strong></p></li>
+<li><p><strong>Negative Predictive Value</strong> is 0.9545 meaning from
+all the classes we predicted as negative, how many were actually
+negative. equation is <strong>Negative Predictive Value=TN/(TN +
+FN)</strong></p></li>
+<li><p>Accuracy of the model is 88.5% with p value of 2.407305e-82 (less
+than the default level of significance (0.05)).</p></li>
 </ul>
 </div>
 <div id="roc-curve" class="section level2" number="5.3">
-<h2 number="5.3"><span class="header-section-number">5.3</span> ROC curve</h2>
+<h2><span class="header-section-number">5.3</span> ROC curve</h2>
 <pre class="r"><code>plot(performance::performance_roc(glm_logistic_reg, new_data = test))</code></pre>
 <p><img src="Predicting-heart-disease_files/figure-html/unnamed-chunk-3-1.png" width="1344" /></p>
 <ul>
-<li>Our model did relatively well and can be used in making predictions</li>
+<li>Our model did relatively well and can be used in making
+predictions</li>
 </ul>
 </div>
 </div>

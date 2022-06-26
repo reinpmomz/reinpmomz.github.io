@@ -14,6 +14,8 @@ navbar:
           href: Predicting-heart-disease.html
         - text: "Count models: Poisson/Negative binomial Regression"
           href: Spatio-Temporal_patterns_Bactrocera-dorsalis.html
+        - text: "Random Forest/Tree(Classification)"
+          href: Predicting-stroke.html
     - text: "Dashboards"
       icon: fa-chalkboard-teacher
       menu:
