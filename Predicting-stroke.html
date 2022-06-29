@@ -403,8 +403,28 @@ class="toc-section-number">4.1.3</span> Under sampling data</a></li>
 <li><a href="#both-sampling-data"><span
 class="toc-section-number">4.1.4</span> Both Sampling data</a></li>
 </ul></li>
-<li><a href="#tree"><span class="toc-section-number">4.2</span>
-Tree</a></li>
+<li><a href="#tree"><span class="toc-section-number">4.2</span> Tree</a>
+<ul>
+<li><a href="#unpruned-classification-tree"><span
+class="toc-section-number">4.2.1</span> Unpruned classification tree</a>
+<ul>
+<li><a href="#imbalanced-data---all-data"><span
+class="toc-section-number">4.2.1.1</span> Imbalanced data - all
+data</a></li>
+<li><a href="#imbalanced-data---train"><span
+class="toc-section-number">4.2.1.2</span> Imbalanced data -
+train</a></li>
+<li><a href="#oversampling-data-1"><span
+class="toc-section-number">4.2.1.3</span> Oversampling data</a></li>
+<li><a href="#under-sampling-data-1"><span
+class="toc-section-number">4.2.1.4</span> Under sampling data</a></li>
+<li><a href="#both-sampling-data-1"><span
+class="toc-section-number">4.2.1.5</span> Both sampling data</a></li>
+</ul></li>
+<li><a href="#pruned-classification-tree"><span
+class="toc-section-number">4.2.2</span> Pruned classification
+tree</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -637,12 +657,12 @@ tbl_summary(stroke_final%&gt;%
   bold_labels() %&gt;%
   italicize_levels()%&gt;%
   add_n() # add column with total number of non-missing observations</code></pre>
-<div id="pmlkqqaxzs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lzepnnetgf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#pmlkqqaxzs .gt_table {
+#lzepnnetgf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -667,7 +687,7 @@ tbl_summary(stroke_final%&gt;%
   border-left-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_heading {
+#lzepnnetgf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -679,7 +699,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_title {
+#lzepnnetgf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -691,7 +711,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-width: 0;
 }
 
-#pmlkqqaxzs .gt_subtitle {
+#lzepnnetgf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -703,13 +723,13 @@ tbl_summary(stroke_final%&gt;%
   border-top-width: 0;
 }
 
-#pmlkqqaxzs .gt_bottom_border {
+#lzepnnetgf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_col_headings {
+#lzepnnetgf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -724,7 +744,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_col_heading {
+#lzepnnetgf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -744,7 +764,7 @@ tbl_summary(stroke_final%&gt;%
   overflow-x: hidden;
 }
 
-#pmlkqqaxzs .gt_column_spanner_outer {
+#lzepnnetgf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -756,15 +776,15 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 4px;
 }
 
-#pmlkqqaxzs .gt_column_spanner_outer:first-child {
+#lzepnnetgf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pmlkqqaxzs .gt_column_spanner_outer:last-child {
+#lzepnnetgf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pmlkqqaxzs .gt_column_spanner {
+#lzepnnetgf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -776,7 +796,7 @@ tbl_summary(stroke_final%&gt;%
   width: 100%;
 }
 
-#pmlkqqaxzs .gt_group_heading {
+#lzepnnetgf .gt_group_heading {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -801,7 +821,7 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: middle;
 }
 
-#pmlkqqaxzs .gt_empty_group_heading {
+#lzepnnetgf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -816,15 +836,15 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: middle;
 }
 
-#pmlkqqaxzs .gt_from_md > :first-child {
+#lzepnnetgf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pmlkqqaxzs .gt_from_md > :last-child {
+#lzepnnetgf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pmlkqqaxzs .gt_row {
+#lzepnnetgf .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -843,7 +863,7 @@ tbl_summary(stroke_final%&gt;%
   overflow-x: hidden;
 }
 
-#pmlkqqaxzs .gt_stub {
+#lzepnnetgf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -856,7 +876,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#pmlkqqaxzs .gt_stub_row_group {
+#lzepnnetgf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -870,11 +890,11 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: top;
 }
 
-#pmlkqqaxzs .gt_row_group_first td {
+#lzepnnetgf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pmlkqqaxzs .gt_summary_row {
+#lzepnnetgf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -884,16 +904,16 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#pmlkqqaxzs .gt_first_summary_row {
+#lzepnnetgf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_first_summary_row.thick {
+#lzepnnetgf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pmlkqqaxzs .gt_last_summary_row {
+#lzepnnetgf .gt_last_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -903,7 +923,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_grand_summary_row {
+#lzepnnetgf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -913,7 +933,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#pmlkqqaxzs .gt_first_grand_summary_row {
+#lzepnnetgf .gt_first_grand_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -923,11 +943,11 @@ tbl_summary(stroke_final%&gt;%
   border-top-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_striped {
+#lzepnnetgf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pmlkqqaxzs .gt_table_body {
+#lzepnnetgf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -936,7 +956,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_footnotes {
+#lzepnnetgf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -950,7 +970,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_footnote {
+#lzepnnetgf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 1px;
@@ -959,7 +979,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#pmlkqqaxzs .gt_sourcenotes {
+#lzepnnetgf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -973,7 +993,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pmlkqqaxzs .gt_sourcenote {
+#lzepnnetgf .gt_sourcenote {
   font-size: 90%;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -981,60 +1001,60 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#pmlkqqaxzs .gt_left {
+#lzepnnetgf .gt_left {
   text-align: left;
 }
 
-#pmlkqqaxzs .gt_center {
+#lzepnnetgf .gt_center {
   text-align: center;
 }
 
-#pmlkqqaxzs .gt_right {
+#lzepnnetgf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pmlkqqaxzs .gt_font_normal {
+#lzepnnetgf .gt_font_normal {
   font-weight: normal;
 }
 
-#pmlkqqaxzs .gt_font_bold {
+#lzepnnetgf .gt_font_bold {
   font-weight: bold;
 }
 
-#pmlkqqaxzs .gt_font_italic {
+#lzepnnetgf .gt_font_italic {
   font-style: italic;
 }
 
-#pmlkqqaxzs .gt_super {
+#lzepnnetgf .gt_super {
   font-size: 65%;
 }
 
-#pmlkqqaxzs .gt_footnote_marks {
+#lzepnnetgf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#pmlkqqaxzs .gt_asterisk {
+#lzepnnetgf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pmlkqqaxzs .gt_slash_mark {
+#lzepnnetgf .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#pmlkqqaxzs .gt_fraction_numerator {
+#lzepnnetgf .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#pmlkqqaxzs .gt_fraction_denominator {
+#lzepnnetgf .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1636,12 +1656,12 @@ tbl_summary(stroke_final%&gt;%
    modify_footnote(
      all_stat_cols() ~ &quot;Mean (SD); Median (IQR); Range; Frequency (%)&quot;
    )</code></pre>
-<div id="olvkobnglw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ecbegmjdhz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#olvkobnglw .gt_table {
+#ecbegmjdhz .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1666,7 +1686,7 @@ tbl_summary(stroke_final%&gt;%
   border-left-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_heading {
+#ecbegmjdhz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1678,7 +1698,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_title {
+#ecbegmjdhz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1690,7 +1710,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-width: 0;
 }
 
-#olvkobnglw .gt_subtitle {
+#ecbegmjdhz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1702,13 +1722,13 @@ tbl_summary(stroke_final%&gt;%
   border-top-width: 0;
 }
 
-#olvkobnglw .gt_bottom_border {
+#ecbegmjdhz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_col_headings {
+#ecbegmjdhz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1723,7 +1743,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_col_heading {
+#ecbegmjdhz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1743,7 +1763,7 @@ tbl_summary(stroke_final%&gt;%
   overflow-x: hidden;
 }
 
-#olvkobnglw .gt_column_spanner_outer {
+#ecbegmjdhz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1755,15 +1775,15 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 4px;
 }
 
-#olvkobnglw .gt_column_spanner_outer:first-child {
+#ecbegmjdhz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#olvkobnglw .gt_column_spanner_outer:last-child {
+#ecbegmjdhz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#olvkobnglw .gt_column_spanner {
+#ecbegmjdhz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1775,7 +1795,7 @@ tbl_summary(stroke_final%&gt;%
   width: 100%;
 }
 
-#olvkobnglw .gt_group_heading {
+#ecbegmjdhz .gt_group_heading {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1800,7 +1820,7 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: middle;
 }
 
-#olvkobnglw .gt_empty_group_heading {
+#ecbegmjdhz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1815,15 +1835,15 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: middle;
 }
 
-#olvkobnglw .gt_from_md > :first-child {
+#ecbegmjdhz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#olvkobnglw .gt_from_md > :last-child {
+#ecbegmjdhz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#olvkobnglw .gt_row {
+#ecbegmjdhz .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1842,7 +1862,7 @@ tbl_summary(stroke_final%&gt;%
   overflow-x: hidden;
 }
 
-#olvkobnglw .gt_stub {
+#ecbegmjdhz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1855,7 +1875,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#olvkobnglw .gt_stub_row_group {
+#ecbegmjdhz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1869,11 +1889,11 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: top;
 }
 
-#olvkobnglw .gt_row_group_first td {
+#ecbegmjdhz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#olvkobnglw .gt_summary_row {
+#ecbegmjdhz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1883,16 +1903,16 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#olvkobnglw .gt_first_summary_row {
+#ecbegmjdhz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_first_summary_row.thick {
+#ecbegmjdhz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#olvkobnglw .gt_last_summary_row {
+#ecbegmjdhz .gt_last_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1902,7 +1922,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_grand_summary_row {
+#ecbegmjdhz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1912,7 +1932,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#olvkobnglw .gt_first_grand_summary_row {
+#ecbegmjdhz .gt_first_grand_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -1922,11 +1942,11 @@ tbl_summary(stroke_final%&gt;%
   border-top-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_striped {
+#ecbegmjdhz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#olvkobnglw .gt_table_body {
+#ecbegmjdhz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1935,7 +1955,7 @@ tbl_summary(stroke_final%&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_footnotes {
+#ecbegmjdhz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1949,7 +1969,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_footnote {
+#ecbegmjdhz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 1px;
@@ -1958,7 +1978,7 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#olvkobnglw .gt_sourcenotes {
+#ecbegmjdhz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1972,7 +1992,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-color: #D3D3D3;
 }
 
-#olvkobnglw .gt_sourcenote {
+#ecbegmjdhz .gt_sourcenote {
   font-size: 90%;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -1980,60 +2000,60 @@ tbl_summary(stroke_final%&gt;%
   padding-right: 5px;
 }
 
-#olvkobnglw .gt_left {
+#ecbegmjdhz .gt_left {
   text-align: left;
 }
 
-#olvkobnglw .gt_center {
+#ecbegmjdhz .gt_center {
   text-align: center;
 }
 
-#olvkobnglw .gt_right {
+#ecbegmjdhz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#olvkobnglw .gt_font_normal {
+#ecbegmjdhz .gt_font_normal {
   font-weight: normal;
 }
 
-#olvkobnglw .gt_font_bold {
+#ecbegmjdhz .gt_font_bold {
   font-weight: bold;
 }
 
-#olvkobnglw .gt_font_italic {
+#ecbegmjdhz .gt_font_italic {
   font-style: italic;
 }
 
-#olvkobnglw .gt_super {
+#ecbegmjdhz .gt_super {
   font-size: 65%;
 }
 
-#olvkobnglw .gt_footnote_marks {
+#ecbegmjdhz .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#olvkobnglw .gt_asterisk {
+#ecbegmjdhz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#olvkobnglw .gt_slash_mark {
+#ecbegmjdhz .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#olvkobnglw .gt_fraction_numerator {
+#ecbegmjdhz .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#olvkobnglw .gt_fraction_denominator {
+#ecbegmjdhz .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -2518,8 +2538,10 @@ Patient who did no have stroke (95.1%). It will be very wrong to just
 perform a predictive model on such kind of data without making any
 changes.</p>
 <p>Before creating any model, the first step is to drop missing cases
-then divide the data into training and testing dataset.</p>
+and irrelevant variabled (id) then divide the data into training and
+testing dataset.</p>
 <pre class="r"><code>stroke_model &lt;- stroke_final%&gt;%
+              dplyr::select(-id)%&gt;%
   drop_na()
 
 table(stroke_model$stroke)</code></pre>
@@ -2570,10 +2592,10 @@ model1_rf</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 3
 ## 
-##         OOB estimate of  error rate: 4.3%
+##         OOB estimate of  error rate: 4.28%
 ## Confusion matrix:
 ##       No Yes  class.error
-## No  3757   2 0.0005320564
+## No  3758   1 0.0002660282
 ## Yes  167   0 1.0000000000</code></pre>
 <pre class="r"><code>library(caret)
 confusionMatrix(predict(model1_rf, test), test$stroke, positive = &quot;Yes&quot;)</code></pre>
@@ -2639,41 +2661,41 @@ model2_rf</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 3
 ## 
-##         OOB estimate of  error rate: 0.29%
+##         OOB estimate of  error rate: 0.76%
 ## Confusion matrix:
 ##       No  Yes class.error
-## No  3737   22  0.00585262
+## No  3702   57  0.01516361
 ## Yes    0 3759  0.00000000</code></pre>
 <pre class="r"><code>confusionMatrix(predict(model2_rf, test), test$stroke, positive = &quot;Yes&quot;)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  No Yes
-##        No  936  42
-##        Yes   4   0
-##                                          
-##                Accuracy : 0.9532         
-##                  95% CI : (0.938, 0.9655)
-##     No Information Rate : 0.9572         
-##     P-Value [Acc &gt; NIR] : 0.7648         
-##                                          
-##                   Kappa : -0.0075        
-##                                          
-##  Mcnemar&#39;s Test P-Value : 4.888e-08      
-##                                          
-##             Sensitivity : 0.000000       
-##             Specificity : 0.995745       
-##          Pos Pred Value : 0.000000       
-##          Neg Pred Value : 0.957055       
-##              Prevalence : 0.042770       
-##          Detection Rate : 0.000000       
-##    Detection Prevalence : 0.004073       
-##       Balanced Accuracy : 0.497872       
-##                                          
-##        &#39;Positive&#39; Class : Yes            
+##        No  932  41
+##        Yes   8   1
+##                                           
+##                Accuracy : 0.9501          
+##                  95% CI : (0.9346, 0.9629)
+##     No Information Rate : 0.9572          
+##     P-Value [Acc &gt; NIR] : 0.88            
+##                                           
+##                   Kappa : 0.0245          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 4.844e-06       
+##                                           
+##             Sensitivity : 0.023810        
+##             Specificity : 0.991489        
+##          Pos Pred Value : 0.111111        
+##          Neg Pred Value : 0.957862        
+##              Prevalence : 0.042770        
+##          Detection Rate : 0.001018        
+##    Detection Prevalence : 0.009165        
+##       Balanced Accuracy : 0.507649        
+##                                           
+##        &#39;Positive&#39; Class : Yes             
 ## </code></pre>
-<p>From the output above, we can see that sensitivity is still 0% while
-specificity has gone down to 99.57%. This proportion is not still
+<p>From the output above, we can see that sensitivity is 2.38% while
+specificity has gone down to 99.15%. This proportion is not still
 good.</p>
 </div>
 <div id="under-sampling-data" class="section level3" number="4.1.3">
@@ -2696,41 +2718,41 @@ model3_rf</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 3
 ## 
-##         OOB estimate of  error rate: 23.05%
+##         OOB estimate of  error rate: 25.15%
 ## Confusion matrix:
 ##      No Yes class.error
-## No  121  46   0.2754491
+## No  114  53   0.3173653
 ## Yes  31 136   0.1856287</code></pre>
 <pre class="r"><code>confusionMatrix(predict(model3_rf, test), test$stroke, positive = &quot;Yes&quot;)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  No Yes
-##        No  678  10
-##        Yes 262  32
-##                                           
-##                Accuracy : 0.723           
-##                  95% CI : (0.6939, 0.7508)
-##     No Information Rate : 0.9572          
-##     P-Value [Acc &gt; NIR] : 1               
-##                                           
-##                   Kappa : 0.125           
-##                                           
-##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
-##                                           
-##             Sensitivity : 0.76190         
-##             Specificity : 0.72128         
-##          Pos Pred Value : 0.10884         
-##          Neg Pred Value : 0.98547         
-##              Prevalence : 0.04277         
-##          Detection Rate : 0.03259         
-##    Detection Prevalence : 0.29939         
-##       Balanced Accuracy : 0.74159         
-##                                           
-##        &#39;Positive&#39; Class : Yes             
+##        No  680  10
+##        Yes 260  32
+##                                          
+##                Accuracy : 0.7251         
+##                  95% CI : (0.696, 0.7528)
+##     No Information Rate : 0.9572         
+##     P-Value [Acc &gt; NIR] : 1              
+##                                          
+##                   Kappa : 0.1263         
+##                                          
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16         
+##                                          
+##             Sensitivity : 0.76190        
+##             Specificity : 0.72340        
+##          Pos Pred Value : 0.10959        
+##          Neg Pred Value : 0.98551        
+##              Prevalence : 0.04277        
+##          Detection Rate : 0.03259        
+##    Detection Prevalence : 0.29735        
+##       Balanced Accuracy : 0.74265        
+##                                          
+##        &#39;Positive&#39; Class : Yes            
 ## </code></pre>
 <p>From the output above, sensitivity now stands at 76.19% while
-specificity stands at 72.13%. This is a better model than the unbalanced
+specificity stands at 72.34%. This is a better model than the unbalanced
 and over sampled model.</p>
 </div>
 <div id="both-sampling-data" class="section level3" number="4.1.4">
@@ -2751,50 +2773,686 @@ model4_rf</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 3
 ## 
-##         OOB estimate of  error rate: 0.94%
+##         OOB estimate of  error rate: 1.32%
 ## Confusion matrix:
 ##       No  Yes class.error
-## No  1910   37   0.0190036
-## Yes    0 1979   0.0000000</code></pre>
+## No  1895   52  0.02670776
+## Yes    0 1979  0.00000000</code></pre>
 <pre class="r"><code>confusionMatrix(predict(model4_rf, test), test$stroke, positive = &quot;Yes&quot;)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  No Yes
-##        No  914  32
-##        Yes  26  10
-##                                           
-##                Accuracy : 0.9409          
-##                  95% CI : (0.9243, 0.9548)
-##     No Information Rate : 0.9572          
-##     P-Value [Acc &gt; NIR] : 0.9935          
-##                                           
-##                   Kappa : 0.2258          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.5115          
-##                                           
-##             Sensitivity : 0.23810         
-##             Specificity : 0.97234         
-##          Pos Pred Value : 0.27778         
-##          Neg Pred Value : 0.96617         
-##              Prevalence : 0.04277         
-##          Detection Rate : 0.01018         
-##    Detection Prevalence : 0.03666         
-##       Balanced Accuracy : 0.60522         
-##                                           
-##        &#39;Positive&#39; Class : Yes             
+##        No  911  31
+##        Yes  29  11
+##                                          
+##                Accuracy : 0.9389         
+##                  95% CI : (0.922, 0.9531)
+##     No Information Rate : 0.9572         
+##     P-Value [Acc &gt; NIR] : 0.9972         
+##                                          
+##                   Kappa : 0.2364         
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.8973         
+##                                          
+##             Sensitivity : 0.26190        
+##             Specificity : 0.96915        
+##          Pos Pred Value : 0.27500        
+##          Neg Pred Value : 0.96709        
+##              Prevalence : 0.04277        
+##          Detection Rate : 0.01120        
+##    Detection Prevalence : 0.04073        
+##       Balanced Accuracy : 0.61553        
+##                                          
+##        &#39;Positive&#39; Class : Yes            
 ## </code></pre>
-<p>From the output above, the sensitivity now is at 23.81% while
-specificity is at 97.23%.</p>
+<p>From the output above, the sensitivity now is at 26.19% while
+specificity is at 96.92%.</p>
 <ul>
-<li>This means that the under sampled model is the best to predict
-stroke with accuracy of 72.3%, sensitivity of 76.19% and specificity of
-73.13%.</li>
+<li>This means that the under sampled random forest model is the best to
+predict stroke with test accuracy of 72.51%, sensitivity of 76.19% and
+specificity of 72.34%.</li>
 </ul>
 </div>
 </div>
 <div id="tree" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Tree</h2>
+<pre class="r"><code>library(tree)</code></pre>
+<div id="unpruned-classification-tree" class="section level3"
+number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Unpruned
+classification tree</h3>
+<div id="imbalanced-data---all-data" class="section level4"
+number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Imbalanced data -
+all data</h4>
+<pre class="r"><code>stroke_tree = tree(stroke ~ ., data = stroke_model)
+
+#stroke_tree = tree(stroke ~ ., data = stroke_model, control = tree.control(nobs = nrow(stroke_model), minsize = 10))
+
+summary(stroke_tree)</code></pre>
+<pre><code>## 
+## Classification tree:
+## tree(formula = stroke ~ ., data = stroke_model)
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;
+## Number of terminal nodes:  4 
+## Residual mean deviance:  0.2853 = 1399 / 4904 
+## Misclassification error rate: 0.04258 = 209 / 4908</code></pre>
+<pre class="r"><code>stroke_tree</code></pre>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+## 1) root 4908 1728.00 No ( 0.957416 0.042584 )  
+##   2) age &lt; 53.5 3150  320.20 No ( 0.991111 0.008889 )  
+##     4) age &lt; 37.5 1974   31.58 No ( 0.998987 0.001013 ) *
+##     5) age &gt; 37.5 1176  249.60 No ( 0.977891 0.022109 ) *
+##   3) age &gt; 53.5 1758 1166.00 No ( 0.897042 0.102958 )  
+##     6) age &lt; 67.5 967  427.80 No ( 0.942089 0.057911 ) *
+##     7) age &gt; 67.5 791  690.40 No ( 0.841972 0.158028 ) *</code></pre>
+<pre class="r"><code>plot(stroke_tree)
+text(stroke_tree, pretty = 0)
+title(main = &quot;Unpruned Classification Tree - All data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-28-1.png" width="1152" /></p>
+<pre class="r"><code>summary(stroke_tree)$used</code></pre>
+<pre><code>## [1] age
+## 11 Levels: &lt;leaf&gt; gender age hypertension heart_disease ... smoking_status</code></pre>
+<pre class="r"><code>names(stroke_model)[which(!(names(stroke_model) %in% summary(stroke_tree)$used))]</code></pre>
+<pre><code>##  [1] &quot;gender&quot;            &quot;hypertension&quot;      &quot;heart_disease&quot;    
+##  [4] &quot;ever_married&quot;      &quot;work_type&quot;         &quot;residence_type&quot;   
+##  [7] &quot;avg_glucose_level&quot; &quot;bmi&quot;               &quot;smoking_status&quot;   
+## [10] &quot;stroke&quot;</code></pre>
+<p>We see this tree has 4 terminal nodes and a misclassification rate of
+0.04258. The tree is not using all of the available variables. It has
+only used 1 variable (age).</p>
+</div>
+<div id="imbalanced-data---train" class="section level4"
+number="4.2.1.2">
+<h4><span class="header-section-number">4.2.1.2</span> Imbalanced data -
+train</h4>
+<pre class="r"><code>stroke_tree_train = tree(stroke ~ ., data = train)
+
+
+summary(stroke_tree_train)</code></pre>
+<pre><code>## 
+## Classification tree:
+## tree(formula = stroke ~ ., data = train)
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;               &quot;smoking_status&quot;    &quot;avg_glucose_level&quot;
+## Number of terminal nodes:  6 
+## Residual mean deviance:  0.2789 = 1093 / 3920 
+## Misclassification error rate: 0.04254 = 167 / 3926</code></pre>
+<pre class="r"><code>stroke_tree_train</code></pre>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 3926 1381.00 No ( 0.957463 0.042537 )  
+##    2) age &lt; 56.5 2692  329.50 No ( 0.988856 0.011144 )  
+##      4) age &lt; 37.5 1569   30.66 No ( 0.998725 0.001275 ) *
+##      5) age &gt; 37.5 1123  262.00 No ( 0.975067 0.024933 ) *
+##    3) age &gt; 56.5 1234  860.50 No ( 0.888979 0.111021 )  
+##      6) age &lt; 67.5 587  281.50 No ( 0.935264 0.064736 )  
+##       12) smoking_status: never smoked,Unknown 323   82.19 No ( 0.972136 0.027864 ) *
+##       13) smoking_status: formerly smoked,smokes 264  182.80 No ( 0.890152 0.109848 )  
+##         26) avg_glucose_level &lt; 106.955 169   64.42 No ( 0.952663 0.047337 ) *
+##         27) avg_glucose_level &gt; 106.955 95  100.40 No ( 0.778947 0.221053 ) *
+##      7) age &gt; 67.5 647  553.70 No ( 0.846986 0.153014 ) *</code></pre>
+<pre class="r"><code>plot(stroke_tree_train)
+text(stroke_tree_train, pretty = 1)
+title(main = &quot;Unpruned Classification Tree - Train data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-32-1.png" width="1152" /></p>
+<pre class="r"><code>summary(stroke_tree_train)$used</code></pre>
+<pre><code>## [1] age               smoking_status    avg_glucose_level
+## 11 Levels: &lt;leaf&gt; gender age hypertension heart_disease ... smoking_status</code></pre>
+<pre class="r"><code>names(train)[which(!(names(train) %in% summary(stroke_tree_train)$used))]</code></pre>
+<pre><code>## [1] &quot;gender&quot;         &quot;hypertension&quot;   &quot;heart_disease&quot;  &quot;ever_married&quot;  
+## [5] &quot;work_type&quot;      &quot;residence_type&quot; &quot;bmi&quot;            &quot;stroke&quot;</code></pre>
+<p>This tree is slightly different than the tree fit to all of the
+data.</p>
+<p>We see this tree has 6 terminal nodes and a misclassification rate of
+0.04254. The tree is not using all of the available variables. It has
+only used 3 variables( age, smoking status and average glucose
+level).</p>
+<p>When using the predict() function on a tree, the default type is
+vector which gives predicted probabilities for both classes. We will use
+type = class to directly obtain classes.</p>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_train, train, type = &quot;class&quot;), train$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   No  Yes
+##        No  3759  167
+##        Yes    0    0
+##                                           
+##                Accuracy : 0.9575          
+##                  95% CI : (0.9507, 0.9636)
+##     No Information Rate : 0.9575          
+##     P-Value [Acc &gt; NIR] : 0.5206          
+##                                           
+##                   Kappa : 0               
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.00000         
+##             Specificity : 1.00000         
+##          Pos Pred Value :     NaN         
+##          Neg Pred Value : 0.95746         
+##              Prevalence : 0.04254         
+##          Detection Rate : 0.00000         
+##    Detection Prevalence : 0.00000         
+##       Balanced Accuracy : 0.50000         
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_train, test, type = &quot;class&quot;), test$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  940  42
+##        Yes   0   0
+##                                          
+##                Accuracy : 0.9572         
+##                  95% CI : (0.9426, 0.969)
+##     No Information Rate : 0.9572         
+##     P-Value [Acc &gt; NIR] : 0.5409         
+##                                          
+##                   Kappa : 0              
+##                                          
+##  Mcnemar&#39;s Test P-Value : 2.509e-10      
+##                                          
+##             Sensitivity : 0.00000        
+##             Specificity : 1.00000        
+##          Pos Pred Value :     NaN        
+##          Neg Pred Value : 0.95723        
+##              Prevalence : 0.04277        
+##          Detection Rate : 0.00000        
+##    Detection Prevalence : 0.00000        
+##       Balanced Accuracy : 0.50000        
+##                                          
+##        &#39;Positive&#39; Class : Yes            
+## </code></pre>
+<p>Here it is easy to see that the tree is not a good fit. From both
+outputs the sensitivity is at 0% while specificity is 100%. This means
+that this model will be more accurate in predicting those who did not
+have stroke than those who did. This problem has been caused by the
+imbalance of the dependent variable.</p>
+</div>
+<div id="oversampling-data-1" class="section level4" number="4.2.1.3">
+<h4><span class="header-section-number">4.2.1.3</span> Oversampling
+data</h4>
+<pre class="r"><code>stroke_tree_over = tree(stroke ~ ., data = over_sampling)
+
+
+summary(stroke_tree_over)</code></pre>
+<pre><code>## 
+## Classification tree:
+## tree(formula = stroke ~ ., data = over_sampling)
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;               &quot;avg_glucose_level&quot; &quot;smoking_status&quot;   
+## [4] &quot;bmi&quot;              
+## Number of terminal nodes:  9 
+## Residual mean deviance:  0.877 = 6585 / 7509 
+## Misclassification error rate: 0.2264 = 1702 / 7518</code></pre>
+<pre class="r"><code>stroke_tree_over</code></pre>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 7518 10420.00 No ( 0.50000 0.50000 )  
+##    2) age &lt; 44.5 2101  1131.00 No ( 0.92385 0.07615 )  
+##      4) avg_glucose_level &lt; 83.415 916   848.60 No ( 0.82533 0.17467 )  
+##        8) avg_glucose_level &lt; 83.2 853   632.50 No ( 0.87808 0.12192 )  
+##         16) smoking_status: never smoked,Unknown 611   215.00 No ( 0.95745 0.04255 )  
+##           32) avg_glucose_level &lt; 57.935 64    86.46 No ( 0.59375 0.40625 ) *
+##           33) avg_glucose_level &gt; 57.935 547     0.00 No ( 1.00000 0.00000 ) *
+##         17) smoking_status: formerly smoked,smokes 242   304.20 No ( 0.67769 0.32231 ) *
+##        9) avg_glucose_level &gt; 83.2 63    43.95 Yes ( 0.11111 0.88889 ) *
+##      5) avg_glucose_level &gt; 83.415 1185     0.00 No ( 1.00000 0.00000 ) *
+##    3) age &gt; 44.5 5417  6913.00 Yes ( 0.33561 0.66439 )  
+##      6) age &lt; 67.5 2642  3659.00 Yes ( 0.48070 0.51930 )  
+##       12) bmi &lt; 27.25 507   597.50 No ( 0.72387 0.27613 )  
+##         24) smoking_status: formerly smoked,Unknown 144     0.00 No ( 1.00000 0.00000 ) *
+##         25) smoking_status: never smoked,smokes 363   484.10 No ( 0.61433 0.38567 ) *
+##       13) bmi &gt; 27.25 2135  2909.00 Yes ( 0.42295 0.57705 ) *
+##      7) age &gt; 67.5 2775  2758.00 Yes ( 0.19748 0.80252 ) *</code></pre>
+<pre class="r"><code>plot(stroke_tree_over)
+text(stroke_tree_over, pretty = 1)
+title(main = &quot;Unpruned Classification Tree - over sampling data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-37-1.png" width="1152" /></p>
+<pre class="r"><code>summary(stroke_tree_over)$used</code></pre>
+<pre><code>## [1] age               avg_glucose_level smoking_status    bmi              
+## 11 Levels: &lt;leaf&gt; gender age hypertension heart_disease ... smoking_status</code></pre>
+<pre class="r"><code>names(over_sampling)[which(!(names(over_sampling) %in% summary(stroke_tree_over)$used))]</code></pre>
+<pre><code>## [1] &quot;gender&quot;         &quot;hypertension&quot;   &quot;heart_disease&quot;  &quot;ever_married&quot;  
+## [5] &quot;work_type&quot;      &quot;residence_type&quot; &quot;stroke&quot;</code></pre>
+<p>We see this tree has 9 terminal nodes and a misclassification rate of
+0.2264. The tree has only used 4 vaiables (age, smoking status, average
+glucose level and bmi).</p>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_over, over_sampling, type = &quot;class&quot;), over_sampling$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   No  Yes
+##        No  2301  244
+##        Yes 1458 3515
+##                                         
+##                Accuracy : 0.7736        
+##                  95% CI : (0.764, 0.783)
+##     No Information Rate : 0.5           
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16     
+##                                         
+##                   Kappa : 0.5472        
+##                                         
+##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16     
+##                                         
+##             Sensitivity : 0.9351        
+##             Specificity : 0.6121        
+##          Pos Pred Value : 0.7068        
+##          Neg Pred Value : 0.9041        
+##              Prevalence : 0.5000        
+##          Detection Rate : 0.4675        
+##    Detection Prevalence : 0.6615        
+##       Balanced Accuracy : 0.7736        
+##                                         
+##        &#39;Positive&#39; Class : Yes           
+## </code></pre>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_over, test, type = &quot;class&quot;), test$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  595   4
+##        Yes 345  38
+##                                           
+##                Accuracy : 0.6446          
+##                  95% CI : (0.6138, 0.6746)
+##     No Information Rate : 0.9572          
+##     P-Value [Acc &gt; NIR] : 1               
+##                                           
+##                   Kappa : 0.1102          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.90476         
+##             Specificity : 0.63298         
+##          Pos Pred Value : 0.09922         
+##          Neg Pred Value : 0.99332         
+##              Prevalence : 0.04277         
+##          Detection Rate : 0.03870         
+##    Detection Prevalence : 0.39002         
+##       Balanced Accuracy : 0.76887         
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>Here it is easy to see that the tree is a better fit than the
+unbalanced train model. From both outputs the sensitivity has increased
+to the 90% range while specificity has decreased to 60% range.</p>
+<p>However the tree has been over-fit. The over sampling train set
+performs much better than the test set.</p>
+<p>Overfitting happens when a model learns the detail and noise in the
+training data to the extent that it negatively impacts the performance
+of the model on new data. This means that the noise or random
+fluctuations in the training data is picked up and learned as concepts
+by the model.</p>
+</div>
+<div id="under-sampling-data-1" class="section level4" number="4.2.1.4">
+<h4><span class="header-section-number">4.2.1.4</span> Under sampling
+data</h4>
+<pre class="r"><code>stroke_tree_under = tree(stroke ~ ., data = under_sampling)
+
+
+summary(stroke_tree_under)</code></pre>
+<pre><code>## 
+## Classification tree:
+## tree(formula = stroke ~ ., data = under_sampling)
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;               &quot;avg_glucose_level&quot; &quot;smoking_status&quot;   
+## [4] &quot;hypertension&quot;     
+## Number of terminal nodes:  9 
+## Residual mean deviance:  0.8516 = 276.8 / 325 
+## Misclassification error rate: 0.1946 = 65 / 334</code></pre>
+<pre class="r"><code>stroke_tree_under</code></pre>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 334 463.000 No ( 0.50000 0.50000 )  
+##    2) age &lt; 44.5 95  44.760 No ( 0.93684 0.06316 )  
+##      4) avg_glucose_level &lt; 83.425 39  33.490 No ( 0.84615 0.15385 )  
+##        8) avg_glucose_level &lt; 80.005 34  20.290 No ( 0.91176 0.08824 )  
+##         16) smoking_status: formerly smoked,never smoked,Unknown 29   8.700 No ( 0.96552 0.03448 ) *
+##         17) smoking_status: smokes 5   6.730 No ( 0.60000 0.40000 ) *
+##        9) avg_glucose_level &gt; 80.005 5   6.730 Yes ( 0.40000 0.60000 ) *
+##      5) avg_glucose_level &gt; 83.425 56   0.000 No ( 1.00000 0.00000 ) *
+##    3) age &gt; 44.5 239 301.900 Yes ( 0.32636 0.67364 )  
+##      6) age &lt; 67.5 119 164.800 Yes ( 0.47899 0.52101 )  
+##       12) smoking_status: never smoked,Unknown 61  81.770 No ( 0.60656 0.39344 )  
+##         24) hypertension: No 52  65.730 No ( 0.67308 0.32692 ) *
+##         25) hypertension: Yes 9   9.535 Yes ( 0.22222 0.77778 ) *
+##       13) smoking_status: formerly smoked,smokes 58  74.730 Yes ( 0.34483 0.65517 ) *
+##      7) age &gt; 67.5 120 111.300 Yes ( 0.17500 0.82500 )  
+##       14) age &lt; 70.5 16   0.000 Yes ( 0.00000 1.00000 ) *
+##       15) age &gt; 70.5 104 104.600 Yes ( 0.20192 0.79808 ) *</code></pre>
+<pre class="r"><code>plot(stroke_tree_under)
+text(stroke_tree_under, pretty = 1)
+title(main = &quot;Unpruned Classification Tree - under sampling data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-42-1.png" width="1152" /></p>
+<pre class="r"><code>summary(stroke_tree_under)$used</code></pre>
+<pre><code>## [1] age               avg_glucose_level smoking_status    hypertension     
+## 11 Levels: &lt;leaf&gt; gender age hypertension heart_disease ... smoking_status</code></pre>
+<pre class="r"><code>names(under_sampling)[which(!(names(under_sampling) %in% summary(stroke_tree_under)$used))]</code></pre>
+<pre><code>## [1] &quot;gender&quot;         &quot;heart_disease&quot;  &quot;ever_married&quot;   &quot;work_type&quot;     
+## [5] &quot;residence_type&quot; &quot;bmi&quot;            &quot;stroke&quot;</code></pre>
+<p>We see this tree has 9 terminal nodes and a misclassification rate of
+0.1946. The tree has only used 4 vaiables (age, smoking status, average
+glucose level and hypertension).</p>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_under, under_sampling, type = &quot;class&quot;), under_sampling$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  122  20
+##        Yes  45 147
+##                                           
+##                Accuracy : 0.8054          
+##                  95% CI : (0.7588, 0.8465)
+##     No Information Rate : 0.5             
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.6108          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.002912        
+##                                           
+##             Sensitivity : 0.8802          
+##             Specificity : 0.7305          
+##          Pos Pred Value : 0.7656          
+##          Neg Pred Value : 0.8592          
+##              Prevalence : 0.5000          
+##          Detection Rate : 0.4401          
+##    Detection Prevalence : 0.5749          
+##       Balanced Accuracy : 0.8054          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_under, test, type = &quot;class&quot;), test$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  622   8
+##        Yes 318  34
+##                                           
+##                Accuracy : 0.668           
+##                  95% CI : (0.6376, 0.6974)
+##     No Information Rate : 0.9572          
+##     P-Value [Acc &gt; NIR] : 1               
+##                                           
+##                   Kappa : 0.1041          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.80952         
+##             Specificity : 0.66170         
+##          Pos Pred Value : 0.09659         
+##          Neg Pred Value : 0.98730         
+##              Prevalence : 0.04277         
+##          Detection Rate : 0.03462         
+##    Detection Prevalence : 0.35845         
+##       Balanced Accuracy : 0.73561         
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>Here it is easy to see that the tree is a better fit than the
+unbalanced train model and over sampled train model (less accuracy).</p>
+<p>However the tree has been over-fit. The under sampling train set
+performs much better than the test set.</p>
+</div>
+<div id="both-sampling-data-1" class="section level4" number="4.2.1.5">
+<h4><span class="header-section-number">4.2.1.5</span> Both sampling
+data</h4>
+<pre class="r"><code>stroke_tree_both = tree(stroke ~ ., data = both_sampling)
+
+
+summary(stroke_tree_both)</code></pre>
+<pre><code>## 
+## Classification tree:
+## tree(formula = stroke ~ ., data = both_sampling)
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;               &quot;avg_glucose_level&quot; &quot;smoking_status&quot;   
+## [4] &quot;bmi&quot;              
+## Number of terminal nodes:  9 
+## Residual mean deviance:  0.8747 = 3426 / 3917 
+## Misclassification error rate: 0.217 = 852 / 3926</code></pre>
+<pre class="r"><code>stroke_tree_both</code></pre>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 3926 5442.000 Yes ( 0.49592 0.50408 )  
+##    2) age &lt; 44.5 1077  544.300 No ( 0.93036 0.06964 )  
+##      4) avg_glucose_level &lt; 83.415 480  416.100 No ( 0.84375 0.15625 )  
+##        8) avg_glucose_level &lt; 83.195 454  323.200 No ( 0.88546 0.11454 )  
+##         16) avg_glucose_level &lt; 58.115 54   74.560 Yes ( 0.46296 0.53704 )  
+##           32) avg_glucose_level &lt; 57.695 24    0.000 No ( 1.00000 0.00000 ) *
+##           33) avg_glucose_level &gt; 57.695 30    8.769 Yes ( 0.03333 0.96667 ) *
+##         17) avg_glucose_level &gt; 58.115 400  176.000 No ( 0.94250 0.05750 )  
+##           34) smoking_status: never smoked,Unknown 290    0.000 No ( 1.00000 0.00000 ) *
+##           35) smoking_status: formerly smoked,smokes 110  112.800 No ( 0.79091 0.20909 ) *
+##        9) avg_glucose_level &gt; 83.195 26   18.600 Yes ( 0.11538 0.88462 ) *
+##      5) avg_glucose_level &gt; 83.415 597    0.000 No ( 1.00000 0.00000 ) *
+##    3) age &gt; 44.5 2849 3620.000 Yes ( 0.33170 0.66830 )  
+##      6) age &lt; 66.5 1293 1791.000 Yes ( 0.48260 0.51740 )  
+##       12) bmi &lt; 27.25 234  259.800 No ( 0.75641 0.24359 ) *
+##       13) bmi &gt; 27.25 1059 1442.000 Yes ( 0.42210 0.57790 ) *
+##      7) age &gt; 66.5 1556 1584.000 Yes ( 0.20630 0.79370 ) *</code></pre>
+<pre class="r"><code>plot(stroke_tree_both)
+text(stroke_tree_both, pretty = 1)
+title(main = &quot;Unpruned Classification Tree - both sampling data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-47-1.png" width="1152" /></p>
+<pre class="r"><code>summary(stroke_tree_both)$used</code></pre>
+<pre><code>## [1] age               avg_glucose_level smoking_status    bmi              
+## 11 Levels: &lt;leaf&gt; gender age hypertension heart_disease ... smoking_status</code></pre>
+<pre class="r"><code>names(both_sampling)[which(!(names(both_sampling) %in% summary(stroke_tree_both)$used))]</code></pre>
+<pre><code>## [1] &quot;gender&quot;         &quot;hypertension&quot;   &quot;heart_disease&quot;  &quot;ever_married&quot;  
+## [5] &quot;work_type&quot;      &quot;residence_type&quot; &quot;stroke&quot;</code></pre>
+<p>We see this tree has 9 terminal nodes and a misclassification rate of
+0.217. The tree has only used 4 vaiables (age, smoking status, average
+glucose level and bmi).</p>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_both, both_sampling, type = &quot;class&quot;), both_sampling$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   No  Yes
+##        No  1175   80
+##        Yes  772 1899
+##                                           
+##                Accuracy : 0.783           
+##                  95% CI : (0.7698, 0.7958)
+##     No Information Rate : 0.5041          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.5647          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16       
+##                                           
+##             Sensitivity : 0.9596          
+##             Specificity : 0.6035          
+##          Pos Pred Value : 0.7110          
+##          Neg Pred Value : 0.9363          
+##              Prevalence : 0.5041          
+##          Detection Rate : 0.4837          
+##    Detection Prevalence : 0.6803          
+##       Balanced Accuracy : 0.7815          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_both, test, type = &quot;class&quot;), test$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  588   4
+##        Yes 352  38
+##                                           
+##                Accuracy : 0.6375          
+##                  95% CI : (0.6065, 0.6676)
+##     No Information Rate : 0.9572          
+##     P-Value [Acc &gt; NIR] : 1               
+##                                           
+##                   Kappa : 0.107           
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.90476         
+##             Specificity : 0.62553         
+##          Pos Pred Value : 0.09744         
+##          Neg Pred Value : 0.99324         
+##              Prevalence : 0.04277         
+##          Detection Rate : 0.03870         
+##    Detection Prevalence : 0.39715         
+##       Balanced Accuracy : 0.76515         
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>Here it is easy to see that the tree is a better fit than the
+unbalanced train model but not a better fit than over sampled (greater
+accuracy) and under sampled models(greater accuracy).</p>
+<p>However the tree has been over-fit. The both sampling train set
+performs much better than the test set.</p>
+<ul>
+<li>This means that the under sampled tree model is the best to predict
+stroke with test accuracy of 66.8%, sensitivity of 80.95% and
+specificity of 66.17%.</li>
+</ul>
+</div>
+</div>
+<div id="pruned-classification-tree" class="section level3"
+number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Pruned
+classification tree</h3>
+<p>We will now use cross-validation to find a tree by considering trees
+of different sizes which have been pruned from our selected tree.</p>
+<pre class="r"><code>set.seed(43)
+stroke_tree_under_cv = cv.tree(stroke_tree_under, FUN = prune.misclass)
+stroke_tree_under_cv</code></pre>
+<pre><code>## $size
+## [1] 9 7 5 4 2 1
+## 
+## $dev
+## [1] 100  94  88  90  90 195
+## 
+## $k
+## [1] -Inf  0.0  0.5  5.0  6.5 83.0
+## 
+## $method
+## [1] &quot;misclass&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</code></pre>
+<pre class="r"><code># index of tree with minimum error
+min_idx = which.min(stroke_tree_under_cv$dev)
+min_idx</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code># number of terminal nodes in that tree
+stroke_tree_under_cv$size[min_idx]</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code># misclassification rate of each tree
+stroke_tree_under_cv$dev / nrow(under_sampling)</code></pre>
+<pre><code>## [1] 0.2994012 0.2814371 0.2634731 0.2694611 0.2694611 0.5838323</code></pre>
+<pre class="r"><code>par(mfrow = c(1, 2))
+# default plot
+plot(stroke_tree_under_cv)
+# better plot
+plot(stroke_tree_under_cv$size, stroke_tree_under_cv$dev / nrow(under_sampling), type = &quot;b&quot;,
+     xlab = &quot;Tree Size&quot;, ylab = &quot;CV Misclassification Rate&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-52-1.png" width="1152" /></p>
+<p>It appears that a tree of size 5 has the fewest misclassifications of
+the considered trees, via cross-validation.</p>
+<p>We use prune.misclass() to obtain that tree from our selected tree,
+and plot this smaller tree.</p>
+<pre class="r"><code>stroke_tree_under_prune = prune.misclass(stroke_tree_under, best = 5)
+summary(stroke_tree_under_prune)</code></pre>
+<pre><code>## 
+## Classification tree:
+## snip.tree(tree = stroke_tree_under, nodes = c(7L, 2L))
+## Variables actually used in tree construction:
+## [1] &quot;age&quot;            &quot;smoking_status&quot; &quot;hypertension&quot;  
+## Number of terminal nodes:  5 
+## Residual mean deviance:  0.9302 = 306 / 329 
+## Misclassification error rate: 0.1976 = 66 / 334</code></pre>
+<pre class="r"><code>plot(stroke_tree_under_prune)
+text(stroke_tree_under_prune, pretty = 0)
+title(main = &quot;Pruned Classification Tree - under sampling data&quot;)</code></pre>
+<p><img src="Predicting-stroke_files/figure-html/unnamed-chunk-54-1.png" width="1152" /></p>
+<p>We again obtain predictions using this smaller tree, and evaluate on
+the test and train sets.</p>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_under_prune, under_sampling, type = &quot;class&quot;),
+                under_sampling$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  124  23
+##        Yes  43 144
+##                                           
+##                Accuracy : 0.8024          
+##                  95% CI : (0.7556, 0.8437)
+##     No Information Rate : 0.5             
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
+##                                           
+##                   Kappa : 0.6048          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.01935         
+##                                           
+##             Sensitivity : 0.8623          
+##             Specificity : 0.7425          
+##          Pos Pred Value : 0.7701          
+##          Neg Pred Value : 0.8435          
+##              Prevalence : 0.5000          
+##          Detection Rate : 0.4311          
+##    Detection Prevalence : 0.5599          
+##       Balanced Accuracy : 0.8024          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<pre class="r"><code>confusionMatrix(predict(stroke_tree_under_prune, test, type = &quot;class&quot;), test$stroke, positive = &quot;Yes&quot;)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  659   8
+##        Yes 281  34
+##                                           
+##                Accuracy : 0.7057          
+##                  95% CI : (0.6761, 0.7341)
+##     No Information Rate : 0.9572          
+##     P-Value [Acc &gt; NIR] : 1               
+##                                           
+##                   Kappa : 0.1244          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.80952         
+##             Specificity : 0.70106         
+##          Pos Pred Value : 0.10794         
+##          Neg Pred Value : 0.98801         
+##              Prevalence : 0.04277         
+##          Detection Rate : 0.03462         
+##    Detection Prevalence : 0.32077         
+##       Balanced Accuracy : 0.75529         
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<ul>
+<li><p>The under sampled pruned tree model has test accuracy of 70.57%,
+sensitivity of 80.95% and specificity of 70.11%.</p></li>
+<li><p>There was an improvement in test set. Pruned under sampled tree
+model is a better fit than unpruned under sampled tree model. Test
+Accuracy is higher (70.57% &gt; 66.8%), Test Sensitivity is equal
+(80.95%) and test Specificity is higher (70.11% &gt; 66.17%)</p></li>
+<li><p>It is still obvious that we have over-fit. Trees tend to do this.
+There are several ways to fix this, including: <strong>bagging, boosting
+and random forests</strong>.</p></li>
+</ul>
+</div>
 </div>
 </div>
 

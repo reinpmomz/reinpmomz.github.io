@@ -3,6 +3,7 @@ title: "Predicting Stroke"
 output:
   html_document:
     toc: yes
+    toc_depth: 4
     number_sections: yes
   word_document:
     toc: yes
@@ -672,10 +673,11 @@ annotate_figure(figure1,
 
 From the exploration done, it is very hard to make a conclusion. The dependent variable “stroke” is imbalanced. Patient had stroke (4.9%) vs Patient who did no have stroke (95.1%). It will be very wrong to just perform a predictive model on such kind of data without making any changes.
 
-Before creating any model, the first step is to drop missing cases then divide the data into training and testing dataset.
+Before creating any model, the first step is to drop missing cases and irrelevant variabled (id) then divide the data into training and testing dataset.
 
 ```{r}
 stroke_model <- stroke_final%>%
+              dplyr::select(-id)%>%
   drop_na()
 
 table(stroke_model$stroke)
@@ -774,7 +776,7 @@ confusionMatrix(predict(model2_rf, test), test$stroke, positive = "Yes")
 
 ```
 
-From the output above, we can see that sensitivity is still 0% while specificity has gone down to 99.57%. This proportion is not still good.
+From the output above, we can see that sensitivity is 2.38% while specificity has gone down to 99.15%. This proportion is not still good.
 
 
 ### Under sampling data
@@ -806,7 +808,7 @@ confusionMatrix(predict(model3_rf, test), test$stroke, positive = "Yes")
 
 ```
 
-From the output above, sensitivity now stands at 76.19% while specificity stands at 72.13%. This is a better model than the unbalanced and over sampled model.
+From the output above, sensitivity now stands at 76.19% while specificity stands at 72.34%. This is a better model than the unbalanced and over sampled model.
 
 ### Both Sampling data
 
@@ -833,14 +835,338 @@ confusionMatrix(predict(model4_rf, test), test$stroke, positive = "Yes")
 
 ```
 
-From the output above, the sensitivity now is at 23.81% while specificity is at 97.23%.
+From the output above, the sensitivity now is at 26.19% while specificity is at 96.92%.
 
-- This means that the under sampled model is the best to predict stroke with accuracy of 72.3%, sensitivity of 76.19% and specificity of 73.13%.  
+- This means that the under sampled random forest model is the best to predict stroke with test accuracy of 72.51%, sensitivity of 76.19% and specificity of 72.34%.  
 
 
 ## Tree
 
+```{r}
+library(tree)
+```
 
+
+### Unpruned classification tree
+
+#### Imbalanced data - all data
+
+```{r}
+
+stroke_tree = tree(stroke ~ ., data = stroke_model)
+
+#stroke_tree = tree(stroke ~ ., data = stroke_model, control = tree.control(nobs = nrow(stroke_model), minsize = 10))
+
+summary(stroke_tree)
+
+
+```
+
+```{r}
+
+stroke_tree
+
+```
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree)
+text(stroke_tree, pretty = 0)
+title(main = "Unpruned Classification Tree - All data")
+
+```
+
+```{r}
+summary(stroke_tree)$used
+
+names(stroke_model)[which(!(names(stroke_model) %in% summary(stroke_tree)$used))]
+
+```
+
+
+We see this tree has 4 terminal nodes and a misclassification rate of 0.04258. The tree is not using all of the available variables. It has only used 1 variable (age).
+
+
+#### Imbalanced data - train  
+
+```{r}
+
+stroke_tree_train = tree(stroke ~ ., data = train)
+
+
+summary(stroke_tree_train)
+
+```
+
+
+```{r}
+
+stroke_tree_train
+
+```
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree_train)
+text(stroke_tree_train, pretty = 1)
+title(main = "Unpruned Classification Tree - Train data")
+
+```
+
+```{r}
+summary(stroke_tree_train)$used
+
+names(train)[which(!(names(train) %in% summary(stroke_tree_train)$used))]
+
+```
+
+This tree is slightly different than the tree fit to all of the data.
+
+We see this tree has 6 terminal nodes and a misclassification rate of 0.04254. The tree is not using all of the available variables. It has only used 3 variables( age, smoking status and average glucose level).
+
+
+When using the predict() function on a tree, the default type is vector which gives predicted probabilities for both classes. We will use type = class to directly obtain classes.
+
+
+```{r}
+
+confusionMatrix(predict(stroke_tree_train, train, type = "class"), train$stroke, positive = "Yes")
+
+confusionMatrix(predict(stroke_tree_train, test, type = "class"), test$stroke, positive = "Yes")
+
+```
+
+Here it is easy to see that the tree is not a good fit.  From both outputs the sensitivity is at 0% while specificity is 100%. This means that this model will be more accurate in predicting those who did not have stroke than those who did. This problem has been caused by the imbalance of the dependent variable.
+
+
+#### Oversampling data
+
+
+```{r}
+
+stroke_tree_over = tree(stroke ~ ., data = over_sampling)
+
+
+summary(stroke_tree_over)
+
+```
+
+
+```{r}
+
+stroke_tree_over
+
+```
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree_over)
+text(stroke_tree_over, pretty = 1)
+title(main = "Unpruned Classification Tree - over sampling data")
+
+```
+
+```{r}
+summary(stroke_tree_over)$used
+
+names(over_sampling)[which(!(names(over_sampling) %in% summary(stroke_tree_over)$used))]
+
+```
+
+
+We see this tree has 9 terminal nodes and a misclassification rate of 0.2264. The tree has only used 4 vaiables (age, smoking status, average glucose level and bmi).
+
+```{r}
+
+confusionMatrix(predict(stroke_tree_over, over_sampling, type = "class"), over_sampling$stroke, positive = "Yes")
+
+confusionMatrix(predict(stroke_tree_over, test, type = "class"), test$stroke, positive = "Yes")
+
+```
+
+Here it is easy to see that the tree is a better fit than the unbalanced train model.  From both outputs the sensitivity has increased to the 90% range while specificity has decreased to 60% range. 
+
+However the tree has been over-fit. The over sampling train set performs much better than the test set.
+
+Overfitting happens when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on new data. This means that the noise or random fluctuations in the training data is picked up and learned as concepts by the model.
+
+
+#### Under sampling data
+
+```{r}
+
+stroke_tree_under = tree(stroke ~ ., data = under_sampling)
+
+
+summary(stroke_tree_under)
+
+```
+
+
+```{r}
+
+stroke_tree_under
+
+```
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree_under)
+text(stroke_tree_under, pretty = 1)
+title(main = "Unpruned Classification Tree - under sampling data")
+
+```
+
+
+```{r}
+summary(stroke_tree_under)$used
+
+names(under_sampling)[which(!(names(under_sampling) %in% summary(stroke_tree_under)$used))]
+
+```
+
+
+We see this tree has 9 terminal nodes and a misclassification rate of 0.1946. The tree has only used 4 vaiables (age, smoking status, average glucose level and hypertension).
+
+```{r}
+
+confusionMatrix(predict(stroke_tree_under, under_sampling, type = "class"), under_sampling$stroke, positive = "Yes")
+
+confusionMatrix(predict(stroke_tree_under, test, type = "class"), test$stroke, positive = "Yes")
+
+```
+
+Here it is easy to see that the tree is a better fit than the unbalanced train model and over sampled train model (less accuracy).  
+
+However the tree has been over-fit. The under sampling train set performs much better than the test set.
+
+
+#### Both sampling data
+
+```{r}
+
+stroke_tree_both = tree(stroke ~ ., data = both_sampling)
+
+
+summary(stroke_tree_both)
+
+```
+
+```{r}
+
+stroke_tree_both
+
+```
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree_both)
+text(stroke_tree_both, pretty = 1)
+title(main = "Unpruned Classification Tree - both sampling data")
+
+```
+
+```{r}
+summary(stroke_tree_both)$used
+
+names(both_sampling)[which(!(names(both_sampling) %in% summary(stroke_tree_both)$used))]
+
+```
+
+
+We see this tree has 9 terminal nodes and a misclassification rate of 0.217. The tree has only used 4 vaiables (age, smoking status, average glucose level and bmi).
+
+
+```{r}
+
+confusionMatrix(predict(stroke_tree_both, both_sampling, type = "class"), both_sampling$stroke, positive = "Yes")
+
+confusionMatrix(predict(stroke_tree_both, test, type = "class"), test$stroke, positive = "Yes")
+
+```
+
+
+Here it is easy to see that the tree is a better fit than the unbalanced train model but not a better fit than over sampled (greater accuracy) and under sampled models(greater accuracy).  
+
+However the tree has been over-fit. The both sampling train set performs much better than the test set.
+
+
+- This means that the under sampled tree model is the best to predict stroke with test accuracy of 66.8%, sensitivity of 80.95% and specificity of 66.17%.
+
+
+### Pruned classification tree
+
+We will now use cross-validation to find a tree by considering trees of different sizes which have been pruned from our selected tree.
+
+```{r}
+
+set.seed(43)
+stroke_tree_under_cv = cv.tree(stroke_tree_under, FUN = prune.misclass)
+stroke_tree_under_cv
+
+```
+
+
+```{r}
+# index of tree with minimum error
+min_idx = which.min(stroke_tree_under_cv$dev)
+min_idx
+
+
+# number of terminal nodes in that tree
+stroke_tree_under_cv$size[min_idx]
+
+
+# misclassification rate of each tree
+stroke_tree_under_cv$dev / nrow(under_sampling)
+```
+
+```{r, fig.width=12, fig.height=10}
+par(mfrow = c(1, 2))
+# default plot
+plot(stroke_tree_under_cv)
+# better plot
+plot(stroke_tree_under_cv$size, stroke_tree_under_cv$dev / nrow(under_sampling), type = "b",
+     xlab = "Tree Size", ylab = "CV Misclassification Rate")
+```
+
+It appears that a tree of size 5 has the fewest misclassifications of the considered trees, via cross-validation.
+
+We use prune.misclass() to obtain that tree from our selected tree, and plot this smaller tree.
+
+
+```{r}
+
+stroke_tree_under_prune = prune.misclass(stroke_tree_under, best = 5)
+summary(stroke_tree_under_prune)
+
+```
+
+
+```{r, fig.width=12, fig.height=10}
+
+plot(stroke_tree_under_prune)
+text(stroke_tree_under_prune, pretty = 0)
+title(main = "Pruned Classification Tree - under sampling data")
+
+```
+
+We again obtain predictions using this smaller tree, and evaluate on the test and train sets.
+
+```{r}
+
+confusionMatrix(predict(stroke_tree_under_prune, under_sampling, type = "class"),
+                under_sampling$stroke, positive = "Yes")
+
+confusionMatrix(predict(stroke_tree_under_prune, test, type = "class"), test$stroke, positive = "Yes")
+
+```
+
+- The under sampled pruned tree model has test accuracy of 70.57%, sensitivity of 80.95% and specificity of 70.11%.
+
+- There was an improvement in test set. Pruned under sampled tree model is a better fit than unpruned under sampled tree model. Test Accuracy is higher (70.57% > 66.8%), Test Sensitivity is equal (80.95%) and test Specificity is higher (70.11% > 66.17%)
+
+- It is still obvious that we have over-fit. Trees tend to do this. There are several ways to fix this, including: **bagging, boosting and random forests**.
 
 
 
