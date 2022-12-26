@@ -1,7 +1,0 @@
----
-title: "CV"
-output:
-  html_document: default
----
-
-<a href="Reinpeter Momanyi CV - compact.pdf#" class="download" title="Download CV as PDF">Download CV</a>			
