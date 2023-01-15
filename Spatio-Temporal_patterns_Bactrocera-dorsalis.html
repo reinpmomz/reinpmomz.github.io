@@ -245,7 +245,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">REINPETER MOMANYI</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -271,6 +271,9 @@ $(document).ready(function () {
     <li>
       <a href="Spatio-Temporal_patterns_Bactrocera-dorsalis.html">Count models: Poisson/Negative binomial Regression</a>
     </li>
+    <li>
+      <a href="Predicting-stroke.html">Random Forest/Tree(Classification)</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -290,6 +293,20 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="https://reinp-momz.shinyapps.io/COVID-19_Flexdashboard_Shiny/">COVID-19 - Flexdashboard</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-recycle"></span>
+     
+    Mathematical Modeling
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="COVID-19-modeling.html">Modeling Infectious Diseases: COVID-19</a>
     </li>
   </ul>
 </li>
@@ -332,102 +349,219 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Spatio-Temporal patterns of Bactrocera-dorsalis</h1>
+<h1 class="title toc-ignore">Spatio-Temporal patterns of
+Bactrocera-dorsalis</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a>
 <ul>
-<li><a href="#overview"><span class="toc-section-number">1.1</span> Overview</a></li>
-<li><a href="#dataset"><span class="toc-section-number">1.2</span> Dataset</a></li>
-<li><a href="#objectives"><span class="toc-section-number">1.3</span> Objectives</a></li>
+<li><a href="#overview" id="toc-overview"><span
+class="toc-section-number">1.1</span> Overview</a></li>
+<li><a href="#dataset" id="toc-dataset"><span
+class="toc-section-number">1.2</span> Dataset</a></li>
+<li><a href="#objectives" id="toc-objectives"><span
+class="toc-section-number">1.3</span> Objectives</a></li>
 </ul></li>
-<li><a href="#data-exploration"><span class="toc-section-number">2</span> Data Exploration</a>
+<li><a href="#data-exploration" id="toc-data-exploration"><span
+class="toc-section-number">2</span> Data Exploration</a>
 <ul>
-<li><a href="#loading-relevant-packages-and-data-set"><span class="toc-section-number">2.1</span> loading Relevant packages and Data Set</a></li>
-<li><a href="#loading-data-set"><span class="toc-section-number">2.2</span> loading Data Set</a></li>
-<li><a href="#adding-columns-and-converting-to-factors"><span class="toc-section-number">2.3</span> Adding columns and converting to factors</a></li>
-<li><a href="#structure-of-the-data"><span class="toc-section-number">2.4</span> Structure of the Data</a></li>
-<li><a href="#missing-data-and-outliers"><span class="toc-section-number">2.5</span> Missing data and Outliers</a></li>
-<li><a href="#outliers"><span class="toc-section-number">2.6</span> Outliers</a></li>
+<li><a href="#loading-relevant-packages-and-data-set"
+id="toc-loading-relevant-packages-and-data-set"><span
+class="toc-section-number">2.1</span> loading Relevant packages and Data
+Set</a></li>
+<li><a href="#loading-data-set" id="toc-loading-data-set"><span
+class="toc-section-number">2.2</span> loading Data Set</a></li>
+<li><a href="#adding-columns-and-converting-to-factors"
+id="toc-adding-columns-and-converting-to-factors"><span
+class="toc-section-number">2.3</span> Adding columns and converting to
+factors</a></li>
+<li><a href="#structure-of-the-data"
+id="toc-structure-of-the-data"><span
+class="toc-section-number">2.4</span> Structure of the Data</a></li>
+<li><a href="#missing-data-and-outliers"
+id="toc-missing-data-and-outliers"><span
+class="toc-section-number">2.5</span> Missing data and Outliers</a></li>
+<li><a href="#outliers" id="toc-outliers"><span
+class="toc-section-number">2.6</span> Outliers</a></li>
 </ul></li>
-<li><a href="#univariate"><span class="toc-section-number">3</span> Univariate</a>
+<li><a href="#univariate" id="toc-univariate"><span
+class="toc-section-number">3</span> Univariate</a>
 <ul>
-<li><a href="#normality-of-continous-variables"><span class="toc-section-number">3.1</span> Normality of continous variables</a></li>
-<li><a href="#descriptive-statistics"><span class="toc-section-number">3.2</span> Descriptive Statistics</a></li>
+<li><a href="#normality-of-continous-variables"
+id="toc-normality-of-continous-variables"><span
+class="toc-section-number">3.1</span> Normality of continous
+variables</a></li>
+<li><a href="#descriptive-statistics"
+id="toc-descriptive-statistics"><span
+class="toc-section-number">3.2</span> Descriptive Statistics</a></li>
 </ul></li>
-<li><a href="#bivariate-analysis"><span class="toc-section-number">4</span> Bivariate analysis</a>
+<li><a href="#bivariate-analysis" id="toc-bivariate-analysis"><span
+class="toc-section-number">4</span> Bivariate analysis</a>
 <ul>
-<li><a href="#difference-frequency-table"><span class="toc-section-number">4.1</span> Difference Frequency table</a></li>
-<li><a href="#correlation"><span class="toc-section-number">4.2</span> Correlation</a></li>
+<li><a href="#difference-frequency-table"
+id="toc-difference-frequency-table"><span
+class="toc-section-number">4.1</span> Difference Frequency
+table</a></li>
+<li><a href="#correlation" id="toc-correlation"><span
+class="toc-section-number">4.2</span> Correlation</a></li>
 </ul></li>
-<li><a href="#mapping"><span class="toc-section-number">5</span> Mapping</a>
+<li><a href="#mapping" id="toc-mapping"><span
+class="toc-section-number">5</span> Mapping</a>
 <ul>
-<li><a href="#benin-and-neighbouring-countries"><span class="toc-section-number">5.1</span> Benin and Neighbouring countries</a></li>
-<li><a href="#abundance-of-b_dorsa"><span class="toc-section-number">5.2</span> Abundance of B_Dorsa</a></li>
+<li><a href="#benin-and-neighbouring-countries"
+id="toc-benin-and-neighbouring-countries"><span
+class="toc-section-number">5.1</span> Benin and Neighbouring
+countries</a></li>
+<li><a href="#abundance-of-b_dorsa" id="toc-abundance-of-b_dorsa"><span
+class="toc-section-number">5.2</span> Abundance of B_Dorsa</a></li>
 </ul></li>
-<li><a href="#estimating-abundance-of-bactrocera-dorsalis"><span class="toc-section-number">6</span> Estimating abundance of Bactrocera dorsalis</a>
+<li><a href="#estimating-abundance-of-bactrocera-dorsalis"
+id="toc-estimating-abundance-of-bactrocera-dorsalis"><span
+class="toc-section-number">6</span> Estimating abundance of Bactrocera
+dorsalis</a>
 <ul>
-<li><a href="#finding-a-fitting-distribution-for-the-target-b_dorsa-variable"><span class="toc-section-number">6.1</span> Finding a fitting distribution for the target B_dorsa variable</a></li>
-<li><a href="#splitting-the-data-for-training-and-testing"><span class="toc-section-number">6.2</span> Splitting the data for training and testing</a></li>
-<li><a href="#poison-regression"><span class="toc-section-number">6.3</span> Poison regression</a>
+<li><a
+href="#finding-a-fitting-distribution-for-the-target-b_dorsa-variable"
+id="toc-finding-a-fitting-distribution-for-the-target-b_dorsa-variable"><span
+class="toc-section-number">6.1</span> Finding a fitting distribution for
+the target B_dorsa variable</a></li>
+<li><a href="#splitting-the-data-for-training-and-testing"
+id="toc-splitting-the-data-for-training-and-testing"><span
+class="toc-section-number">6.2</span> Splitting the data for training
+and testing</a></li>
+<li><a href="#poison-regression" id="toc-poison-regression"><span
+class="toc-section-number">6.3</span> Poison regression</a>
 <ul>
-<li><a href="#model-statistics"><span class="toc-section-number">6.3.1</span> model statistics</a></li>
+<li><a href="#model-statistics" id="toc-model-statistics"><span
+class="toc-section-number">6.3.1</span> model statistics</a></li>
 </ul></li>
-<li><a href="#poisson-regression-the-robust-or-sandwich-estimator-of-the-standard-errors"><span class="toc-section-number">6.4</span> Poisson regression (the robust or sandwich estimator of the standard errors)</a></li>
-<li><a href="#quasi-poisson-model"><span class="toc-section-number">6.5</span> Quasi-Poisson Model</a>
+<li><a
+href="#poisson-regression-the-robust-or-sandwich-estimator-of-the-standard-errors"
+id="toc-poisson-regression-the-robust-or-sandwich-estimator-of-the-standard-errors"><span
+class="toc-section-number">6.4</span> Poisson regression (the robust or
+sandwich estimator of the standard errors)</a></li>
+<li><a href="#quasi-poisson-model" id="toc-quasi-poisson-model"><span
+class="toc-section-number">6.5</span> Quasi-Poisson Model</a>
 <ul>
-<li><a href="#model-statistics-1"><span class="toc-section-number">6.5.1</span> model statistics</a></li>
+<li><a href="#model-statistics-1" id="toc-model-statistics-1"><span
+class="toc-section-number">6.5.1</span> model statistics</a></li>
 </ul></li>
-<li><a href="#negative-binomial-model"><span class="toc-section-number">6.6</span> Negative binomial Model</a>
+<li><a href="#negative-binomial-model"
+id="toc-negative-binomial-model"><span
+class="toc-section-number">6.6</span> Negative binomial Model</a>
 <ul>
-<li><a href="#model-statistics-2"><span class="toc-section-number">6.6.1</span> model statistics</a></li>
+<li><a href="#model-statistics-2" id="toc-model-statistics-2"><span
+class="toc-section-number">6.6.1</span> model statistics</a></li>
 </ul></li>
-<li><a href="#comparison-of-the-count-models"><span class="toc-section-number">6.7</span> Comparison of the Count Models</a>
+<li><a href="#comparison-of-the-count-models"
+id="toc-comparison-of-the-count-models"><span
+class="toc-section-number">6.7</span> Comparison of the Count Models</a>
 <ul>
-<li><a href="#estimatesregression-coefficients"><span class="toc-section-number">6.7.1</span> Estimates/Regression coefficients</a></li>
-<li><a href="#standard-errors"><span class="toc-section-number">6.7.2</span> Standard Errors</a></li>
-<li><a href="#log-likelihood-aic"><span class="toc-section-number">6.7.3</span> Log-Likelihood &amp; AIC</a></li>
-<li><a href="#df.residual-five-percent-critical-value-of-df.residual-deviance-residuals-pearsons-chi-squared"><span class="toc-section-number">6.7.4</span> df.residual, five-percent critical value of df.residual, deviance &amp; Residuals Pearson’s chi-squared</a></li>
-<li><a href="#zero-counts"><span class="toc-section-number">6.7.5</span> zero counts</a></li>
-<li><a href="#likelihood-ratio-test"><span class="toc-section-number">6.7.6</span> likelihood ratio test</a></li>
+<li><a href="#estimatesregression-coefficients"
+id="toc-estimatesregression-coefficients"><span
+class="toc-section-number">6.7.1</span> Estimates/Regression
+coefficients</a></li>
+<li><a href="#standard-errors" id="toc-standard-errors"><span
+class="toc-section-number">6.7.2</span> Standard Errors</a></li>
+<li><a href="#log-likelihood-aic" id="toc-log-likelihood-aic"><span
+class="toc-section-number">6.7.3</span> Log-Likelihood &amp;
+AIC</a></li>
+<li><a
+href="#df.residual-five-percent-critical-value-of-df.residual-deviance-residuals-pearsons-chi-squared"
+id="toc-df.residual-five-percent-critical-value-of-df.residual-deviance-residuals-pearsons-chi-squared"><span
+class="toc-section-number">6.7.4</span> df.residual, five-percent
+critical value of df.residual, deviance &amp; Residuals Pearson’s
+chi-squared</a></li>
+<li><a href="#zero-counts" id="toc-zero-counts"><span
+class="toc-section-number">6.7.5</span> zero counts</a></li>
+<li><a href="#likelihood-ratio-test"
+id="toc-likelihood-ratio-test"><span
+class="toc-section-number">6.7.6</span> likelihood ratio test</a></li>
 </ul></li>
-<li><a href="#model-results"><span class="toc-section-number">6.8</span> model results</a></li>
+<li><a href="#model-results" id="toc-model-results"><span
+class="toc-section-number">6.8</span> model results</a></li>
 </ul></li>
-<li><a href="#evaluating-our-model"><span class="toc-section-number">7</span> Evaluating our Model</a>
+<li><a href="#evaluating-our-model" id="toc-evaluating-our-model"><span
+class="toc-section-number">7</span> Evaluating our Model</a>
 <ul>
-<li><a href="#fitting-with-testing-data"><span class="toc-section-number">7.1</span> Fitting with testing data</a></li>
+<li><a href="#fitting-with-testing-data"
+id="toc-fitting-with-testing-data"><span
+class="toc-section-number">7.1</span> Fitting with testing data</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="introduction" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <div id="overview" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Overview</h2>
-<p>Bactrocera dorsalis is one of the most invasive species of the family of tephritid fruit flies and those of the genus Bactrocera. Previous studies from Benin have revealed that it is the most abundant species. Moreover, studies have also shown that it is a very damaging pest causing harm to most of the crops in countries where it is found. A great need for the study of spatial and temporal characteristics is required to provide more information on the management of this pest.</p>
-<p>The study area will be the three agro-ecologies found in Benin which covers an area of 114763 square kilometers. Benin is a West African country that borders Togo to the West, Nigeria to the East and Burkina Faso and Niger to the North. The three agro-ecologies included in the study are: Forest Savannah Mosaic, Northern Guinea Savannah and Southern Guinea Savannah. The Forest Savannah Mosaic extends to the Coast of Benin and separates the upper and lower Guinean forests. The sites in Forest Savannah Mosaic that are under consideration are: Iloulofin, Ketou, and Lalo. Subsequently, in Northern Guinea Savannah Natitingou, Ndali, Parakou and Papatia are the sites considered. In Southern Guinea Savannah, Akofoudjole, Alifarou, Bassila, Mondjigagan, and Tchourou are considered.</p>
+<h2><span class="header-section-number">1.1</span> Overview</h2>
+<p>Bactrocera dorsalis is one of the most invasive species of the family
+of tephritid fruit flies and those of the genus Bactrocera. Previous
+studies from Benin have revealed that it is the most abundant species.
+Moreover, studies have also shown that it is a very damaging pest
+causing harm to most of the crops in countries where it is found. A
+great need for the study of spatial and temporal characteristics is
+required to provide more information on the management of this pest.</p>
+<p>The study area will be the three agro-ecologies found in Benin which
+covers an area of 114763 square kilometers. Benin is a West African
+country that borders Togo to the West, Nigeria to the East and Burkina
+Faso and Niger to the North. The three agro-ecologies included in the
+study are: Forest Savannah Mosaic, Northern Guinea Savannah and Southern
+Guinea Savannah. The Forest Savannah Mosaic extends to the Coast of
+Benin and separates the upper and lower Guinean forests. The sites in
+Forest Savannah Mosaic that are under consideration are: Iloulofin,
+Ketou, and Lalo. Subsequently, in Northern Guinea Savannah Natitingou,
+Ndali, Parakou and Papatia are the sites considered. In Southern Guinea
+Savannah, Akofoudjole, Alifarou, Bassila, Mondjigagan, and Tchourou are
+considered.</p>
 </div>
 <div id="dataset" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> Dataset</h2>
-<p>This study considers data that was collected over a period of six years (2004-2010) in Benin, West Africa and was obtained from International Centre of Insect Physiology and Ecology (ICIPE). The data is from three agro-ecologies Northern Guinea Savanna (NGS), Southern Guinea Savanna (SGS) and Forest Savanna Mosaic (FSM). The dependent variable under consideration is the mean abundance of Bactrocera dorsalis and the independent variables will be temperature mean, relative humidity mean, season and Agro ecology.</p>
+<h2><span class="header-section-number">1.2</span> Dataset</h2>
+<p>This study considers data that was collected over a period of six
+years (2004-2010) in Benin, West Africa and was obtained from
+International Centre of Insect Physiology and Ecology (ICIPE). The data
+is from three agro-ecologies Northern Guinea Savanna (NGS), Southern
+Guinea Savanna (SGS) and Forest Savanna Mosaic (FSM). The dependent
+variable under consideration is the mean abundance of Bactrocera
+dorsalis and the independent variables will be temperature mean,
+relative humidity mean, season and Agro ecology.</p>
 </div>
 <div id="objectives" class="section level2" number="1.3">
-<h2 number="1.3"><span class="header-section-number">1.3</span> Objectives</h2>
+<h2><span class="header-section-number">1.3</span> Objectives</h2>
 <ul>
-<li><p>Determine the spatio-temporal patterns of the abundance of Bactrocera dorsalis in Benin.</p></li>
-<li><p>Determine the mean abundance of Bactrocera dorsalis during the different seasons (Rainy - May to September; Dry - October to April) across the three agro-ecologies (Forest Savannah Mosaic, Northern Guinea Savannah, Southern Guinea Savannah).</p></li>
-<li><p>Determine the seasonal effect on the mean abundance of Bactrocera dorsalis in Benin.</p></li>
-<li><p>Map the abundance and seasonal effect variation of Bactrocera dorsalis in Benin in the three agro-ecologies. Mapping will be based on the two seasons in Benin and the three agro-ecologies over the period of 6 years that the data was collected. The spatial distribution within the time period will be shown across the three agro-ecologies during the different seasons. The mapping will be done separately for each of the two seasons and in each agro-ecology. Each agro-ecology will be mapped in accordance with the data collection sites.Geo-referencing will be done to obtain the coordinates of the different sites in the three agro-ecologies. Before geo-referencing, the sites which are replicated will first be made the same so that that they can be georeferenced only once</p></li>
+<li><p>Determine the spatio-temporal patterns of the abundance of
+Bactrocera dorsalis in Benin.</p></li>
+<li><p>Determine the mean abundance of Bactrocera dorsalis during the
+different seasons (Rainy - May to September; Dry - October to April)
+across the three agro-ecologies (Forest Savannah Mosaic, Northern Guinea
+Savannah, Southern Guinea Savannah).</p></li>
+<li><p>Determine the seasonal effect on the mean abundance of Bactrocera
+dorsalis in Benin.</p></li>
+<li><p>Map the abundance and seasonal effect variation of Bactrocera
+dorsalis in Benin in the three agro-ecologies. Mapping will be based on
+the two seasons in Benin and the three agro-ecologies over the period of
+6 years that the data was collected. The spatial distribution within the
+time period will be shown across the three agro-ecologies during the
+different seasons. The mapping will be done separately for each of the
+two seasons and in each agro-ecology. Each agro-ecology will be mapped
+in accordance with the data collection sites.Geo-referencing will be
+done to obtain the coordinates of the different sites in the three
+agro-ecologies. Before geo-referencing, the sites which are replicated
+will first be made the same so that that they can be georeferenced only
+once</p></li>
 </ul>
 </div>
 </div>
 <div id="data-exploration" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Data Exploration</h1>
-<div id="loading-relevant-packages-and-data-set" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> loading Relevant packages and Data Set</h2>
+<h1><span class="header-section-number">2</span> Data Exploration</h1>
+<div id="loading-relevant-packages-and-data-set" class="section level2"
+number="2.1">
+<h2><span class="header-section-number">2.1</span> loading Relevant
+packages and Data Set</h2>
 <pre class="r"><code>#Import relevant packages
 
 library(tidyverse)
@@ -437,15 +571,17 @@ library(plotly)
 library(knitr)</code></pre>
 </div>
 <div id="loading-data-set" class="section level2" number="2.2">
-<h2 number="2.2"><span class="header-section-number">2.2</span> loading Data Set</h2>
+<h2><span class="header-section-number">2.2</span> loading Data Set</h2>
 <pre class="r"><code># Reading our dataset
 
 spacioTemp_dt_raw &lt;- read_csv(&#39;https://raw.githubusercontent.com/reinpmomz/Spatio-Temporal_patterns_Bactrocera-dorsalis/master/data/Male_lures.csv&#39;)
 
 #View(spacioTemp_dt_raw)</code></pre>
 </div>
-<div id="adding-columns-and-converting-to-factors" class="section level2" number="2.3">
-<h2 number="2.3"><span class="header-section-number">2.3</span> Adding columns and converting to factors</h2>
+<div id="adding-columns-and-converting-to-factors"
+class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Adding columns and
+converting to factors</h2>
 <pre class="r"><code>#Add tempeaturemean, humididy mean and Season columns
 
 spacioTemp_dt &lt;- spacioTemp_dt_raw%&gt;%
@@ -464,7 +600,8 @@ spacioTemp_dt &lt;- spacioTemp_dt_raw%&gt;%
   mutate(across(c(Site), as.factor))</code></pre>
 </div>
 <div id="structure-of-the-data" class="section level2" number="2.4">
-<h2 number="2.4"><span class="header-section-number">2.4</span> Structure of the Data</h2>
+<h2><span class="header-section-number">2.4</span> Structure of the
+Data</h2>
 <pre class="r"><code>head(spacioTemp_dt)</code></pre>
 <pre><code>## # A tibble: 6 x 17
 ##   Agro_ecology Site        Month   Year TempMaxi TempMini RHMaxi RHMini Rainfall
@@ -529,7 +666,8 @@ names(spacioTemp_dt) #display variable names</code></pre>
 <pre class="r"><code>#attributes(spacioTemp_dt) names(spacioTemp_dt), class(spacioTemp_dt), row.names(spacioTemp_dt)</code></pre>
 </div>
 <div id="missing-data-and-outliers" class="section level2" number="2.5">
-<h2 number="2.5"><span class="header-section-number">2.5</span> Missing data and Outliers</h2>
+<h2><span class="header-section-number">2.5</span> Missing data and
+Outliers</h2>
 <pre class="r"><code>which(!complete.cases(spacioTemp_dt))</code></pre>
 <pre><code>## integer(0)</code></pre>
 <pre class="r"><code>which(is.na(spacioTemp_dt$B_dorsa)) #check for missing values</code></pre>
@@ -537,7 +675,7 @@ names(spacioTemp_dt) #display variable names</code></pre>
 <p>There were no missing values in our data set.</p>
 </div>
 <div id="outliers" class="section level2" number="2.6">
-<h2 number="2.6"><span class="header-section-number">2.6</span> Outliers</h2>
+<h2><span class="header-section-number">2.6</span> Outliers</h2>
 <pre class="r"><code>#We use boxplot to visualize for any outliers
 
 boxplot(spacioTemp_dt [, c(&quot;TempMaxi&quot;, &quot;TempMini&quot;, &quot;Tempmean&quot;)], main=&quot;Temperature&quot;,
@@ -568,12 +706,20 @@ border=&quot;brown&quot;, las = 2, cex.axis = 0.6, col.axis = &#39;blue&#39;, co
 </div>
 </div>
 <div id="univariate" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Univariate</h1>
-<div id="normality-of-continous-variables" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> Normality of continous variables</h2>
-<p>There are several methods for normality test such as <strong>Kolmogorov-Smirnov (K-S) normality test</strong> and <strong>Shapiro-Wilk’s test</strong>.</p>
-<p>Shapiro-Wilk’s method is widely recommended for normality test and it provides better power than K-S. It is based on the correlation between the data and the corresponding normal scores.</p>
-<p>If the p-value &gt; 0.05, it implies that the distribution of the data are not significantly different from normal distribution. In other words, we can assume the normality.</p>
+<h1><span class="header-section-number">3</span> Univariate</h1>
+<div id="normality-of-continous-variables" class="section level2"
+number="3.1">
+<h2><span class="header-section-number">3.1</span> Normality of
+continous variables</h2>
+<p>There are several methods for normality test such as
+<strong>Kolmogorov-Smirnov (K-S) normality test</strong> and
+<strong>Shapiro-Wilk’s test</strong>.</p>
+<p>Shapiro-Wilk’s method is widely recommended for normality test and it
+provides better power than K-S. It is based on the correlation between
+the data and the corresponding normal scores.</p>
+<p>If the p-value &gt; 0.05, it implies that the distribution of the
+data are not significantly different from normal distribution. In other
+words, we can assume the normality.</p>
 <pre class="r"><code>shapiro.test(spacioTemp_dt$TempMaxi)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
@@ -624,7 +770,8 @@ border=&quot;brown&quot;, las = 2, cex.axis = 0.6, col.axis = &#39;blue&#39;, co
 ## W = 0.86416, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div id="descriptive-statistics" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Descriptive Statistics</h2>
+<h2><span class="header-section-number">3.2</span> Descriptive
+Statistics</h2>
 <pre class="r"><code>library(gtsummary)
 library(flextable)
 
@@ -1353,9 +1500,11 @@ tbl_summary(spacioTemp_dt%&gt;%
 </div>
 </div>
 <div id="bivariate-analysis" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Bivariate analysis</h1>
-<div id="difference-frequency-table" class="section level2" number="4.1">
-<h2 number="4.1"><span class="header-section-number">4.1</span> Difference Frequency table</h2>
+<h1><span class="header-section-number">4</span> Bivariate analysis</h1>
+<div id="difference-frequency-table" class="section level2"
+number="4.1">
+<h2><span class="header-section-number">4.1</span> Difference Frequency
+table</h2>
 <pre class="r"><code># make dataset with variables to summarize
 
       
@@ -5330,7 +5479,19 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 </div>
 <pre class="r"><code>kable(mosaic::favstats(TempMaxi~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="24%" />
+<col width="6%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="6%" />
+<col width="11%" />
+<col width="11%" />
+<col width="4%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5421,7 +5582,19 @@ tbl_summary(spacioTemp_dt%&gt;%
 </tbody>
 </table>
 <pre class="r"><code>kable(mosaic::favstats(TempMini~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="24%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+<col width="8%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="4%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5512,7 +5685,19 @@ tbl_summary(spacioTemp_dt%&gt;%
 </tbody>
 </table>
 <pre class="r"><code>kable(mosaic::favstats(RHMaxi~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="25%" />
+<col width="6%" />
+<col width="3%" />
+<col width="9%" />
+<col width="6%" />
+<col width="6%" />
+<col width="11%" />
+<col width="14%" />
+<col width="5%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5604,6 +5789,18 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 <pre class="r"><code>kable(mosaic::favstats(RHMini~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
 <table>
+<colgroup>
+<col width="25%" />
+<col width="6%" />
+<col width="8%" />
+<col width="8%" />
+<col width="3%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="5%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5695,6 +5892,18 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 <pre class="r"><code>kable(mosaic::favstats(Rainfall~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
 <table>
+<colgroup>
+<col width="24%" />
+<col width="4%" />
+<col width="7%" />
+<col width="8%" />
+<col width="9%" />
+<col width="7%" />
+<col width="12%" />
+<col width="10%" />
+<col width="4%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5786,6 +5995,18 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 <pre class="r"><code>kable(mosaic::favstats(B_dorsa~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
 <table>
+<colgroup>
+<col width="23%" />
+<col width="4%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
+<col width="7%" />
+<col width="11%" />
+<col width="11%" />
+<col width="4%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5876,7 +6097,19 @@ tbl_summary(spacioTemp_dt%&gt;%
 </tbody>
 </table>
 <pre class="r"><code>kable(mosaic::favstats(Tempmean~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="24%" />
+<col width="6%" />
+<col width="8%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="4%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -5968,6 +6201,18 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 <pre class="r"><code>kable(mosaic::favstats(RHmean~Season+Agro_ecology, data=spacioTemp_dt))</code></pre>
 <table>
+<colgroup>
+<col width="25%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+<col width="11%" />
+<col width="12%" />
+<col width="5%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Season.Agro_ecology</th>
@@ -6059,7 +6304,7 @@ tbl_summary(spacioTemp_dt%&gt;%
 </table>
 </div>
 <div id="correlation" class="section level2" number="4.2">
-<h2 number="4.2"><span class="header-section-number">4.2</span> Correlation</h2>
+<h2><span class="header-section-number">4.2</span> Correlation</h2>
 <pre class="r"><code># correlation for all variables
 kable(
 round(cor(spacioTemp_dt%&gt;%
@@ -6069,6 +6314,17 @@ round(cor(spacioTemp_dt%&gt;%
 )
 )</code></pre>
 <table>
+<colgroup>
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="12%" />
+<col width="12%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -6173,7 +6429,8 @@ round(cor(spacioTemp_dt%&gt;%
 </tr>
 </tbody>
 </table>
-<p>Only correlations with p-values smaller than the significance level (p&lt;0.05) should be interpreted.</p>
+<p>Only correlations with p-values smaller than the significance level
+(p&lt;0.05) should be interpreted.</p>
 <pre class="r"><code># correlation tests for whole dataset
 library(Hmisc)
 res &lt;- rcorr(as.matrix(spacioTemp_dt%&gt;%
@@ -6185,6 +6442,17 @@ kable(
   round(res$P, 3)
 )</code></pre>
 <table>
+<colgroup>
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="12%" />
+<col width="12%" />
+<col width="9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -6292,7 +6560,7 @@ kable(
 </div>
 </div>
 <div id="mapping" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Mapping</h1>
+<h1><span class="header-section-number">5</span> Mapping</h1>
 <pre class="r"><code>spacioTemp_dt1 &lt;- spacioTemp_dt%&gt;%
   dplyr:: select(Agro_ecology, Site, Season, latitude , longitude, B_dorsa)%&gt;%
   group_by(Agro_ecology, Site, Season, latitude , longitude)%&gt;% 
@@ -6303,8 +6571,10 @@ spacioTemp_dt2 &lt;- spacioTemp_dt%&gt;%
   dplyr:: select(Agro_ecology, Site, latitude , longitude, B_dorsa)%&gt;%
   group_by(Agro_ecology, Site, latitude , longitude)%&gt;% 
   summarise(TotalB_dorsa = sum(B_dorsa), .groups = &#39;drop&#39;)</code></pre>
-<div id="benin-and-neighbouring-countries" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> Benin and Neighbouring countries</h2>
+<div id="benin-and-neighbouring-countries" class="section level2"
+number="5.1">
+<h2><span class="header-section-number">5.1</span> Benin and
+Neighbouring countries</h2>
 <pre class="r"><code>library(rnaturalearth)
 library(rnaturalearthdata)
 library(sf)
@@ -6330,7 +6600,8 @@ geom_sf_text(aes(label = name), size = 2.3, color = &quot;blue&quot;)+
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-4-2.png" width="960" /></p>
 </div>
 <div id="abundance-of-b_dorsa" class="section level2" number="5.2">
-<h2 number="5.2"><span class="header-section-number">5.2</span> Abundance of B_Dorsa</h2>
+<h2><span class="header-section-number">5.2</span> Abundance of
+B_Dorsa</h2>
 <pre class="r"><code>ggplot(data = benin) +
 geom_sf()+
 ggtitle(&quot;Site Abundance of Bactrocera dorsalis&quot;) +
@@ -6406,10 +6677,14 @@ axis.text.x = element_text(angle = 90, size = 7))+
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-7-2.png" width="960" /></p>
 </div>
 </div>
-<div id="estimating-abundance-of-bactrocera-dorsalis" class="section level1" number="6">
-<h1 number="6"><span class="header-section-number">6</span> Estimating abundance of Bactrocera dorsalis</h1>
-<div id="finding-a-fitting-distribution-for-the-target-b_dorsa-variable" class="section level2" number="6.1">
-<h2 number="6.1"><span class="header-section-number">6.1</span> Finding a fitting distribution for the target B_dorsa variable</h2>
+<div id="estimating-abundance-of-bactrocera-dorsalis"
+class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Estimating abundance of
+Bactrocera dorsalis</h1>
+<div id="finding-a-fitting-distribution-for-the-target-b_dorsa-variable"
+class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Finding a fitting
+distribution for the target B_dorsa variable</h2>
 <pre class="r"><code>library(car)
 library(MASS) #So that distributions that must be non-zero can make sense of my data
 
@@ -6422,9 +6697,16 @@ qqp(spacioTemp_dt$B_dorsa+1, &quot;norm&quot;, main=&quot;Q-Q Plot ~ B_dorsa+1 N
 <pre class="r"><code>qqp(spacioTemp_dt$B_dorsa+1, &quot;exp&quot;, main=&quot;Q-Q Plot ~ B_dorsa+1 Exponential model&quot;)</code></pre>
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-8-3.png" width="960" /></p>
 <pre><code>## [1] 294 605</code></pre>
-<p>qqp requires estimates of the parameters of the negative binomial, Poisson and gamma distributions. You can generate estimates using the fitdistr function.</p>
-<p>negative binomial and gamma distributions can only handle positive numbers. Poisson distribution can only handle positive whole numbers.</p>
-<p>Binomial and Poisson distributions are different from the others because they are discrete rather than continuous, which means they quantify distinct, countable events or the probability of these events</p>
+<p>qqp requires estimates of the parameters of the negative binomial,
+Poisson and gamma distributions. You can generate estimates using the
+fitdistr function.</p>
+<p>negative binomial and gamma distributions can only handle positive
+numbers. Poisson distribution can only handle positive whole
+numbers.</p>
+<p>Binomial and Poisson distributions are different from the others
+because they are discrete rather than continuous, which means they
+quantify distinct, countable events or the probability of these
+events</p>
 <pre class="r"><code>nbinom &lt;- fitdistr(spacioTemp_dt$B_dorsa+1, &quot;Negative Binomial&quot;)
 qqp(spacioTemp_dt$B_dorsa+1, &quot;nbinom&quot;, size = nbinom$estimate[[1]], mu =
 nbinom$estimate[[2]], main=&quot;Q-Q Plot ~ B_dorsa+1 Negative Binomial model&quot;)</code></pre>
@@ -6469,11 +6751,18 @@ curve(dweibull(x, paraw$estimate[1], paraw$estimate[2]), 0,15900, add=TRUE, col=
 ## data:  spacioTemp_dt$B_dorsa
 ## D = 0.086266, p-value = 5.809e-08
 ## alternative hypothesis: two-sided</code></pre>
-<p>Model to be used in the estimating the abundance of Bactrocera dorsalis in Benin is the Poisson regression model since the abundance of Bactrocera dorsalis is discrete count data.</p>
+<p>Model to be used in the estimating the abundance of Bactrocera
+dorsalis in Benin is the Poisson regression model since the abundance of
+Bactrocera dorsalis is discrete count data.</p>
 </div>
-<div id="splitting-the-data-for-training-and-testing" class="section level2" number="6.2">
-<h2 number="6.2"><span class="header-section-number">6.2</span> Splitting the data for training and testing</h2>
-<p>spliting the data in a 80:20 ratio (training:testing). We use set.seed() to make sure that the results are repeatable. We also use the outcome variable, output to stratify. This is to ensure that the distribution of the outcome is comparable in both data sets.</p>
+<div id="splitting-the-data-for-training-and-testing"
+class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Splitting the data
+for training and testing</h2>
+<p>spliting the data in a 80:20 ratio (training:testing). We use
+set.seed() to make sure that the results are repeatable. We also use the
+outcome variable, output to stratify. This is to ensure that the
+distribution of the outcome is comparable in both data sets.</p>
 <pre class="r"><code>library(rsample)
 
 set.seed(123)
@@ -6484,7 +6773,8 @@ train &lt;- training(split)
 test &lt;- testing(split)</code></pre>
 </div>
 <div id="poison-regression" class="section level2" number="6.3">
-<h2 number="6.3"><span class="header-section-number">6.3</span> Poison regression</h2>
+<h2><span class="header-section-number">6.3</span> Poison
+regression</h2>
 <pre class="r"><code>Dorsa_poisson &lt;-glm(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
                      Season, data = train, family = poisson)
 summary(Dorsa_poisson)</code></pre>
@@ -6516,10 +6806,13 @@ summary(Dorsa_poisson)</code></pre>
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <div id="model-statistics" class="section level3" number="6.3.1">
-<h3 number="6.3.1"><span class="header-section-number">6.3.1</span> model statistics</h3>
+<h3><span class="header-section-number">6.3.1</span> model
+statistics</h3>
 <pre class="r"><code>performance::check_model(Dorsa_poisson)</code></pre>
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-12-1.png" width="960" /></p>
-<p>All coefficient estimates are highly significant. The Wald test results might be too optimistic due to a misspecification of the likelihood.</p>
+<p>All coefficient estimates are highly significant. The Wald test
+results might be too optimistic due to a misspecification of the
+likelihood.</p>
 <pre class="r"><code>df.residual(Dorsa_poisson)</code></pre>
 <pre><code>## [1] 929</code></pre>
 <pre class="r"><code>qchisq(0.95, df.residual(Dorsa_poisson))</code></pre>
@@ -6530,13 +6823,22 @@ summary(Dorsa_poisson)</code></pre>
 
 sum(pr^2)</code></pre>
 <pre><code>## [1] 2687368</code></pre>
-<p>We see that the model obviously doesn’t fit the data. The five-percent critical value of df.residual for a chi-squared with 929 d.f. is 1001.019 and the deviance(1862905) and Pearson’s chi-squared(2687368) are both high.</p>
-<p>As over-dispersion is present in this data set, we re-compute the Wald tests using sandwich standard errors.</p>
+<p>We see that the model obviously doesn’t fit the data. The
+five-percent critical value of df.residual for a chi-squared with 929
+d.f. is 1001.019 and the deviance(1862905) and Pearson’s
+chi-squared(2687368) are both high.</p>
+<p>As over-dispersion is present in this data set, we re-compute the
+Wald tests using sandwich standard errors.</p>
 </div>
 </div>
-<div id="poisson-regression-the-robust-or-sandwich-estimator-of-the-standard-errors" class="section level2" number="6.4">
-<h2 number="6.4"><span class="header-section-number">6.4</span> Poisson regression (the robust or sandwich estimator of the standard errors)</h2>
-<p>Cameron and Trivedi (2009) recommended using robust standard errors for the parameter estimates to control for mild violation of the distribution assumption that the variance equals the mean.</p>
+<div
+id="poisson-regression-the-robust-or-sandwich-estimator-of-the-standard-errors"
+class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Poisson regression
+(the robust or sandwich estimator of the standard errors)</h2>
+<p>Cameron and Trivedi (2009) recommended using robust standard errors
+for the parameter estimates to control for mild violation of the
+distribution assumption that the variance equals the mean.</p>
 <pre class="r"><code>library(sandwich)
 library(lmtest)
 
@@ -6554,8 +6856,13 @@ coeftest(Dorsa_poisson, vcov = sandwich)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>#coef(Dorsa_poisson, vcov = sandwich)</code></pre>
-<p>Tempmean, Agro_ecologyFSM, Agro_ecologyNGS and SeasonRainy are still significant but the standard errors seem to be more appropriate. RHmean is not significant.</p>
-<p>We have obtained the robust standard errors and the p-values accordingly. Together with the p-values, we can also calculate the 95% confidence interval using the parameter estimates and their robust standard errors.</p>
+<p>Tempmean, Agro_ecologyFSM, Agro_ecologyNGS and SeasonRainy are still
+significant but the standard errors seem to be more appropriate. RHmean
+is not significant.</p>
+<p>We have obtained the robust standard errors and the p-values
+accordingly. Together with the p-values, we can also calculate the 95%
+confidence interval using the parameter estimates and their robust
+standard errors.</p>
 <pre class="r"><code>cov_Dorsa_poisson &lt;- vcovHC(Dorsa_poisson, type=&quot;HC0&quot;)
 std.err &lt;- sqrt(diag(cov_Dorsa_poisson))
 
@@ -6566,7 +6873,16 @@ std.err &lt;- sqrt(diag(cov_Dorsa_poisson))
 LL = coef(Dorsa_poisson) - 1.96 * std.err,
 UL = coef(Dorsa_poisson) + 1.96 * std.err),4)
 )</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="20%" />
+<col width="11%" />
+<col width="12%" />
+<col width="10%" />
+<col width="24%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -6637,16 +6953,26 @@ UL = coef(Dorsa_poisson) + 1.96 * std.err),4)
 </table>
 </div>
 <div id="quasi-poisson-model" class="section level2" number="6.5">
-<h2 number="6.5"><span class="header-section-number">6.5</span> Quasi-Poisson Model</h2>
-<p>Another way of dealing with over-dispersion (and excess zeros) is to use the mean regression function and the variance function from the Poisson GLM but to leave the dispersion parameter unrestricted.</p>
-<p>Thus, dispersion parameter is not assumed to be fixed at 1 but is estimated from the data. This strategy leads to the same coefficient estimates as the standard Poisson model but inference is adjusted for over-dispersion.</p>
-<p>We now assume that the variance is proportional rather than equal to the mean, and estimate the scale parameter φ dividing Pearson’s chi-squared by its d.f.:</p>
+<h2><span class="header-section-number">6.5</span> Quasi-Poisson
+Model</h2>
+<p>Another way of dealing with over-dispersion (and excess zeros) is to
+use the mean regression function and the variance function from the
+Poisson GLM but to leave the dispersion parameter unrestricted.</p>
+<p>Thus, dispersion parameter is not assumed to be fixed at 1 but is
+estimated from the data. This strategy leads to the same coefficient
+estimates as the standard Poisson model but inference is adjusted for
+over-dispersion.</p>
+<p>We now assume that the variance is proportional rather than equal to
+the mean, and estimate the scale parameter φ dividing Pearson’s
+chi-squared by its d.f.:</p>
 <pre class="r"><code>phi &lt;- sum(pr^2)/df.residual(Dorsa_poisson)
 
 round(c(phi,sqrt(phi)),4)</code></pre>
 <pre><code>## [1] 2892.7531   53.7843</code></pre>
-<p>This means that we should adjust the standard errors multiplying by 53.7843, the square root of 2892.7531</p>
-<p>R can do this calculation for us if we use the quasipoisson family</p>
+<p>This means that we should adjust the standard errors multiplying by
+53.7843, the square root of 2892.7531</p>
+<p>R can do this calculation for us if we use the quasipoisson
+family</p>
 <pre class="r"><code>Dorsa_quassi_poisson &lt;-glm(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
                      Season, data = train, family = quasipoisson)
 summary(Dorsa_quassi_poisson)</code></pre>
@@ -6677,8 +7003,13 @@ summary(Dorsa_quassi_poisson)</code></pre>
 ## AIC: NA
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<p>The model leads to an estimated dispersion parameter of 2892.776 which is clearly larger than 1 confirming that over-dispersion is present in the data.</p>
-<p>The estimates are exactly the same as before, but the standard errors are larger by 53.7845. We can verify this fact easily. First we write a useful function to extract standard errors and then use it on our fits:</p>
+<p>The model leads to an estimated dispersion parameter of 2892.776
+which is clearly larger than 1 confirming that over-dispersion is
+present in the data.</p>
+<p>The estimates are exactly the same as before, but the standard errors
+are larger by 53.7845. We can verify this fact easily. First we write a
+useful function to extract standard errors and then use it on our
+fits:</p>
 <pre class="r"><code>se &lt;- function(model) sqrt(diag(vcov(model)))
 
 round(cbind(&quot;p&quot; = coef(Dorsa_poisson), &quot;q&quot; =coef(Dorsa_quassi_poisson),
@@ -6692,15 +7023,22 @@ round(cbind(&quot;p&quot; = coef(Dorsa_poisson), &quot;q&quot; =coef(Dorsa_quass
 ## Agro_ecologyNGS -0.4005 -0.4005 0.0018 0.0953 53.7845
 ## SeasonRainy      2.6038  2.6038 0.0034 0.1813 53.7845</code></pre>
 <div id="model-statistics-1" class="section level3" number="6.5.1">
-<h3 number="6.5.1"><span class="header-section-number">6.5.1</span> model statistics</h3>
+<h3><span class="header-section-number">6.5.1</span> model
+statistics</h3>
 <pre class="r"><code>performance::check_model(Dorsa_quassi_poisson)</code></pre>
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-19-1.png" width="960" /></p>
 </div>
 </div>
 <div id="negative-binomial-model" class="section level2" number="6.6">
-<h2 number="6.6"><span class="header-section-number">6.6</span> Negative binomial Model</h2>
-<p>If Theta is not known but to be estimated from the data, the negative binomial model is not a special case of the general GLM—however, an ML fit can easily be computed re-using GLM methodology by iterating estimation of Beta given Theta and vice versa. This leads to ML estimates for both Beta and Theta which can be computed.</p>
-<p>We now fit a negative binomial model with the same predictors. To do this we need the glm.nb() function in the MASS package.</p>
+<h2><span class="header-section-number">6.6</span> Negative binomial
+Model</h2>
+<p>If Theta is not known but to be estimated from the data, the negative
+binomial model is not a special case of the general GLM—however, an ML
+fit can easily be computed re-using GLM methodology by iterating
+estimation of Beta given Theta and vice versa. This leads to ML
+estimates for both Beta and Theta which can be computed.</p>
+<p>We now fit a negative binomial model with the same predictors. To do
+this we need the glm.nb() function in the MASS package.</p>
 <pre class="r"><code>Dorsa_neg_binom &lt;- MASS::glm.nb(formula = B_dorsa ~  Tempmean + RHmean + Agro_ecology + 
                      Season, data = train)
 summary(Dorsa_neg_binom)</code></pre>
@@ -6738,17 +7076,26 @@ summary(Dorsa_neg_binom)</code></pre>
 ## 
 ##  2 x log-likelihood:  -14349.2800</code></pre>
 <div id="model-statistics-2" class="section level3" number="6.6.1">
-<h3 number="6.6.1"><span class="header-section-number">6.6.1</span> model statistics</h3>
+<h3><span class="header-section-number">6.6.1</span> model
+statistics</h3>
 <pre class="r"><code>performance::check_model(Dorsa_neg_binom)</code></pre>
 <p><img src="Spatio-Temporal_patterns_Bactrocera-dorsalis_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
 </div>
 </div>
-<div id="comparison-of-the-count-models" class="section level2" number="6.7">
-<h2 number="6.7"><span class="header-section-number">6.7</span> Comparison of the Count Models</h2>
-<p>Having fitted several count data regression models to the abundance of Bactrocera-dorsalis in the spacioTemp data, it is of interest to understand what these models have in common and what their differences are.</p>
-<div id="estimatesregression-coefficients" class="section level3" number="6.7.1">
-<h3 number="6.7.1"><span class="header-section-number">6.7.1</span> Estimates/Regression coefficients</h3>
-<p>1st comparison, we inspect the estimated regression coefficients in the count data models</p>
+<div id="comparison-of-the-count-models" class="section level2"
+number="6.7">
+<h2><span class="header-section-number">6.7</span> Comparison of the
+Count Models</h2>
+<p>Having fitted several count data regression models to the abundance
+of Bactrocera-dorsalis in the spacioTemp data, it is of interest to
+understand what these models have in common and what their differences
+are.</p>
+<div id="estimatesregression-coefficients" class="section level3"
+number="6.7.1">
+<h3><span class="header-section-number">6.7.1</span>
+Estimates/Regression coefficients</h3>
+<p>1st comparison, we inspect the estimated regression coefficients in
+the count data models</p>
 <pre class="r"><code>Dorsa.outputa &lt;- coeftest(Dorsa_poisson, vcov = sandwich)
 
 fm &lt;- list(&quot;Pois&quot; = Dorsa_poisson, &quot;Adj-Pois&quot; = Dorsa.outputa,
@@ -6764,7 +7111,8 @@ round(sapply(fm, function(x) coef(x)[1:6]), 4)</code></pre>
 ## SeasonRainy      2.6038   2.6038     2.6038  2.2536</code></pre>
 </div>
 <div id="standard-errors" class="section level3" number="6.7.2">
-<h3 number="6.7.2"><span class="header-section-number">6.7.2</span> Standard Errors</h3>
+<h3><span class="header-section-number">6.7.2</span> Standard
+Errors</h3>
 <p>2nd comparison the associated estimated standard errors</p>
 <pre class="r"><code>round(cbind(&quot;Pois&quot; = sqrt(diag(vcov(Dorsa_poisson))), &quot;Adj-Pois&quot; = sqrt(diag(sandwich(Dorsa_poisson))),
       sapply(fm[-(1:2)], function(x) sqrt(diag(vcov(x)))[1:6])),4)</code></pre>
@@ -6777,8 +7125,10 @@ round(sapply(fm, function(x) coef(x)[1:6]), 4)</code></pre>
 ## SeasonRainy     0.0034   0.1798     0.1813 0.1261</code></pre>
 </div>
 <div id="log-likelihood-aic" class="section level3" number="6.7.3">
-<h3 number="6.7.3"><span class="header-section-number">6.7.3</span> Log-Likelihood &amp; AIC</h3>
-<p>3rd Comparison The differences of the models become obvious if not only the mean but the full likelihood is considered.</p>
+<h3><span class="header-section-number">6.7.3</span> Log-Likelihood
+&amp; AIC</h3>
+<p>3rd Comparison The differences of the models become obvious if not
+only the mean but the full likelihood is considered.</p>
 <pre class="r"><code>rbind(logLik = sapply(fm, function(x) round(logLik(x), digits = 0)),
       Df = sapply(fm, function(x) attr(logLik(x), &quot;df&quot;)),
       aic = sapply(fm, function(x) round(AIC(x), digits = 0)))</code></pre>
@@ -6786,11 +7136,18 @@ round(sapply(fm, function(x) coef(x)[1:6]), 4)</code></pre>
 ## logLik -934999  -934999         NA  -7175
 ## Df           6        6          6      7
 ## aic    1870010  1870010         NA  14363</code></pre>
-<p>The Poisson model is clearly inferior to negative binomial model. The quasi-Poisson model is not associated with a fitted likelihood and Akaike’s Information Criterion (AIC).</p>
-<p>The over-dispersion in the data is captured better by the negative-binomial-based models than the Poisson models.</p>
+<p>The Poisson model is clearly inferior to negative binomial model. The
+quasi-Poisson model is not associated with a fitted likelihood and
+Akaike’s Information Criterion (AIC).</p>
+<p>The over-dispersion in the data is captured better by the
+negative-binomial-based models than the Poisson models.</p>
 </div>
-<div id="df.residual-five-percent-critical-value-of-df.residual-deviance-residuals-pearsons-chi-squared" class="section level3" number="6.7.4">
-<h3 number="6.7.4"><span class="header-section-number">6.7.4</span> df.residual, five-percent critical value of df.residual, deviance &amp; Residuals Pearson’s chi-squared</h3>
+<div
+id="df.residual-five-percent-critical-value-of-df.residual-deviance-residuals-pearsons-chi-squared"
+class="section level3" number="6.7.4">
+<h3><span class="header-section-number">6.7.4</span> df.residual,
+five-percent critical value of df.residual, deviance &amp; Residuals
+Pearson’s chi-squared</h3>
 <p>4th comparison</p>
 <pre class="r"><code>rbind(df_residual = sapply(fm[-2], function(x) round(df.residual(x), digits = 0)),
       criticalvalue = sapply(fm[-2], function(x) round(qchisq(0.95, df.residual(x)), digits = 0)),
@@ -6804,20 +7161,31 @@ round(sapply(fm, function(x) coef(x)[1:6]), 4)</code></pre>
 ## resid.Pearson 2687368    2687368 1903.000</code></pre>
 </div>
 <div id="zero-counts" class="section level3" number="6.7.5">
-<h3 number="6.7.5"><span class="header-section-number">6.7.5</span> zero counts</h3>
-<p>5thComparison of how the zero counts are captured by the various models. Therefore, the observed zero counts are compared to the expected number of zero counts for the likelihood-based models.</p>
+<h3><span class="header-section-number">6.7.5</span> zero counts</h3>
+<p>5thComparison of how the zero counts are captured by the various
+models. Therefore, the observed zero counts are compared to the expected
+number of zero counts for the likelihood-based models.</p>
 <pre class="r"><code>round( cbind(&quot;Obs&quot; = sum(train$B_dorsa &lt; 1),
 &quot;Pois&quot; = sum(dpois(0, fitted(Dorsa_poisson))),
 &quot;NegBin&quot; = sum(dnbinom(0, mu = fitted(Dorsa_neg_binom), size = Dorsa_neg_binom$theta))))</code></pre>
 <pre><code>##      Obs Pois NegBin
 ## [1,]  24    0     16</code></pre>
-<p>The plain Poisson model is again not appropriate whereas the negative-binomial-model is much better in modeling the zero counts.</p>
-<p>The count data B_dorsa almost assumes a negative binomial distribution as shown in q-q plots above.</p>
-<p>Overall the negative binomial model is the best model to fit the data.</p>
+<p>The plain Poisson model is again not appropriate whereas the
+negative-binomial-model is much better in modeling the zero counts.</p>
+<p>The count data B_dorsa almost assumes a negative binomial
+distribution as shown in q-q plots above.</p>
+<p>Overall the negative binomial model is the best model to fit the
+data.</p>
 </div>
 <div id="likelihood-ratio-test" class="section level3" number="6.7.6">
-<h3 number="6.7.6"><span class="header-section-number">6.7.6</span> likelihood ratio test</h3>
-<p>Negative binomial models assume the conditional means are not equal to the conditional variances. This inequality is captured by estimating a dispersion parameter (not shown in the output) that is held constant in a Poisson model. Thus, the Poisson model is actually nested in the negative binomial model. We can then use a likelihood ratio test to compare these two and test this model assumption.</p>
+<h3><span class="header-section-number">6.7.6</span> likelihood ratio
+test</h3>
+<p>Negative binomial models assume the conditional means are not equal
+to the conditional variances. This inequality is captured by estimating
+a dispersion parameter (not shown in the output) that is held constant
+in a Poisson model. Thus, the Poisson model is actually nested in the
+negative binomial model. We can then use a likelihood ratio test to
+compare these two and test this model assumption.</p>
 <pre class="r"><code>logLik(Dorsa_poisson)</code></pre>
 <pre><code>## &#39;log Lik.&#39; -934999.2 (df=6)</code></pre>
 <pre class="r"><code>logLik(Dorsa_neg_binom)</code></pre>
@@ -6833,11 +7201,13 @@ lrtest(Dorsa_poisson, Dorsa_neg_binom)</code></pre>
 ## 2   7   -7175  1 1855649  &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>The p value is significant. This strongly suggests the negative binomial model, estimating the dispersion parameter, is more appropriate than the Poisson model.</p>
+<p>The p value is significant. This strongly suggests the negative
+binomial model, estimating the dispersion parameter, is more appropriate
+than the Poisson model.</p>
 </div>
 </div>
 <div id="model-results" class="section level2" number="6.8">
-<h2 number="6.8"><span class="header-section-number">6.8</span> model results</h2>
+<h2><span class="header-section-number">6.8</span> model results</h2>
 <pre class="r"><code>tbl_regression(Dorsa_neg_binom, exponentiate = TRUE, 
     pvalue_fun = ~style_pvalue(.x, digits = 3),
   )%&gt;%
@@ -7303,15 +7673,23 @@ lrtest(Dorsa_poisson, Dorsa_neg_binom)</code></pre>
   </tfoot>
 </table>
 </div>
-<p>Variables in the model Statistically significant are Tempmean, RHmean, Agro ecology(FSM), Agro ecology(NGS) and Season(Rainy).</p>
-<p>Rainy season, Agro ecology (FSM) and RHmean are significantly associated with higher incident rates of Bactrocera dorsalis. e.g During rainy season abundance of Bactrocera dorsalis is 9.52 times more than during dry season. Agro ecology (FSM) is 1.99 times more likely to have high abundance of Bactrocera dorsalis than Agro ecology (SGS).</p>
-<p>Tempmean and Agro ecology (NGS) are significantly associated with lower incident rates of Bactrocera dorsalis.</p>
+<p>Variables in the model Statistically significant are Tempmean,
+RHmean, Agro ecology(FSM), Agro ecology(NGS) and Season(Rainy).</p>
+<p>Rainy season, Agro ecology (FSM) and RHmean are significantly
+associated with higher incident rates of Bactrocera dorsalis. e.g During
+rainy season abundance of Bactrocera dorsalis is 9.52 times more than
+during dry season. Agro ecology (FSM) is 1.99 times more likely to have
+high abundance of Bactrocera dorsalis than Agro ecology (SGS).</p>
+<p>Tempmean and Agro ecology (NGS) are significantly associated with
+lower incident rates of Bactrocera dorsalis.</p>
 </div>
 </div>
 <div id="evaluating-our-model" class="section level1" number="7">
-<h1 number="7"><span class="header-section-number">7</span> Evaluating our Model</h1>
+<h1><span class="header-section-number">7</span> Evaluating our
+Model</h1>
 <div id="fitting-with-testing-data" class="section level2" number="7.1">
-<h2 number="7.1"><span class="header-section-number">7.1</span> Fitting with testing data</h2>
+<h2><span class="header-section-number">7.1</span> Fitting with testing
+data</h2>
 <pre class="r"><code>test$PredictB_dorsaNB &lt;- round(predict(Dorsa_neg_binom, test, type = &quot;response&quot;),0)
 
 rmarkdown::paged_table(test%&gt;%
