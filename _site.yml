@@ -1,7 +1,7 @@
 name: "REINPETER MOMANYI"                                # CHANGE HERE 
 output_dir: "."
 navbar:
-  title: "REINPETER MOMANYI"                             # CHANGE HERE 
+  title: ""                             # CHANGE HERE 
   type: inverse
   left:
     - text: "Home"
