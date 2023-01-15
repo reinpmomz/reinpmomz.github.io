@@ -296,6 +296,20 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-recycle"></span>
+     
+    Mathematical Modeling
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="COVID-19-modeling.html">Modeling Infectious Diseases: COVID-19</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -341,87 +355,101 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span>
-Introduction</a>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a>
 <ul>
-<li><a href="#overview"><span class="toc-section-number">1.1</span>
-Overview</a></li>
-<li><a href="#about-the-data"><span
+<li><a href="#overview" id="toc-overview"><span
+class="toc-section-number">1.1</span> Overview</a></li>
+<li><a href="#about-the-data" id="toc-about-the-data"><span
 class="toc-section-number">1.2</span> About the Data</a></li>
 </ul></li>
-<li><a href="#data-exploration"><span
+<li><a href="#data-exploration" id="toc-data-exploration"><span
 class="toc-section-number">2</span> Data Exploration</a>
 <ul>
-<li><a href="#loading-relevant-packages"><span
+<li><a href="#loading-relevant-packages"
+id="toc-loading-relevant-packages"><span
 class="toc-section-number">2.1</span> loading Relevant packages</a></li>
-<li><a href="#loading-data-set"><span
+<li><a href="#loading-data-set" id="toc-loading-data-set"><span
 class="toc-section-number">2.2</span> loading Data Set</a></li>
-<li><a href="#converting-into-factors"><span
+<li><a href="#converting-into-factors"
+id="toc-converting-into-factors"><span
 class="toc-section-number">2.3</span> Converting into factors</a></li>
-<li><a href="#checking-missing-values"><span
+<li><a href="#checking-missing-values"
+id="toc-checking-missing-values"><span
 class="toc-section-number">2.4</span> checking missing values</a></li>
 </ul></li>
-<li><a href="#exploratory-data-analysis"><span
+<li><a href="#exploratory-data-analysis"
+id="toc-exploratory-data-analysis"><span
 class="toc-section-number">3</span> Exploratory data analysis</a>
 <ul>
-<li><a href="#univariate-analysis"><span
+<li><a href="#univariate-analysis" id="toc-univariate-analysis"><span
 class="toc-section-number">3.1</span> Univariate analysis</a>
 <ul>
-<li><a href="#normality-of-continous-variables"><span
+<li><a href="#normality-of-continous-variables"
+id="toc-normality-of-continous-variables"><span
 class="toc-section-number">3.1.1</span> Normality of continous
 variables</a></li>
-<li><a href="#descriptives-frequency-table"><span
+<li><a href="#descriptives-frequency-table"
+id="toc-descriptives-frequency-table"><span
 class="toc-section-number">3.1.2</span> Descriptives Frequency
 table</a></li>
-<li><a href="#visualization"><span
+<li><a href="#visualization" id="toc-visualization"><span
 class="toc-section-number">3.1.3</span> Visualization</a></li>
 </ul></li>
-<li><a href="#bivariate-analysis"><span
+<li><a href="#bivariate-analysis" id="toc-bivariate-analysis"><span
 class="toc-section-number">3.2</span> Bivariate analysis</a>
 <ul>
-<li><a href="#correlation"><span class="toc-section-number">3.2.1</span>
-Correlation</a></li>
-<li><a href="#difference-frequency-table"><span
+<li><a href="#correlation" id="toc-correlation"><span
+class="toc-section-number">3.2.1</span> Correlation</a></li>
+<li><a href="#difference-frequency-table"
+id="toc-difference-frequency-table"><span
 class="toc-section-number">3.2.2</span> Difference Frequency
 table</a></li>
-<li><a href="#visualization-1"><span
+<li><a href="#visualization-1" id="toc-visualization-1"><span
 class="toc-section-number">3.2.3</span> Visualization</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#modelling"><span class="toc-section-number">4</span>
-Modelling</a>
+<li><a href="#modelling" id="toc-modelling"><span
+class="toc-section-number">4</span> Modelling</a>
 <ul>
-<li><a href="#random-forest---categorical"><span
+<li><a href="#random-forest---categorical"
+id="toc-random-forest---categorical"><span
 class="toc-section-number">4.1</span> Random Forest - categorical</a>
 <ul>
-<li><a href="#imbalanced-data"><span
+<li><a href="#imbalanced-data" id="toc-imbalanced-data"><span
 class="toc-section-number">4.1.1</span> Imbalanced Data</a></li>
-<li><a href="#oversampling-data"><span
+<li><a href="#oversampling-data" id="toc-oversampling-data"><span
 class="toc-section-number">4.1.2</span> Oversampling data</a></li>
-<li><a href="#under-sampling-data"><span
+<li><a href="#under-sampling-data" id="toc-under-sampling-data"><span
 class="toc-section-number">4.1.3</span> Under sampling data</a></li>
-<li><a href="#both-sampling-data"><span
+<li><a href="#both-sampling-data" id="toc-both-sampling-data"><span
 class="toc-section-number">4.1.4</span> Both Sampling data</a></li>
 </ul></li>
-<li><a href="#tree"><span class="toc-section-number">4.2</span> Tree</a>
+<li><a href="#tree" id="toc-tree"><span
+class="toc-section-number">4.2</span> Tree</a>
 <ul>
-<li><a href="#unpruned-classification-tree"><span
+<li><a href="#unpruned-classification-tree"
+id="toc-unpruned-classification-tree"><span
 class="toc-section-number">4.2.1</span> Unpruned classification tree</a>
 <ul>
-<li><a href="#imbalanced-data---all-data"><span
+<li><a href="#imbalanced-data---all-data"
+id="toc-imbalanced-data---all-data"><span
 class="toc-section-number">4.2.1.1</span> Imbalanced data - all
 data</a></li>
-<li><a href="#imbalanced-data---train"><span
+<li><a href="#imbalanced-data---train"
+id="toc-imbalanced-data---train"><span
 class="toc-section-number">4.2.1.2</span> Imbalanced data -
 train</a></li>
-<li><a href="#oversampling-data-1"><span
+<li><a href="#oversampling-data-1" id="toc-oversampling-data-1"><span
 class="toc-section-number">4.2.1.3</span> Oversampling data</a></li>
-<li><a href="#under-sampling-data-1"><span
+<li><a href="#under-sampling-data-1"
+id="toc-under-sampling-data-1"><span
 class="toc-section-number">4.2.1.4</span> Under sampling data</a></li>
-<li><a href="#both-sampling-data-1"><span
+<li><a href="#both-sampling-data-1" id="toc-both-sampling-data-1"><span
 class="toc-section-number">4.2.1.5</span> Both sampling data</a></li>
 </ul></li>
-<li><a href="#pruned-classification-tree"><span
+<li><a href="#pruned-classification-tree"
+id="toc-pruned-classification-tree"><span
 class="toc-section-number">4.2.2</span> Pruned classification
 tree</a></li>
 </ul></li>
