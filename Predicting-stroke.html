@@ -13,7 +13,7 @@
 
 <title>Predicting Stroke</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -530,7 +527,7 @@ library(knitr)</code></pre>
 <pre class="r"><code>##checking the data structure
 
 str(stroke)</code></pre>
-<pre><code>## spec_tbl_df [5,110 x 12] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>## spc_tbl_ [5,110 x 12] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ id               : num [1:5110] 9046 51676 31112 60182 1665 ...
 ##  $ gender           : chr [1:5110] &quot;Male&quot; &quot;Female&quot; &quot;Male&quot; &quot;Female&quot; ...
 ##  $ age              : num [1:5110] 67 61 80 49 79 81 74 69 59 78 ...
@@ -685,7 +682,7 @@ tbl_summary(stroke_final%&gt;%
   bold_labels() %&gt;%
   italicize_levels()%&gt;%
   add_n() # add column with total number of non-missing observations</code></pre>
-<div id="lzepnnetgf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lzepnnetgf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -725,6 +722,11 @@ tbl_summary(stroke_final%&gt;%
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#lzepnnetgf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #lzepnnetgf .gt_title {
@@ -847,6 +849,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #lzepnnetgf .gt_empty_group_heading {
@@ -1070,190 +1073,192 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: 0;
 }
 
-#lzepnnetgf .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#lzepnnetgf .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#lzepnnetgf .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#lzepnnetgf .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#lzepnnetgf .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#lzepnnetgf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lzepnnetgf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lzepnnetgf .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 <table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Descriptives</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>N</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>N = 5,109</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Descriptives&lt;/strong&gt;"><strong>Descriptives</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;N&lt;/strong&gt;"><strong>N</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;N = 5,109&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>N = 5,109</strong><sup class="gt_footnote_marks">1</sup></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Sex of the patient</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Female</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,994 (58.6%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Male</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,115 (41.4%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Age of the patient</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">43.23 (22.61)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">45.00 (25.00, 61.00)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0.08, 82.00</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient has hypertension</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">4,611 (90.3%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">498 (9.75%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient has heart disease</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">4,833 (94.6%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">276 (5.40%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient is married</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,756 (34.4%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">3,353 (65.6%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Work type</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">children</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">687 (13.4%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Govt_job</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">657 (12.9%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Never_worked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">22 (0.43%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Private</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,924 (57.2%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Self-employed</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">819 (16.0%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Residence type</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Rural</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,513 (49.2%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Urban</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,596 (50.8%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Average glucose level in blood</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">106.14 (45.29)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">91.88 (77.24, 114.09)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">55.12, 271.74</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Body mass index (in kg/m2)</td>
-<td class="gt_row gt_center">4,908</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">28.89 (7.85)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">28.10 (23.50, 33.10)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">10.30, 97.60</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">201</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Smoking status</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">formerly smoked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">884 (17.3%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">never smoked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,892 (37.0%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">smokes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">789 (15.4%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Unknown</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,544 (30.2%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient had stroke</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">4,860 (95.1%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">249 (4.87%)</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Sex of the patient</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Female</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">2,994 (58.6%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Male</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">2,115 (41.4%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Age of the patient</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">43.23 (22.61)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">45.00 (25.00, 61.00)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0.08, 82.00</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient has hypertension</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">4,611 (90.3%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">498 (9.75%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient has heart disease</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">4,833 (94.6%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">276 (5.40%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient is married</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">1,756 (34.4%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">3,353 (65.6%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Work type</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    children</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">687 (13.4%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Govt_job</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">657 (12.9%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Never_worked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">22 (0.43%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Private</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">2,924 (57.2%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Self-employed</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">819 (16.0%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Residence type</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Rural</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">2,513 (49.2%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Urban</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">2,596 (50.8%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Average glucose level in blood</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">106.14 (45.29)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">91.88 (77.24, 114.09)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">55.12, 271.74</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Body mass index (in kg/m2)</td>
+<td headers="n" class="gt_row gt_center">4,908</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">28.89 (7.85)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">28.10 (23.50, 33.10)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">10.30, 97.60</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">201</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Smoking status</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    formerly smoked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">884 (17.3%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    never smoked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">1,892 (37.0%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    smokes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">789 (15.4%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Unknown</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">1,544 (30.2%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient had stroke</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">4,860 (95.1%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">249 (4.87%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_0" class="gt_row gt_center">0</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -1684,7 +1689,7 @@ tbl_summary(stroke_final%&gt;%
    modify_footnote(
      all_stat_cols() ~ &quot;Mean (SD); Median (IQR); Range; Frequency (%)&quot;
    )</code></pre>
-<div id="ecbegmjdhz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ecbegmjdhz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1724,6 +1729,11 @@ tbl_summary(stroke_final%&gt;%
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#ecbegmjdhz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #ecbegmjdhz .gt_title {
@@ -1846,6 +1856,7 @@ tbl_summary(stroke_final%&gt;%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #ecbegmjdhz .gt_empty_group_heading {
@@ -2069,281 +2080,283 @@ tbl_summary(stroke_final%&gt;%
   vertical-align: 0;
 }
 
-#ecbegmjdhz .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#ecbegmjdhz .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#ecbegmjdhz .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#ecbegmjdhz .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#ecbegmjdhz .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#ecbegmjdhz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ecbegmjdhz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ecbegmjdhz .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 <table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1"><strong>Variables</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1"><strong>N</strong></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;Variables&lt;/strong&gt;"><strong>Variables</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;N&lt;/strong&gt;"><strong>N</strong></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="&lt;strong&gt;Stroke&lt;/strong&gt;">
         <span class="gt_column_spanner"><strong>Stroke</strong></span>
       </th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1"><strong>p-value</strong><sup class="gt_footnote_marks">2</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;2&lt;/sup&gt;"><strong>p-value</strong><sup class="gt_footnote_marks">2</sup></th>
     </tr>
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>No</strong>, N = 4,860<sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Yes</strong>, N = 249<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;No&lt;/strong&gt;, N = 4,860&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>No</strong>, N = 4,860<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Yes&lt;/strong&gt;, N = 249&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>Yes</strong>, N = 249<sup class="gt_footnote_marks">1</sup></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Sex of the patient</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0.516</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Female</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,853 (58.7%)</td>
-<td class="gt_row gt_center">141 (56.6%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Male</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,007 (41.3%)</td>
-<td class="gt_row gt_center">108 (43.4%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Age of the patient</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">41.97 (22.29)</td>
-<td class="gt_row gt_center">67.73 (12.73)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">43.00 (24.00, 59.00)</td>
-<td class="gt_row gt_center">71.00 (59.00, 78.00)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0.08, 82.00</td>
-<td class="gt_row gt_center">1.32, 82.00</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient has hypertension</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">4,428 (91.1%)</td>
-<td class="gt_row gt_center">183 (73.5%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">432 (8.89%)</td>
-<td class="gt_row gt_center">66 (26.5%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient has heart disease</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">4,631 (95.3%)</td>
-<td class="gt_row gt_center">202 (81.1%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">229 (4.71%)</td>
-<td class="gt_row gt_center">47 (18.9%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Patient is married</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">No</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,727 (35.5%)</td>
-<td class="gt_row gt_center">29 (11.6%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Yes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">3,133 (64.5%)</td>
-<td class="gt_row gt_center">220 (88.4%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Work type</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">children</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">685 (14.1%)</td>
-<td class="gt_row gt_center">2 (0.80%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Govt_job</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">624 (12.8%)</td>
-<td class="gt_row gt_center">33 (13.3%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Never_worked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">22 (0.45%)</td>
-<td class="gt_row gt_center">0 (0%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Private</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,775 (57.1%)</td>
-<td class="gt_row gt_center">149 (59.8%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Self-employed</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">754 (15.5%)</td>
-<td class="gt_row gt_center">65 (26.1%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Residence type</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0.271</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Rural</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,399 (49.4%)</td>
-<td class="gt_row gt_center">114 (45.8%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Urban</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">2,461 (50.6%)</td>
-<td class="gt_row gt_center">135 (54.2%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Average glucose level in blood</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">104.79 (43.85)</td>
-<td class="gt_row gt_center">132.54 (61.92)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">91.47 (77.12, 112.80)</td>
-<td class="gt_row gt_center">105.22 (79.79, 196.71)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">55.12, 267.76</td>
-<td class="gt_row gt_center">56.11, 271.74</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Body mass index (in kg/m2)</td>
-<td class="gt_row gt_center">4,908</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Mean (SD)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">28.82 (7.91)</td>
-<td class="gt_row gt_center">30.47 (6.33)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Median (IQR)</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">28.00 (23.40, 33.10)</td>
-<td class="gt_row gt_center">29.70 (26.40, 33.70)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Range</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">10.30, 97.60</td>
-<td class="gt_row gt_center">16.90, 56.60</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">161</td>
-<td class="gt_row gt_center">40</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="font-weight: bold;">Smoking status</td>
-<td class="gt_row gt_center">5,109</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">formerly smoked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">814 (16.7%)</td>
-<td class="gt_row gt_center">70 (28.1%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">never smoked</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,802 (37.1%)</td>
-<td class="gt_row gt_center">90 (36.1%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">smokes</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">747 (15.4%)</td>
-<td class="gt_row gt_center">42 (16.9%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Unknown</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">1,497 (30.8%)</td>
-<td class="gt_row gt_center">47 (18.9%)</td>
-<td class="gt_row gt_center"></td></tr>
-    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px; font-style: italic;">Missing</td>
-<td class="gt_row gt_center"></td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center">0</td>
-<td class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Sex of the patient</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center">0.516</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Female</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">2,853 (58.7%)</td>
+<td headers="stat_2" class="gt_row gt_center">141 (56.6%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Male</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">2,007 (41.3%)</td>
+<td headers="stat_2" class="gt_row gt_center">108 (43.4%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Age of the patient</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">41.97 (22.29)</td>
+<td headers="stat_2" class="gt_row gt_center">67.73 (12.73)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">43.00 (24.00, 59.00)</td>
+<td headers="stat_2" class="gt_row gt_center">71.00 (59.00, 78.00)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0.08, 82.00</td>
+<td headers="stat_2" class="gt_row gt_center">1.32, 82.00</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient has hypertension</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">4,428 (91.1%)</td>
+<td headers="stat_2" class="gt_row gt_center">183 (73.5%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">432 (8.89%)</td>
+<td headers="stat_2" class="gt_row gt_center">66 (26.5%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient has heart disease</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">4,631 (95.3%)</td>
+<td headers="stat_2" class="gt_row gt_center">202 (81.1%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">229 (4.71%)</td>
+<td headers="stat_2" class="gt_row gt_center">47 (18.9%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Patient is married</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    No</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">1,727 (35.5%)</td>
+<td headers="stat_2" class="gt_row gt_center">29 (11.6%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Yes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">3,133 (64.5%)</td>
+<td headers="stat_2" class="gt_row gt_center">220 (88.4%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Work type</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    children</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">685 (14.1%)</td>
+<td headers="stat_2" class="gt_row gt_center">2 (0.80%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Govt_job</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">624 (12.8%)</td>
+<td headers="stat_2" class="gt_row gt_center">33 (13.3%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Never_worked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">22 (0.45%)</td>
+<td headers="stat_2" class="gt_row gt_center">0 (0%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Private</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">2,775 (57.1%)</td>
+<td headers="stat_2" class="gt_row gt_center">149 (59.8%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Self-employed</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">754 (15.5%)</td>
+<td headers="stat_2" class="gt_row gt_center">65 (26.1%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Residence type</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center">0.271</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Rural</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">2,399 (49.4%)</td>
+<td headers="stat_2" class="gt_row gt_center">114 (45.8%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Urban</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">2,461 (50.6%)</td>
+<td headers="stat_2" class="gt_row gt_center">135 (54.2%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Average glucose level in blood</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">104.79 (43.85)</td>
+<td headers="stat_2" class="gt_row gt_center">132.54 (61.92)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">91.47 (77.12, 112.80)</td>
+<td headers="stat_2" class="gt_row gt_center">105.22 (79.79, 196.71)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">55.12, 267.76</td>
+<td headers="stat_2" class="gt_row gt_center">56.11, 271.74</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Body mass index (in kg/m2)</td>
+<td headers="n" class="gt_row gt_center">4,908</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Mean (SD)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">28.82 (7.91)</td>
+<td headers="stat_2" class="gt_row gt_center">30.47 (6.33)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Median (IQR)</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">28.00 (23.40, 33.10)</td>
+<td headers="stat_2" class="gt_row gt_center">29.70 (26.40, 33.70)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Range</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">10.30, 97.60</td>
+<td headers="stat_2" class="gt_row gt_center">16.90, 56.60</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">161</td>
+<td headers="stat_2" class="gt_row gt_center">40</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Smoking status</td>
+<td headers="n" class="gt_row gt_center">5,109</td>
+<td headers="stat_1" class="gt_row gt_center"></td>
+<td headers="stat_2" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center" style="font-weight: bold;"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    formerly smoked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">814 (16.7%)</td>
+<td headers="stat_2" class="gt_row gt_center">70 (28.1%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    never smoked</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">1,802 (37.1%)</td>
+<td headers="stat_2" class="gt_row gt_center">90 (36.1%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    smokes</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">747 (15.4%)</td>
+<td headers="stat_2" class="gt_row gt_center">42 (16.9%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Unknown</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">1,497 (30.8%)</td>
+<td headers="stat_2" class="gt_row gt_center">47 (18.9%)</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">    Missing</td>
+<td headers="n" class="gt_row gt_center"></td>
+<td headers="stat_1" class="gt_row gt_center">0</td>
+<td headers="stat_2" class="gt_row gt_center">0</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
